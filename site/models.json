@@ -64,6 +64,44 @@
         "year": 2018,
         "url": "https://magenta.withgoogle.com/assets/music_transformer/primed_chopin_low_repetition.mp3",
         "context": "Primed con fragmento de Chopin, baja repetición"
+      },
+      {
+        "title": "Music Transformer — Visualización de motivos",
+        "model": "Music Transformer",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_transformer/motifs_visualization.mp4",
+        "type": "video",
+        "context": "Visualización de motivos melódicos y su recurrencia"
+      },
+      {
+        "title": "MusicGen — Classic reggae con solo de guitarra",
+        "model": "MusicGen",
+        "year": 2023,
+        "url": "https://dl.fbaipublicfiles.com/audiocraft/webpage/public/assets/audios/musicgen_stereo/sample_002.mp3",
+        "context": "Generación condicionada a texto: classic reggae track with electronic guitar solo"
+      },
+      {
+        "title": "MusicLM — Electro-reggaetón espacial",
+        "model": "MusicLM",
+        "year": 2023,
+        "url": "https://google-research.github.io/seanet/musiclm/examples/audio_samples/rich-descriptions/electreggaeton/audio.wav",
+        "context": "Fusion reggaeton + EDM, prompt: spacey otherworldly sound"
+      },
+      {
+        "title": "Jukebox — Classic pop estilo Elvis Presley",
+        "model": "Jukebox",
+        "year": 2020,
+        "url": "https://soundcloud.com/openai_audio/classic-pop-in-the-style-of-elvis-presley",
+        "type": "soundcloud",
+        "context": "Audio crudo con voz generado por VQ-VAE + Transformer jerárquico"
+      },
+      {
+        "title": "MuseNet — Pink Panther Remix",
+        "model": "MuseNet",
+        "year": 2019,
+        "url": "https://soundcloud.com/xane-myers/musenet-the-pink-panther-remix",
+        "type": "soundcloud",
+        "context": "Transformer generando continuación MIDI multi-instrumento"
       }
     ]
   },
@@ -147,7 +185,30 @@
         "description": "Latent diffusion específico para generación de música"
       }
     ],
-    "examples": []
+    "examples": [
+      {
+        "title": "Riffusion — Bossa nova con guitarra eléctrica",
+        "model": "Riffusion",
+        "year": 2022,
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/AI-generated_audio_featuring_bossa_nova_music_with_electric_guitar.ogg",
+        "context": "Generado desde prompt de texto vía difusión sobre espectrogramas"
+      },
+      {
+        "title": "AudioLDM2 — Violín con melodía emotiva",
+        "model": "AudioLDM2",
+        "year": 2023,
+        "url": "https://audioldm.github.io/audioldm2/demos/ttm_headline_nine_audio/A_violin_playing_a_heartfelt_melody.flac",
+        "context": "Prompt: A violin playing a heartfelt melody"
+      },
+      {
+        "title": "AudioLDM2 — Overview del modelo",
+        "model": "AudioLDM2",
+        "year": 2023,
+        "url": "https://audioldm.github.io/audioldm2/Overview.mp4",
+        "type": "video",
+        "context": "Demostración general de generación de audio, música y voz"
+      }
+    ]
   },
   "vae": {
     "label": "VAE y Modelos de Flujo",
@@ -213,18 +274,18 @@
     ],
     "examples": [
       {
-        "title": "DDSP — Violín a flauta",
-        "model": "DDSP",
-        "year": 2020,
-        "url": "https://storage.googleapis.com/ddsp/timbre_transfer/instruments/violin_flute2.mp3",
-        "context": "Transferencia de timbre: entrada violín → salida flauta"
-      },
-      {
-        "title": "DDSP — Voz cantada transformada",
+        "title": "DDSP — Voz cantada transformada a violín",
         "model": "DDSP",
         "year": 2020,
         "url": "https://storage.googleapis.com/ddsp/timbre_transfer/singing.mp3",
-        "context": "Voz humana transformada a instrumento vía síntesis diferenciable"
+        "context": "Transferencia de timbre: VOZ a violín"
+      },
+      {
+        "title": "DDSP — Violín original",
+        "model": "DDSP",
+        "year": 2020,
+        "url": "https://storage.googleapis.com/ddsp/timbre_transfer/violin.mp3",
+        "context": "Transferencia de timbre: voz a VIOLIN"
       },
       {
         "title": "NSynth — Interpolación de instrumentos",

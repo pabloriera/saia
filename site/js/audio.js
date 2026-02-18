@@ -63,9 +63,13 @@
       html += '<div class="audio-list">';
       section.examples.forEach(ex => {
         const isVideo = ex.type === 'video' || (ex.url && (ex.url.endsWith('.mp4') || ex.url.endsWith('.webm')));
+        const isSoundCloud = ex.type === 'soundcloud' || (ex.url && ex.url.includes('soundcloud.com'));
 
         let playerHTML = '';
-        if (isVideo) {
+        if (isSoundCloud) {
+          const scUrl = encodeURIComponent(ex.url);
+          playerHTML = `<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" style="border-radius:8px;" src="https://w.soundcloud.com/player/?url=${scUrl}&color=%23e67e22&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>`;
+        } else if (isVideo) {
           playerHTML = `<video controls preload="none" width="280" height="160" style="border-radius:8px;flex-shrink:0"><source src="${escapeHTML(ex.url)}">No soportado</video>`;
         } else if (ex.url) {
           const ext = ex.url.split('.').pop();
