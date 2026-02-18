@@ -44,7 +44,7 @@
     // ── Model list ──
     if (section.models && section.models.length > 0) {
       html += '<div class="models-list">';
-      html += '<h4>🧠 Modelos</h4>';
+      html += '<h4>Modelos</h4>';
       html += '<div class="models-grid">';
       section.models.forEach(m => {
         html += `
@@ -59,7 +59,7 @@
     // ── Audio examples ──
     if (section.examples && section.examples.length > 0) {
       html += '<div class="curated-examples">';
-      html += '<h4>🎧 Ejemplos de audio</h4>';
+      html += '<h4>Ejemplos de audio</h4>';
       html += '<div class="audio-list">';
       section.examples.forEach(ex => {
         const isVideo = ex.type === 'video' || (ex.url && (ex.url.endsWith('.mp4') || ex.url.endsWith('.webm')));

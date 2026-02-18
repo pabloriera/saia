@@ -696,7 +696,7 @@ body.presentation-mode .card.expanded .card-body { max-height: 3000px; }
   border-radius: 10px;
   border: 1px solid var(--border);
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  background: var(--surface);
+  background: transparent;
 }
 .carousel-img-container img {
   position: absolute;
@@ -705,10 +705,12 @@ body.presentation-mode .card.expanded .card-body { max-height: 3000px; }
   height: 100%;
   object-fit: contain;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  z-index: 0;
+  transition: none;
 }
 .carousel-img-container img.active {
   opacity: 1;
+  z-index: 1;
 }
 .carousel-controls {
   display: flex;
