@@ -5,7 +5,7 @@
 
   // ── Config ──
   const CONFIG = {
-    csvPath: 'media_links.csv',
+    jsonPath: 'models.json',
     heatmapURLs: [
       'https://arxiv.org/html/2505.16306v1/extracted/6458174/pics/musicfm_results_new.png',
       'https://arxiv.org/html/2505.16306v1/extracted/6458174/pics/muq_results_new.png'

@@ -1,213 +1,96 @@
-/* ━━━ Audio module — CSV loading, filtering, playback ━━━ */
+/* ━━━ Audio module — JSON loading, model list + curated examples ━━━ */
 
 (function () {
   'use strict';
 
-  // ── Model → Family mapping ──
-  const FAMILY_MAP = {
-    ar: [
-      'wavenet', 'samplernn', 'music transformer', 'musictransformer',
-      'jukebox', 'audiolm', 'musiclm', 'musicgen',
-      'performance rnn', 'note rnn', 'musicvae', 'music vae',
-      'maestro', 'wave2midi'
-    ],
-    gan: [
-      'gansynth', 'wavegan', 'melgan', 'hifi-gan', 'hifigan'
-    ],
-    diffusion: [
-      'diffwave', 'wavegrad', 'riffusion', 'audioldm',
-      'stable audio', 'mustango', 'musicldm',
-      'ddsp', 'tone transfer'
-    ]
-  };
+  let modelsData = null;
 
-  function classifyToFamily(modelName) {
-    if (!modelName) return null;
-    const lower = modelName.toLowerCase();
-    for (const [family, keywords] of Object.entries(FAMILY_MAP)) {
-      for (const kw of keywords) {
-        if (lower.includes(kw)) return family;
-      }
-    }
-    return null;
-  }
+  function loadModels() {
+    const jsonPath = window.SAIA_CONFIG?.jsonPath || 'models.json';
 
-  // ── Parse CSV ──
-  let allItems = [];
-
-  function loadCSV() {
-    const csvPath = window.SAIA_CONFIG?.csvPath || 'media_links.csv';
-
-    if (typeof Papa === 'undefined') {
-      console.warn('PapaParse not loaded, retrying in 500ms…');
-      setTimeout(loadCSV, 500);
-      return;
-    }
-
-    Papa.parse(csvPath, {
-      download: true,
-      header: true,
-      skipEmptyLines: true,
-      complete: function (results) {
-        allItems = results.data.filter(r => r.direct_media_url || r.embed_url);
-        console.log(`Loaded ${allItems.length} media items from CSV`);
-        renderAllFamilies();
-      },
-      error: function (err) {
-        console.warn('CSV load error:', err);
-        document.querySelectorAll('.audio-list').forEach(el => {
-          el.innerHTML = '<div class="audio-empty">No se pudo cargar media_links.csv. Coloca el archivo en la raíz del sitio.</div>';
+    fetch(jsonPath)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        modelsData = data;
+        console.log('Loaded models.json ✓');
+        renderAllSections();
+      })
+      .catch(err => {
+        console.warn('models.json load error:', err);
+        document.querySelectorAll('.audio-examples').forEach(el => {
+          el.innerHTML = '<div class="audio-empty">No se pudo cargar models.json.</div>';
         });
-      }
-    });
-  }
-
-  // ── Render ──
-  function renderAllFamilies() {
-    ['ar', 'gan', 'diffusion'].forEach(family => {
-      const items = allItems.filter(item => classifyToFamily(item.model_name) === family);
-      renderFamily(family, items);
-    });
-  }
-
-  function renderFamily(family, items) {
-    const listEl = document.querySelector(`.audio-list[data-family="${family}"]`);
-    const yearSelect = document.querySelector(`.audio-filter-year[data-family="${family}"]`);
-    const platformSelect = document.querySelector(`.audio-filter-platform[data-family="${family}"]`);
-    const searchInput = document.querySelector(`.audio-search[data-family="${family}"]`);
-    const playAllBtn = document.querySelector(`.btn-play-all[data-family="${family}"]`);
-
-    if (!listEl) return;
-
-    if (items.length === 0) {
-      listEl.innerHTML = '<div class="audio-empty">No hay ejemplos disponibles para esta familia en el dataset actual.</div>';
-      return;
-    }
-
-    // Populate filter dropdowns
-    const years = [...new Set(items.map(i => i.year).filter(Boolean))].sort();
-    const platforms = [...new Set(items.map(i => i.platform).filter(Boolean))].sort();
-
-    years.forEach(y => {
-      const opt = document.createElement('option');
-      opt.value = y; opt.textContent = y;
-      yearSelect.appendChild(opt);
-    });
-    platforms.forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p; opt.textContent = p;
-      platformSelect.appendChild(opt);
-    });
-
-    // Render function
-    function render(filtered) {
-      listEl.innerHTML = '';
-
-      if (filtered.length === 0) {
-        listEl.innerHTML = '<div class="audio-empty">Ningún resultado coincide con los filtros.</div>';
-        return;
-      }
-
-      filtered.forEach((item, idx) => {
-        const div = document.createElement('div');
-        div.className = 'audio-item';
-
-        // Title: derive from URL if empty
-        let title = item.title;
-        if (!title) {
-          const url = item.direct_media_url || item.embed_url || '';
-          const parts = url.split('/');
-          title = decodeURIComponent(parts[parts.length - 1] || 'Audio clip').replace(/\.\w+$/, '').replace(/[-_]/g, ' ');
-        }
-
-        // Badge
-        const conf = (item.confidence || 'low').toLowerCase();
-        const badgeClass = conf === 'high' ? 'badge-high' : conf === 'medium' ? 'badge-medium' : 'badge-low';
-
-        // Build player
-        let playerHTML = '';
-        const directURL = item.direct_media_url || '';
-        const embedURL = item.embed_url || '';
-
-        if (directURL && !directURL.includes('soundcloud.com/hc') && (directURL.endsWith('.mp3') || directURL.endsWith('.wav') || directURL.endsWith('.ogg') || directURL.endsWith('.m4a'))) {
-          playerHTML = `<audio controls preload="none" data-family="${family}" data-idx="${idx}"><source src="${directURL}" type="audio/${directURL.split('.').pop()}">No soportado</audio>`;
-        } else if (directURL && (directURL.endsWith('.mp4') || directURL.endsWith('.webm'))) {
-          playerHTML = `<video controls preload="none" width="220" height="124" style="border-radius:8px"><source src="${directURL}" type="video/${directURL.split('.').pop()}">No soportado</video>`;
-        } else if (embedURL && embedURL.includes('youtube.com')) {
-          playerHTML = `<a href="${embedURL}" target="_blank" rel="noopener" style="font-size:12px;color:var(--blue)">▶ Ver en YouTube</a>`;
-        } else if (embedURL && embedURL.includes('soundcloud.com')) {
-          playerHTML = `<a href="${item.page_url || embedURL}" target="_blank" rel="noopener" style="font-size:12px;color:var(--amber)">▶ Ver en SoundCloud</a>`;
-        } else if (directURL) {
-          playerHTML = `<a href="${directURL}" target="_blank" rel="noopener" style="font-size:12px;color:var(--blue)">▶ Abrir media</a>`;
-        }
-
-        // Context note
-        const context = item.context_note || '';
-        const contextShort = context.length > 60 ? context.substring(0, 60) + '…' : context;
-
-        div.innerHTML = `
-          <div class="audio-item-info">
-            <div class="audio-item-title">${escapeHTML(title)}</div>
-            <div class="audio-item-meta">${escapeHTML(item.model_name || '')} · ${item.year || '?'} · ${contextShort}</div>
-          </div>
-          ${playerHTML}
-          <span class="audio-item-badge ${badgeClass}">${conf}</span>
-        `;
-
-        listEl.appendChild(div);
       });
-    }
+  }
 
-    // Initial render
-    render(items);
-
-    // Filtering
-    function applyFilters() {
-      const yearVal = yearSelect.value;
-      const platVal = platformSelect.value;
-      const searchVal = searchInput.value.toLowerCase().trim();
-
-      let filtered = items;
-      if (yearVal) filtered = filtered.filter(i => i.year === yearVal);
-      if (platVal) filtered = filtered.filter(i => i.platform === platVal);
-      if (searchVal) {
-        filtered = filtered.filter(i =>
-          (i.title || '').toLowerCase().includes(searchVal) ||
-          (i.model_name || '').toLowerCase().includes(searchVal) ||
-          (i.context_note || '').toLowerCase().includes(searchVal) ||
-          (i.direct_media_url || '').toLowerCase().includes(searchVal)
-        );
-      }
-      render(filtered);
-    }
-
-    yearSelect.addEventListener('change', applyFilters);
-    platformSelect.addEventListener('change', applyFilters);
-    searchInput.addEventListener('input', applyFilters);
-
-    // Play all
-    playAllBtn.addEventListener('click', () => {
-      const audios = listEl.querySelectorAll('audio');
-      if (audios.length === 0) return;
-
-      let currentIdx = 0;
-      function playNext() {
-        if (currentIdx >= audios.length) return;
-        const audio = audios[currentIdx];
-        audio.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        audio.play();
-        audio.onended = () => {
-          currentIdx++;
-          playNext();
-        };
-      }
-      // Stop all first
-      audios.forEach(a => { a.pause(); a.currentTime = 0; });
-      playNext();
+  function renderAllSections() {
+    const families = ['ar', 'gan', 'diffusion', 'contrastive', 'embeddings', 'representations'];
+    families.forEach(family => {
+      const section = modelsData[family];
+      if (!section) return;
+      renderSection(family, section);
     });
+  }
+
+  function renderSection(family, section) {
+    const container = document.querySelector(`.audio-examples[data-family="${family}"]`);
+    if (!container) return;
+
+    let html = '';
+
+    // ── Model list ──
+    if (section.models && section.models.length > 0) {
+      html += '<div class="models-list">';
+      html += '<h4>🧠 Modelos</h4>';
+      html += '<div class="models-grid">';
+      section.models.forEach(m => {
+        html += `
+          <div class="model-chip">
+            <div class="model-chip-name">${escapeHTML(m.name)} <span class="model-chip-year">${m.year}</span></div>
+            <div class="model-chip-desc">${escapeHTML(m.description)}</div>
+          </div>`;
+      });
+      html += '</div></div>';
+    }
+
+    // ── Audio examples ──
+    if (section.examples && section.examples.length > 0) {
+      html += '<div class="curated-examples">';
+      html += '<h4>🎧 Ejemplos de audio</h4>';
+      html += '<div class="audio-list">';
+      section.examples.forEach(ex => {
+        const isVideo = ex.type === 'video' || (ex.url && (ex.url.endsWith('.mp4') || ex.url.endsWith('.webm')));
+
+        let playerHTML = '';
+        if (isVideo) {
+          playerHTML = `<video controls preload="none" width="280" height="160" style="border-radius:8px;flex-shrink:0"><source src="${escapeHTML(ex.url)}">No soportado</video>`;
+        } else if (ex.url) {
+          const ext = ex.url.split('.').pop();
+          playerHTML = `<audio controls preload="none"><source src="${escapeHTML(ex.url)}" type="audio/${ext}">No soportado</audio>`;
+        }
+
+        html += `
+          <div class="audio-item">
+            <div class="audio-item-info">
+              <div class="audio-item-title">${escapeHTML(ex.title)}</div>
+              <div class="audio-item-meta">${escapeHTML(ex.model)} · ${ex.year} · ${escapeHTML(ex.context || '')}</div>
+            </div>
+            ${playerHTML}
+          </div>`;
+      });
+      html += '</div></div>';
+    } else if (!section.models || section.models.length === 0) {
+      html += '<div class="audio-empty">No hay ejemplos disponibles para esta sección.</div>';
+    }
+
+    container.innerHTML = html;
   }
 
   function escapeHTML(str) {
+    if (!str) return '';
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
@@ -215,9 +98,9 @@
 
   // ── Init ──
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadCSV);
+    document.addEventListener('DOMContentLoaded', loadModels);
   } else {
-    loadCSV();
+    loadModels();
   }
 
 })();

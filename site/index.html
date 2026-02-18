@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" defer></script>
 </head>
 <body>
 
@@ -84,7 +83,7 @@
             <g class="anim-fade-up" style="--delay:1.3s">
               <line x1="460" y1="135" x2="520" y2="135" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
               <text x="530" y="130" class="d-label-sm">Análisis / Etiquetas</text>
-              <text x="530" y="148" class="d-label-sm" fill="var(--muted)">Contrastivo · Embeddings · Probing</text>
+              <text x="530" y="148" class="d-label-sm" fill="var(--muted)">Contrastivo · Embeddings</text>
             </g>
             <defs>
               <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="var(--blue)"/></marker>
@@ -110,24 +109,53 @@
       <div class="slide-inner">
         <div class="card" data-card="ar">
           <div class="card-header" data-toggle="ar">
-            <div class="card-header-left">
-              <span class="section-tag tag-gen">Generativo</span>
-              <h3>Autoregresivo / Token-Based</h3>
-              <p class="card-summary">Genera audio o notas token a token, prediciendo el siguiente elemento dado el contexto previo — como un modelo de lenguaje, pero para música.</p>
-            </div>
-            <div class="card-header-right">
-              <svg viewBox="0 0 200 100" class="diagram-thumb">
-                <rect x="5" y="30" width="35" height="35" rx="6" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="1"/>
-                <text x="22" y="52" class="d-tiny" text-anchor="middle">t₁</text>
-                <rect x="50" y="30" width="35" height="35" rx="6" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="1"/>
-                <text x="67" y="52" class="d-tiny" text-anchor="middle">t₂</text>
-                <rect x="95" y="30" width="35" height="35" rx="6" fill="var(--blue)" fill-opacity="0.25" stroke="var(--blue)" stroke-width="1.5"/>
-                <text x="112" y="52" class="d-tiny" text-anchor="middle">t₃</text>
-                <line x1="42" y1="48" x2="48" y2="48" stroke="var(--blue)" stroke-width="1" marker-end="url(#arrowBlue)"/>
-                <line x1="87" y1="48" x2="93" y2="48" stroke="var(--blue)" stroke-width="1" marker-end="url(#arrowBlue)"/>
-                <text x="150" y="52" class="d-tiny" fill="var(--muted)">→ …</text>
-              </svg>
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-gen">Generativo</span>
+                <h3>Autoregresivo / Token-Based</h3>
+                <p class="card-summary">Genera audio o notas token a token, prediciendo el siguiente elemento dado el contexto previo — como un modelo de lenguaje, pero para música.</p>
+              </div>
               <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 145">
+                <!-- Musical staff -->
+                <g opacity="0.3">
+                  <line x1="30" y1="30" x2="570" y2="30" stroke="var(--muted)" stroke-width="0.8"/>
+                  <line x1="30" y1="42" x2="570" y2="42" stroke="var(--muted)" stroke-width="0.8"/>
+                  <line x1="30" y1="54" x2="570" y2="54" stroke="var(--muted)" stroke-width="0.8"/>
+                  <line x1="30" y1="66" x2="570" y2="66" stroke="var(--muted)" stroke-width="0.8"/>
+                  <line x1="30" y1="78" x2="570" y2="78" stroke="var(--muted)" stroke-width="0.8"/>
+                </g>
+                <text x="42" y="68" font-size="42" fill="var(--blue)" opacity="0.4" font-family="serif">𝄞</text>
+                <!-- Generated notes on staff -->
+                <g fill="var(--blue)">
+                  <ellipse cx="105" cy="78" rx="8" ry="5.5" transform="rotate(-10,105,78)"/><line x1="113" y1="78" x2="113" y2="42" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="155" cy="60" rx="8" ry="5.5" transform="rotate(-10,155,60)"/><line x1="163" y1="60" x2="163" y2="24" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="205" cy="48" rx="8" ry="5.5" transform="rotate(-10,205,48)"/><line x1="213" y1="48" x2="213" y2="12" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="255" cy="60" rx="8" ry="5.5" transform="rotate(-10,255,60)"/><line x1="263" y1="60" x2="263" y2="24" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="305" cy="36" rx="8" ry="5.5" transform="rotate(-10,305,36)"/><line x1="313" y1="36" x2="313" y2="4" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="355" cy="48" rx="8" ry="5.5" transform="rotate(-10,355,48)"/><line x1="363" y1="48" x2="363" y2="12" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="405" cy="54" rx="8" ry="5.5" transform="rotate(-10,405,54)"/><line x1="413" y1="54" x2="413" y2="18" stroke="var(--blue)" stroke-width="1.8"/>
+                </g>
+                <!-- Next note prediction (amber glow) -->
+                <ellipse cx="455" cy="42" rx="10" ry="7" fill="var(--amber)" fill-opacity="0.15" stroke="var(--amber)" stroke-width="2.5" transform="rotate(-10,455,42)">
+                  <animate attributeName="fill-opacity" values="0.08;0.35;0.08" dur="2s" repeatCount="indefinite"/>
+                </ellipse>
+                <line x1="465" y1="42" x2="465" y2="8" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="5"/>
+                <text x="465" y="5" fill="var(--amber)" font-size="13" text-anchor="middle" font-weight="700">?</text>
+                <!-- Ghost future notes -->
+                <g opacity="0.1">
+                  <ellipse cx="505" cy="66" rx="8" ry="5.5" fill="var(--muted)" transform="rotate(-10,505,66)" stroke="var(--muted)" stroke-width="0.7" stroke-dasharray="3"/>
+                  <ellipse cx="545" cy="54" rx="8" ry="5.5" fill="var(--muted)" transform="rotate(-10,545,54)" stroke="var(--muted)" stroke-width="0.7" stroke-dasharray="3"/>
+                </g>
+                <!-- Prediction arc -->
+                <path d="M418,48 C435,22 445,20 453,38" stroke="var(--amber)" stroke-width="1.5" fill="none" stroke-dasharray="4"/>
+                <polygon points="451,38 456,44 448,44" fill="var(--amber)"/>
+                <!-- Labels -->
+                <text x="300" y="110" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">nota a nota, predice la melodía</text>
+                <text x="300" y="128" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="10">P(tₙ | t₁, t₂ … tₙ₋₁)</text>
+              </svg>
             </div>
           </div>
           <div class="card-body" id="card-ar">
@@ -161,56 +189,9 @@
                   <span>Ejemplos:</span> WaveNet · SampleRNN · Music Transformer · Jukebox · AudioLM · MusicLM · MusicGen
                 </div>
               </div>
-              <div class="card-col">
-                <div class="diagram-full">
-                  <svg viewBox="0 0 420 280" class="diagram-ar">
-                    <!-- Input tokens -->
-                    <text x="10" y="20" class="d-label-sm" fill="var(--muted)">Tokens de entrada</text>
-                    <rect x="10" y="30" width="50" height="40" rx="8" fill="var(--blue)" fill-opacity="0.12" stroke="var(--blue)" stroke-width="1.5"/>
-                    <text x="35" y="55" class="d-label-sm" text-anchor="middle">t₁</text>
-                    <rect x="70" y="30" width="50" height="40" rx="8" fill="var(--blue)" fill-opacity="0.12" stroke="var(--blue)" stroke-width="1.5"/>
-                    <text x="95" y="55" class="d-label-sm" text-anchor="middle">t₂</text>
-                    <rect x="130" y="30" width="50" height="40" rx="8" fill="var(--blue)" fill-opacity="0.12" stroke="var(--blue)" stroke-width="1.5"/>
-                    <text x="155" y="55" class="d-label-sm" text-anchor="middle">t₃</text>
-                    <text x="195" y="55" class="d-label-sm" fill="var(--muted)">…</text>
-                    <rect x="210" y="30" width="50" height="40" rx="8" fill="var(--blue)" fill-opacity="0.2" stroke="var(--blue)" stroke-width="1.5"/>
-                    <text x="235" y="55" class="d-label-sm" text-anchor="middle">tₙ₋₁</text>
-                    <!-- Arrow down -->
-                    <line x1="140" y1="75" x2="140" y2="105" stroke="var(--blue)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
-                    <!-- Model block -->
-                    <rect x="60" y="110" width="180" height="50" rx="12" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="2"/>
-                    <text x="150" y="135" class="d-label" text-anchor="middle" fill="var(--blue)">Transformer / RNN</text>
-                    <text x="150" y="152" class="d-tiny" text-anchor="middle" fill="var(--muted)">P(tₙ | t₁…tₙ₋₁)</text>
-                    <!-- Arrow down -->
-                    <line x1="150" y1="165" x2="150" y2="195" stroke="var(--blue)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
-                    <!-- Output -->
-                    <rect x="110" y="200" width="80" height="40" rx="8" fill="var(--amber)" fill-opacity="0.15" stroke="var(--amber)" stroke-width="1.5"/>
-                    <text x="150" y="225" class="d-label-sm" text-anchor="middle" fill="var(--amber)">tₙ</text>
-                    <!-- Feedback loop -->
-                    <path d="M195,220 Q320,220 320,50 Q320,30 265,50" stroke="var(--muted)" stroke-width="1" fill="none" stroke-dasharray="4" marker-end="url(#arrowMuted)"/>
-                    <text x="330" y="130" class="d-tiny" fill="var(--muted)" transform="rotate(90,330,130)">feedback</text>
-                    <!-- Decoder -->
-                    <line x1="150" y1="245" x2="150" y2="265" stroke="var(--amber)" stroke-width="1.5" marker-end="url(#arrowAmber)"/>
-                    <text x="150" y="278" class="d-label-sm" text-anchor="middle" fill="var(--amber)">♪ Audio</text>
-                    <defs>
-                      <marker id="arrowMuted" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="var(--muted)"/></marker>
-                      <marker id="arrowAmber" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="var(--amber)"/></marker>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
             </div>
-            <!-- Audio examples from CSV -->
-            <div class="audio-examples" data-family="ar">
-              <h4>🎧 Ejemplos de audio</h4>
-              <div class="audio-filters">
-                <input type="text" class="audio-search" placeholder="Buscar…" data-family="ar">
-                <select class="audio-filter-year" data-family="ar"><option value="">Año</option></select>
-                <select class="audio-filter-platform" data-family="ar"><option value="">Plataforma</option></select>
-                <button class="btn-play-all" data-family="ar">▶ Play all</button>
-              </div>
-              <div class="audio-list" data-family="ar"></div>
-            </div>
+            <!-- Audio examples from JSON -->
+            <div class="audio-examples" data-family="ar"></div>
           </div>
         </div>
       </div>
@@ -221,22 +202,50 @@
       <div class="slide-inner">
         <div class="card" data-card="gan">
           <div class="card-header" data-toggle="gan">
-            <div class="card-header-left">
-              <span class="section-tag tag-gen">Generativo</span>
-              <h3>GAN (Generative Adversarial Networks)</h3>
-              <p class="card-summary">Dos redes compiten: un generador crea audio sintético y un discriminador intenta distinguirlo del real. El resultado: síntesis de alta calidad perceptual.</p>
-            </div>
-            <div class="card-header-right">
-              <svg viewBox="0 0 200 100" class="diagram-thumb">
-                <rect x="10" y="35" width="40" height="30" rx="6" fill="var(--purple)" fill-opacity="0.15" stroke="var(--purple)" stroke-width="1"/>
-                <text x="30" y="54" class="d-tiny" text-anchor="middle">G</text>
-                <line x1="55" y1="50" x2="80" y2="50" stroke="var(--purple)" stroke-width="1" marker-end="url(#arrowPurp)"/>
-                <rect x="85" y="35" width="40" height="30" rx="6" fill="var(--red)" fill-opacity="0.15" stroke="var(--red)" stroke-width="1"/>
-                <text x="105" y="54" class="d-tiny" text-anchor="middle">D</text>
-                <path d="M105,68 Q105,85 30,85 Q10,85 10,68" stroke="var(--muted)" stroke-width="1" fill="none" stroke-dasharray="3" marker-end="url(#arrowMuted)"/>
-                <defs><marker id="arrowPurp" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="var(--purple)"/></marker></defs>
-              </svg>
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-gen">Generativo</span>
+                <h3>GAN (Generative Adversarial Networks)</h3>
+                <p class="card-summary">Dos redes compiten: un generador crea audio sintético y un discriminador intenta distinguirlo del real. El resultado: síntesis de alta calidad perceptual.</p>
+              </div>
               <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 155">
+                <!-- Row 1: Generator flow -->
+                <g fill="var(--muted)">
+                  <circle cx="32" cy="32" r="2" opacity="0.5"/><circle cx="45" cy="22" r="1.5" opacity="0.4"/><circle cx="25" cy="42" r="2.5" opacity="0.3"/>
+                  <circle cx="52" cy="36" r="1.5" opacity="0.6"/><circle cx="38" cy="18" r="2" opacity="0.4"/><circle cx="55" cy="48" r="1" opacity="0.5"/>
+                  <circle cx="22" cy="28" r="1" opacity="0.6"/><circle cx="48" cy="45" r="2" opacity="0.3"/><circle cx="20" cy="38" r="1.5" opacity="0.4"/>
+                </g>
+                <text x="38" y="62" fill="var(--muted)" font-family="var(--mono)" font-size="9" text-anchor="middle">ruido z</text>
+                <text x="72" y="36" fill="var(--purple)" font-size="18" opacity="0.6">→</text>
+                <!-- Generator -->
+                <rect x="90" y="15" width="72" height="38" rx="10" fill="var(--purple)" fill-opacity="0.08" stroke="var(--purple)" stroke-width="2"/>
+                <text x="126" y="40" fill="var(--purple)" text-anchor="middle" font-family="var(--font)" font-size="15" font-weight="700">G</text>
+                <text x="178" y="36" fill="var(--purple)" font-size="18" opacity="0.6">→</text>
+                <!-- Generated waveform -->
+                <path d="M198,34 Q212,10 226,34 Q240,58 254,34 Q268,10 282,34 Q296,58 310,34" stroke="var(--amber)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="254" y="62" fill="var(--amber)" font-family="var(--font)" font-size="10" text-anchor="middle">audio generado</text>
+                <!-- Feed to D -->
+                <line x1="260" y1="55" x2="372" y2="80" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4" opacity="0.4"/>
+                <!-- Row 2: Real + Discriminator -->
+                <path d="M198,100 Q215,75 232,100 Q249,125 266,100 Q283,75 300,100" stroke="var(--teal)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="250" y="128" fill="var(--teal)" font-family="var(--font)" font-size="10" text-anchor="middle">audio real</text>
+                <line x1="310" y1="100" x2="372" y2="100" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4" opacity="0.4"/>
+                <!-- Discriminator -->
+                <rect x="378" y="70" width="80" height="52" rx="12" fill="var(--red)" fill-opacity="0.06" stroke="var(--red)" stroke-width="2"/>
+                <text x="418" y="94" fill="var(--red)" text-anchor="middle" font-family="var(--font)" font-size="15" font-weight="700">D</text>
+                <text x="418" y="112" fill="var(--muted)" text-anchor="middle" font-family="var(--mono)" font-size="9">¿real?</text>
+                <!-- Output -->
+                <text x="472" y="90" fill="var(--red)" font-size="16">→</text>
+                <text x="498" y="84" fill="var(--green)" font-family="var(--font)" font-size="12" font-weight="600">✓ real</text>
+                <text x="498" y="106" fill="var(--red)" font-family="var(--font)" font-size="12" font-weight="600">✗ falso</text>
+                <!-- Feedback loop -->
+                <path d="M418,127 Q418,148 126,148 Q90,148 90,58" stroke="var(--muted)" stroke-width="1.2" fill="none" stroke-dasharray="5"/>
+                <polygon points="90,58 85,66 95,66" fill="var(--muted)"/>
+                <text x="260" y="146" fill="var(--muted)" font-family="var(--mono)" font-size="9" text-anchor="middle">gradiente adversarial</text>
+              </svg>
             </div>
           </div>
           <div class="card-body" id="card-gan">
@@ -270,55 +279,8 @@
                   <span>Ejemplos:</span> GANSynth · WaveGAN · MelGAN · HiFi-GAN
                 </div>
               </div>
-              <div class="card-col">
-                <div class="diagram-full">
-                  <svg viewBox="0 0 420 280" class="diagram-gan">
-                    <!-- Noise input -->
-                    <text x="30" y="30" class="d-label-sm" fill="var(--muted)">Ruido latente</text>
-                    <rect x="20" y="40" width="70" height="40" rx="10" fill="var(--muted)" fill-opacity="0.1" stroke="var(--muted)" stroke-width="1.5"/>
-                    <text x="55" y="65" class="d-label-sm" text-anchor="middle">z ~ N(0,I)</text>
-                    <!-- Arrow to G -->
-                    <line x1="95" y1="60" x2="135" y2="60" stroke="var(--purple)" stroke-width="1.5" marker-end="url(#arrowPurp2)"/>
-                    <!-- Generator -->
-                    <rect x="140" y="35" width="100" height="50" rx="12" fill="var(--purple)" fill-opacity="0.1" stroke="var(--purple)" stroke-width="2"/>
-                    <text x="190" y="58" class="d-label" text-anchor="middle" fill="var(--purple)">Generador</text>
-                    <text x="190" y="75" class="d-tiny" text-anchor="middle" fill="var(--muted)">G(z)</text>
-                    <!-- Arrow to sample -->
-                    <line x1="245" y1="60" x2="285" y2="60" stroke="var(--purple)" stroke-width="1.5" marker-end="url(#arrowPurp2)"/>
-                    <!-- Fake sample -->
-                    <rect x="290" y="40" width="80" height="40" rx="8" fill="var(--amber)" fill-opacity="0.12" stroke="var(--amber)" stroke-width="1.5"/>
-                    <text x="330" y="65" class="d-label-sm" text-anchor="middle" fill="var(--amber)">Audio falso</text>
-                    <!-- Real sample -->
-                    <rect x="290" y="120" width="80" height="40" rx="8" fill="var(--teal)" fill-opacity="0.12" stroke="var(--teal)" stroke-width="1.5"/>
-                    <text x="330" y="145" class="d-label-sm" text-anchor="middle" fill="var(--teal)">Audio real</text>
-                    <!-- Both arrows to D -->
-                    <line x1="330" y1="85" x2="330" y2="175" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4"/>
-                    <line x1="330" y1="165" x2="330" y2="195" stroke="var(--red)" stroke-width="1.5" marker-end="url(#arrowRed)"/>
-                    <!-- Discriminator -->
-                    <rect x="280" y="200" width="110" height="50" rx="12" fill="var(--red)" fill-opacity="0.08" stroke="var(--red)" stroke-width="2"/>
-                    <text x="335" y="223" class="d-label" text-anchor="middle" fill="var(--red)">Discriminador</text>
-                    <text x="335" y="242" class="d-tiny" text-anchor="middle" fill="var(--muted)">¿Real o falso?</text>
-                    <!-- Feedback to G -->
-                    <path d="M278,225 Q140,225 140,90" stroke="var(--muted)" stroke-width="1.5" fill="none" stroke-dasharray="5" marker-end="url(#arrowMuted)"/>
-                    <text x="170" y="218" class="d-tiny" fill="var(--muted)">gradiente adversarial</text>
-                    <defs>
-                      <marker id="arrowPurp2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="var(--purple)"/></marker>
-                      <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="var(--red)"/></marker>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
             </div>
-            <div class="audio-examples" data-family="gan">
-              <h4>🎧 Ejemplos de audio</h4>
-              <div class="audio-filters">
-                <input type="text" class="audio-search" placeholder="Buscar…" data-family="gan">
-                <select class="audio-filter-year" data-family="gan"><option value="">Año</option></select>
-                <select class="audio-filter-platform" data-family="gan"><option value="">Plataforma</option></select>
-                <button class="btn-play-all" data-family="gan">▶ Play all</button>
-              </div>
-              <div class="audio-list" data-family="gan"></div>
-            </div>
+            <div class="audio-examples" data-family="gan"></div>
           </div>
         </div>
       </div>
@@ -329,22 +291,69 @@
       <div class="slide-inner">
         <div class="card" data-card="diffusion">
           <div class="card-header" data-toggle="diffusion">
-            <div class="card-header-left">
-              <span class="section-tag tag-gen">Generativo</span>
-              <h3>Difusión</h3>
-              <p class="card-summary">Aprende a transformar ruido puro en audio limpio a través de un proceso iterativo de de-noising. El paradigma dominante actual para generación de alta calidad.</p>
-            </div>
-            <div class="card-header-right">
-              <svg viewBox="0 0 200 100" class="diagram-thumb">
-                <circle cx="30" cy="50" r="18" fill="var(--muted)" fill-opacity="0.15" stroke="var(--muted)" stroke-width="1"/>
-                <text x="30" y="54" class="d-tiny" text-anchor="middle">ruido</text>
-                <line x1="52" y1="50" x2="68" y2="50" stroke="var(--teal)" stroke-width="1" marker-end="url(#arrowTeal)"/>
-                <circle cx="85" cy="50" r="18" fill="var(--teal)" fill-opacity="0.1" stroke="var(--teal)" stroke-width="1"/>
-                <line x1="107" y1="50" x2="123" y2="50" stroke="var(--teal)" stroke-width="1" marker-end="url(#arrowTeal)"/>
-                <circle cx="140" cy="50" r="18" fill="var(--teal)" fill-opacity="0.2" stroke="var(--teal)" stroke-width="1.5"/>
-                <text x="140" y="54" class="d-tiny" text-anchor="middle">♪</text>
-              </svg>
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-gen">Generativo</span>
+                <h3>Difusión</h3>
+                <p class="card-summary">Aprende a transformar ruido puro en audio limpio a través de un proceso iterativo de de-noising. El paradigma dominante actual para generación de alta calidad.</p>
+              </div>
               <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 135">
+                <!-- Panel 1: Pure noise -->
+                <rect x="15" y="12" width="90" height="72" rx="10" fill="var(--muted)" fill-opacity="0.04" stroke="var(--muted)" stroke-width="0.8"/>
+                <g fill="var(--muted)">
+                  <circle cx="30" cy="25" r="2.5" opacity="0.5"/><circle cx="48" cy="62" r="2" opacity="0.4"/><circle cx="62" cy="28" r="1.8" opacity="0.6"/>
+                  <circle cx="78" cy="52" r="2.2" opacity="0.3"/><circle cx="88" cy="35" r="1.5" opacity="0.5"/><circle cx="35" cy="48" r="2" opacity="0.4"/>
+                  <circle cx="55" cy="20" r="1.8" opacity="0.6"/><circle cx="95" cy="58" r="2" opacity="0.4"/><circle cx="25" cy="40" r="2.5" opacity="0.3"/>
+                  <circle cx="72" cy="70" r="1.5" opacity="0.5"/><circle cx="42" cy="35" r="2" opacity="0.4"/><circle cx="82" cy="20" r="1.8" opacity="0.5"/>
+                  <circle cx="58" cy="50" r="2.2" opacity="0.3"/><circle cx="22" cy="65" r="2" opacity="0.4"/><circle cx="68" cy="42" r="1.5" opacity="0.6"/>
+                  <circle cx="92" cy="45" r="2" opacity="0.4"/><circle cx="38" cy="72" r="1.8" opacity="0.3"/><circle cx="50" cy="40" r="2" opacity="0.5"/>
+                </g>
+                <text x="60" y="98" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">t = T</text>
+                <!-- Arrow 1 -->
+                <text x="116" y="50" fill="var(--teal)" font-size="16" font-weight="300">→</text>
+                <!-- Panel 2: Noisy with hint of structure -->
+                <rect x="132" y="12" width="90" height="72" rx="10" fill="var(--teal)" fill-opacity="0.02" stroke="var(--muted)" stroke-width="0.8"/>
+                <g fill="var(--muted)">
+                  <circle cx="142" cy="45" r="2" opacity="0.4"/><circle cx="152" cy="30" r="2.2" opacity="0.5"/><circle cx="162" cy="40" r="1.8" opacity="0.4"/>
+                  <circle cx="172" cy="55" r="2" opacity="0.5"/><circle cx="182" cy="65" r="2.2" opacity="0.4"/><circle cx="192" cy="56" r="1.5" opacity="0.5"/>
+                  <circle cx="202" cy="48" r="2" opacity="0.4"/><circle cx="147" cy="62" r="1.5" opacity="0.3"/><circle cx="157" cy="20" r="2" opacity="0.4"/>
+                  <circle cx="177" cy="28" r="2" opacity="0.3"/><circle cx="197" cy="72" r="1.8" opacity="0.4"/><circle cx="167" cy="68" r="2" opacity="0.3"/>
+                </g>
+                <path d="M137,48 Q152,30 167,48 Q182,66 197,48 Q210,32 217,44" stroke="var(--teal)" fill="none" stroke-width="1" opacity="0.15"/>
+                <text x="177" y="98" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">−ε</text>
+                <!-- Arrow 2 -->
+                <text x="231" y="50" fill="var(--teal)" font-size="16" font-weight="300">→</text>
+                <!-- Panel 3: Structure emerging -->
+                <rect x="247" y="12" width="90" height="72" rx="10" fill="var(--teal)" fill-opacity="0.03" stroke="var(--muted)" stroke-width="0.8"/>
+                <g fill="var(--teal)" opacity="0.4">
+                  <circle cx="258" cy="48" r="2"/><circle cx="270" cy="35" r="2"/><circle cx="282" cy="48" r="2.2"/>
+                  <circle cx="295" cy="62" r="2"/><circle cx="307" cy="48" r="2"/><circle cx="318" cy="35" r="1.8"/>
+                  <circle cx="328" cy="48" r="2"/><circle cx="274" cy="24" r="1.5" opacity="0.3"/><circle cx="302" cy="70" r="1.5" opacity="0.3"/>
+                </g>
+                <path d="M252,48 Q267,28 282,48 Q297,68 312,48 Q325,30 332,44" stroke="var(--teal)" fill="none" stroke-width="1.5" opacity="0.35"/>
+                <text x="292" y="98" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">−ε</text>
+                <!-- Arrow 3 -->
+                <text x="346" y="50" fill="var(--teal)" font-size="16" font-weight="300">→</text>
+                <!-- Panel 4: Almost clean -->
+                <rect x="362" y="12" width="90" height="72" rx="10" fill="var(--teal)" fill-opacity="0.04" stroke="var(--teal)" stroke-width="0.8" opacity="0.5"/>
+                <g fill="var(--teal)" opacity="0.2">
+                  <circle cx="385" cy="32" r="1.5"/><circle cx="415" cy="65" r="1.5"/><circle cx="438" cy="30" r="1.5"/>
+                </g>
+                <path d="M367,48 Q382,24 397,48 Q412,72 427,48 Q440,26 447,42" stroke="var(--teal)" fill="none" stroke-width="2" opacity="0.6"/>
+                <text x="407" y="98" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">−ε</text>
+                <!-- Arrow 4 -->
+                <text x="461" y="50" fill="var(--teal)" font-size="16" font-weight="300">→</text>
+                <!-- Panel 5: Clean audio -->
+                <rect x="477" y="12" width="90" height="72" rx="10" fill="var(--teal)" fill-opacity="0.06" stroke="var(--teal)" stroke-width="1"/>
+                <path d="M483,48 Q498,20 513,48 Q528,76 543,48 Q556,22 561,42" stroke="var(--teal)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="548" y="40" fill="var(--teal)" font-size="14">♪</text>
+                <text x="522" y="98" text-anchor="middle" fill="var(--teal)" font-family="var(--mono)" font-size="9" font-weight="600">t = 0</text>
+                <!-- Bottom label -->
+                <text x="300" y="125" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">del ruido puro al audio limpio, paso a paso</text>
+              </svg>
             </div>
           </div>
           <div class="card-body" id="card-diffusion">
@@ -378,63 +387,8 @@
                   <span>Ejemplos:</span> DiffWave · WaveGrad · Riffusion · AudioLDM2 · Stable Audio Open · Mustango · MusicLDM
                 </div>
               </div>
-              <div class="card-col">
-                <div class="diagram-full">
-                  <svg viewBox="0 0 420 280" class="diagram-diffusion">
-                    <!-- Forward process -->
-                    <text x="20" y="25" class="d-label-sm" fill="var(--muted)">Proceso forward (entrenamiento)</text>
-                    <rect x="15" y="35" width="70" height="40" rx="8" fill="var(--teal)" fill-opacity="0.15" stroke="var(--teal)" stroke-width="1.5"/>
-                    <text x="50" y="60" class="d-label-sm" text-anchor="middle">x₀ ♪</text>
-                    <line x1="90" y1="55" x2="120" y2="55" stroke="var(--muted)" stroke-width="1" marker-end="url(#arrowMuted)"/>
-                    <text x="105" y="48" class="d-tiny" fill="var(--muted)">+ε</text>
-                    <rect x="125" y="35" width="60" height="40" rx="8" fill="var(--muted)" fill-opacity="0.08" stroke="var(--muted)" stroke-width="1"/>
-                    <text x="155" y="60" class="d-label-sm" text-anchor="middle" fill="var(--muted)">x₁</text>
-                    <line x1="190" y1="55" x2="215" y2="55" stroke="var(--muted)" stroke-width="1" marker-end="url(#arrowMuted)"/>
-                    <text x="203" y="48" class="d-tiny" fill="var(--muted)">+ε</text>
-                    <text x="225" y="60" class="d-label-sm" fill="var(--muted)">…</text>
-                    <line x1="240" y1="55" x2="265" y2="55" stroke="var(--muted)" stroke-width="1" marker-end="url(#arrowMuted)"/>
-                    <rect x="270" y="35" width="70" height="40" rx="8" fill="var(--muted)" fill-opacity="0.15" stroke="var(--muted)" stroke-width="1.5"/>
-                    <text x="305" y="60" class="d-label-sm" text-anchor="middle">x_T ≈ N</text>
-
-                    <!-- Denoiser block -->
-                    <text x="120" y="120" class="d-label-sm" fill="var(--muted)">Red de denoising</text>
-                    <rect x="100" y="130" width="200" height="50" rx="12" fill="var(--teal)" fill-opacity="0.08" stroke="var(--teal)" stroke-width="2"/>
-                    <text x="200" y="155" class="d-label" text-anchor="middle" fill="var(--teal)">ε_θ(xₜ, t)</text>
-                    <text x="200" y="172" class="d-tiny" text-anchor="middle" fill="var(--muted)">U-Net / DiT</text>
-
-                    <!-- Reverse process -->
-                    <text x="20" y="210" class="d-label-sm" fill="var(--teal)">Proceso reverso (generación)</text>
-                    <rect x="270" y="220" width="70" height="40" rx="8" fill="var(--muted)" fill-opacity="0.15" stroke="var(--muted)" stroke-width="1.5"/>
-                    <text x="305" y="245" class="d-label-sm" text-anchor="middle">ruido</text>
-                    <line x1="265" y1="240" x2="240" y2="240" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arrowTealR)"/>
-                    <text x="253" y="233" class="d-tiny" fill="var(--teal)">−ε</text>
-                    <rect x="175" y="220" width="60" height="40" rx="8" fill="var(--teal)" fill-opacity="0.1" stroke="var(--teal)" stroke-width="1"/>
-                    <line x1="170" y1="240" x2="145" y2="240" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arrowTealR)"/>
-                    <text x="155" y="233" class="d-tiny" fill="var(--teal)">−ε</text>
-                    <text x="130" y="245" class="d-label-sm" fill="var(--muted)">…</text>
-                    <line x1="120" y1="240" x2="95" y2="240" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arrowTealR)"/>
-                    <rect x="15" y="220" width="75" height="40" rx="8" fill="var(--teal)" fill-opacity="0.2" stroke="var(--teal)" stroke-width="2"/>
-                    <text x="52" y="245" class="d-label-sm" text-anchor="middle" fill="var(--teal)">x₀ ♪</text>
-
-                    <!-- Connection -->
-                    <path d="M200,183 L200,200 L305,218" stroke="var(--teal)" stroke-width="1" fill="none" stroke-dasharray="4"/>
-                    <defs>
-                      <marker id="arrowTealR" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6" fill="var(--teal)"/></marker>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
             </div>
-            <div class="audio-examples" data-family="diffusion">
-              <h4>🎧 Ejemplos de audio</h4>
-              <div class="audio-filters">
-                <input type="text" class="audio-search" placeholder="Buscar…" data-family="diffusion">
-                <select class="audio-filter-year" data-family="diffusion"><option value="">Año</option></select>
-                <select class="audio-filter-platform" data-family="diffusion"><option value="">Plataforma</option></select>
-                <button class="btn-play-all" data-family="diffusion">▶ Play all</button>
-              </div>
-              <div class="audio-list" data-family="diffusion"></div>
-            </div>
+            <div class="audio-examples" data-family="diffusion"></div>
           </div>
         </div>
       </div>
@@ -454,22 +408,38 @@
       <div class="slide-inner">
         <div class="card" data-card="contrastive">
           <div class="card-header" data-toggle="contrastive">
-            <div class="card-header-left">
-              <span class="section-tag tag-disc">Discriminativo</span>
-              <h3>Modelado Contrastivo / Asociativo</h3>
-              <p class="card-summary">Aprende representaciones acercando pares relacionados (audio+texto, dos vistas del mismo audio) y alejando los no relacionados en el espacio de features.</p>
-            </div>
-            <div class="card-header-right">
-              <svg viewBox="0 0 200 100" class="diagram-thumb">
-                <circle cx="50" cy="35" r="12" fill="var(--teal)" fill-opacity="0.15" stroke="var(--teal)" stroke-width="1"/>
-                <text x="50" y="39" class="d-tiny" text-anchor="middle">A</text>
-                <circle cx="90" cy="65" r="12" fill="var(--teal)" fill-opacity="0.15" stroke="var(--teal)" stroke-width="1"/>
-                <text x="90" y="69" class="d-tiny" text-anchor="middle">T</text>
-                <line x1="60" y1="42" x2="80" y2="58" stroke="var(--teal)" stroke-width="1.5"/>
-                <circle cx="150" cy="50" r="12" fill="var(--red)" fill-opacity="0.1" stroke="var(--red)" stroke-width="1" stroke-dasharray="3"/>
-                <text x="150" y="54" class="d-tiny" text-anchor="middle" fill="var(--red)">✗</text>
-              </svg>
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-disc">Discriminativo</span>
+                <h3>Modelado Contrastivo / Asociativo</h3>
+                <p class="card-summary">Aprende representaciones acercando pares relacionados (audio+texto, dos vistas del mismo audio) y alejando los no relacionados en el espacio de features.</p>
+              </div>
               <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 115">
+                <!-- Audio circle -->
+                <circle cx="135" cy="45" r="30" fill="var(--teal)" fill-opacity="0.08" stroke="var(--teal)" stroke-width="2"/>
+                <text x="135" y="40" text-anchor="middle" fill="var(--teal)" font-size="20">🎵</text>
+                <text x="135" y="58" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="11" font-weight="600">Audio</text>
+                <!-- Positive link -->
+                <line x1="170" y1="45" x2="290" y2="45" stroke="var(--teal)" stroke-width="2.5" stroke-dasharray="6"/>
+                <text x="230" y="36" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="12" font-weight="600">similitud ↑</text>
+                <polygon points="170,45 180,39 180,51" fill="var(--teal)"/>
+                <polygon points="290,45 280,39 280,51" fill="var(--amber)"/>
+                <!-- Text circle -->
+                <circle cx="325" cy="45" r="30" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="2"/>
+                <text x="325" y="40" text-anchor="middle" fill="var(--amber)" font-size="20">📝</text>
+                <text x="325" y="58" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="11" font-weight="600">Texto</text>
+                <!-- Negative -->
+                <circle cx="490" cy="45" r="26" fill="var(--red)" fill-opacity="0.04" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5"/>
+                <text x="490" y="40" text-anchor="middle" fill="var(--red)" font-size="16" opacity="0.5">🎵</text>
+                <text x="490" y="58" text-anchor="middle" fill="var(--red)" font-family="var(--font)" font-size="10" opacity="0.5">negativo</text>
+                <line x1="360" y1="45" x2="458" y2="45" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="4" opacity="0.35"/>
+                <text x="410" y="36" text-anchor="middle" fill="var(--red)" font-family="var(--font)" font-size="11" opacity="0.45">distancia ↑</text>
+                <!-- Label -->
+                <text x="300" y="100" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">acercar positivos, alejar negativos</text>
+              </svg>
             </div>
           </div>
           <div class="card-body" id="card-contrastive">
@@ -503,46 +473,8 @@
                   <span>Ejemplos:</span> CLAP · BYOL-A · Wav2CLIP
                 </div>
               </div>
-              <div class="card-col">
-                <div class="diagram-full">
-                  <svg viewBox="0 0 420 280" class="diagram-contrastive">
-                    <!-- View 1: Audio -->
-                    <text x="30" y="25" class="d-label-sm" fill="var(--teal)">Vista 1</text>
-                    <rect x="15" y="35" width="80" height="40" rx="8" fill="var(--teal)" fill-opacity="0.12" stroke="var(--teal)" stroke-width="1.5"/>
-                    <text x="55" y="60" class="d-label-sm" text-anchor="middle" fill="var(--teal)">Audio 🎵</text>
-                    <!-- Encoder 1 -->
-                    <line x1="55" y1="80" x2="55" y2="110" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
-                    <rect x="15" y="115" width="80" height="40" rx="10" fill="var(--teal)" fill-opacity="0.08" stroke="var(--teal)" stroke-width="1.5"/>
-                    <text x="55" y="140" class="d-label-sm" text-anchor="middle">Encoder A</text>
-                    <!-- Embedding 1 -->
-                    <line x1="55" y1="160" x2="55" y2="185" stroke="var(--teal)" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
-                    <circle cx="55" cy="210" r="20" fill="var(--teal)" fill-opacity="0.1" stroke="var(--teal)" stroke-width="2"/>
-                    <text x="55" y="215" class="d-label-sm" text-anchor="middle" fill="var(--teal)">eₐ</text>
-
-                    <!-- View 2: Text -->
-                    <text x="300" y="25" class="d-label-sm" fill="var(--amber)">Vista 2</text>
-                    <rect x="270" y="35" width="80" height="40" rx="8" fill="var(--amber)" fill-opacity="0.12" stroke="var(--amber)" stroke-width="1.5"/>
-                    <text x="310" y="60" class="d-label-sm" text-anchor="middle" fill="var(--amber)">Texto 📝</text>
-                    <!-- Encoder 2 -->
-                    <line x1="310" y1="80" x2="310" y2="110" stroke="var(--amber)" stroke-width="1.5" marker-end="url(#arrowAmber)"/>
-                    <rect x="270" y="115" width="80" height="40" rx="10" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="1.5"/>
-                    <text x="310" y="140" class="d-label-sm" text-anchor="middle">Encoder T</text>
-                    <!-- Embedding 2 -->
-                    <line x1="310" y1="160" x2="310" y2="185" stroke="var(--amber)" stroke-width="1.5" marker-end="url(#arrowAmber)"/>
-                    <circle cx="310" cy="210" r="20" fill="var(--amber)" fill-opacity="0.1" stroke="var(--amber)" stroke-width="2"/>
-                    <text x="310" y="215" class="d-label-sm" text-anchor="middle" fill="var(--amber)">eₜ</text>
-
-                    <!-- Similarity -->
-                    <line x1="80" y1="210" x2="285" y2="210" stroke="var(--teal)" stroke-width="2" stroke-dasharray="6"/>
-                    <text x="183" y="200" class="d-label-sm" text-anchor="middle">cos(eₐ, eₜ) ↑</text>
-
-                    <!-- Loss -->
-                    <rect x="135" y="245" width="100" height="30" rx="8" fill="var(--blue)" fill-opacity="0.1" stroke="var(--blue)" stroke-width="1.5"/>
-                    <text x="185" y="265" class="d-label-sm" text-anchor="middle" fill="var(--blue)">InfoNCE Loss</text>
-                  </svg>
-                </div>
-              </div>
             </div>
+            <div class="audio-examples" data-family="contrastive"></div>
           </div>
         </div>
       </div>
@@ -553,23 +485,48 @@
       <div class="slide-inner">
         <div class="card" data-card="embeddings">
           <div class="card-header" data-toggle="embeddings">
-            <div class="card-header-left">
-              <span class="section-tag tag-disc">Discriminativo</span>
-              <h3>Espacios Vectoriales (Embeddings)</h3>
-              <p class="card-summary">Modelos que comprimen audio en vectores de dimensión fija donde la distancia geométrica refleja similitud semántica: canciones parecidas quedan cerca.</p>
-            </div>
-            <div class="card-header-right">
-              <svg viewBox="0 0 200 100" class="diagram-thumb">
-                <circle cx="60" cy="40" r="5" fill="var(--blue)"/>
-                <circle cx="75" cy="50" r="5" fill="var(--blue)"/>
-                <circle cx="65" cy="55" r="5" fill="var(--blue)" fill-opacity="0.5"/>
-                <circle cx="140" cy="60" r="5" fill="var(--amber)"/>
-                <circle cx="150" cy="45" r="5" fill="var(--amber)"/>
-                <circle cx="130" cy="50" r="5" fill="var(--amber)" fill-opacity="0.5"/>
-                <ellipse cx="67" cy="48" rx="25" ry="20" fill="none" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3"/>
-                <ellipse cx="140" cy="52" rx="25" ry="20" fill="none" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3"/>
-              </svg>
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-disc">Discriminativo</span>
+                <h3>Espacios Vectoriales (Embeddings)</h3>
+                <p class="card-summary">Modelos que comprimen audio en vectores de dimensión fija donde la distancia geométrica refleja similitud semántica: canciones parecidas quedan cerca.</p>
+              </div>
               <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 120">
+                <!-- Waveform input -->
+                <path d="M30,50 Q48,22 66,50 Q84,78 102,50" stroke="var(--blue)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="66" y="90" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">audio</text>
+                <text x="118" y="54" fill="var(--blue)" font-size="18" opacity="0.6">→</text>
+                <!-- Encoder -->
+                <rect x="135" y="30" width="60" height="38" rx="10" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="1.5"/>
+                <text x="165" y="54" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="12" font-weight="600">enc</text>
+                <text x="210" y="54" fill="var(--blue)" font-size="18" opacity="0.6">→</text>
+                <!-- Vector space -->
+                <rect x="228" y="5" width="350" height="95" rx="14" fill="var(--fg)" fill-opacity="0.02" stroke="var(--muted)" stroke-width="0.8" stroke-dasharray="4"/>
+                <text x="403" y="20" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">espacio de embeddings</text>
+                <!-- Jazz cluster -->
+                <circle cx="285" cy="45" r="7" fill="var(--blue)"/><circle cx="300" cy="58" r="5.5" fill="var(--blue)" opacity="0.5"/><circle cx="275" cy="60" r="5" fill="var(--blue)" opacity="0.4"/><circle cx="293" cy="36" r="4.5" fill="var(--blue)" opacity="0.3"/>
+                <ellipse cx="288" cy="50" rx="28" ry="22" fill="none" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
+                <text x="288" y="82" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="10" font-weight="500">jazz</text>
+                <!-- Rock cluster -->
+                <circle cx="405" cy="40" r="7" fill="var(--amber)"/><circle cx="420" cy="52" r="5.5" fill="var(--amber)" opacity="0.5"/><circle cx="395" cy="54" r="5" fill="var(--amber)" opacity="0.4"/><circle cx="413" cy="32" r="4.5" fill="var(--amber)" opacity="0.3"/>
+                <ellipse cx="408" cy="44" rx="28" ry="22" fill="none" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
+                <text x="408" y="76" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="10" font-weight="500">rock</text>
+                <!-- Classical cluster -->
+                <circle cx="525" cy="50" r="7" fill="var(--teal)"/><circle cx="540" cy="62" r="5.5" fill="var(--teal)" opacity="0.5"/><circle cx="515" cy="64" r="5" fill="var(--teal)" opacity="0.4"/><circle cx="533" cy="40" r="4.5" fill="var(--teal)" opacity="0.3"/>
+                <ellipse cx="528" cy="52" rx="28" ry="22" fill="none" stroke="var(--teal)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
+                <text x="528" y="84" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10" font-weight="500">clásica</text>
+                <!-- Query point -->
+                <circle cx="283" cy="47" r="4" fill="var(--red)" stroke="var(--red)" stroke-width="2">
+                  <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <line x1="223" y1="49" x2="277" y2="47" stroke="var(--red)" stroke-width="1" stroke-dasharray="4"/>
+                <text x="250" y="42" fill="var(--red)" font-family="var(--font)" font-size="9">query</text>
+                <!-- Label -->
+                <text x="300" y="113" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">canciones similares quedan cerca en el espacio</text>
+              </svg>
             </div>
           </div>
           <div class="card-body" id="card-embeddings">
@@ -603,46 +560,8 @@
                   <span>Ejemplos:</span> OpenL3 · YAMNet · VGGish
                 </div>
               </div>
-              <div class="card-col">
-                <div class="diagram-full">
-                  <svg viewBox="0 0 420 280" class="diagram-embeddings">
-                    <!-- Audio input -->
-                    <text x="30" y="25" class="d-label-sm" fill="var(--muted)">Audio</text>
-                    <path d="M15,60 Q30,35 45,60 Q60,85 75,60 Q90,35 105,60" stroke="var(--blue)" fill="none" stroke-width="2"/>
-                    <!-- Arrow -->
-                    <line x1="60" y1="90" x2="60" y2="120" stroke="var(--blue)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
-                    <!-- Encoder -->
-                    <rect x="15" y="125" width="100" height="45" rx="12" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="2"/>
-                    <text x="65" y="150" class="d-label" text-anchor="middle" fill="var(--blue)">Encoder</text>
-                    <text x="65" y="165" class="d-tiny" text-anchor="middle" fill="var(--muted)">CNN / Transformer</text>
-                    <!-- Arrow -->
-                    <line x1="120" y1="148" x2="165" y2="148" stroke="var(--blue)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
-                    <!-- Vector space -->
-                    <rect x="170" y="30" width="230" height="220" rx="16" fill="var(--fg)" fill-opacity="0.02" stroke="var(--muted)" stroke-width="1" stroke-dasharray="5"/>
-                    <text x="285" y="55" class="d-label-sm" text-anchor="middle" fill="var(--muted)">Espacio vectorial</text>
-                    <!-- Cluster 1: Jazz -->
-                    <circle cx="220" cy="100" r="6" fill="var(--blue)"/><text x="230" y="95" class="d-tiny" fill="var(--blue)">jazz</text>
-                    <circle cx="235" cy="115" r="5" fill="var(--blue)" fill-opacity="0.6"/>
-                    <circle cx="210" cy="120" r="5" fill="var(--blue)" fill-opacity="0.6"/>
-                    <ellipse cx="222" cy="112" rx="30" ry="22" fill="none" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3" opacity="0.5"/>
-                    <!-- Cluster 2: Rock -->
-                    <circle cx="320" cy="100" r="6" fill="var(--amber)"/><text x="330" y="95" class="d-tiny" fill="var(--amber)">rock</text>
-                    <circle cx="335" cy="115" r="5" fill="var(--amber)" fill-opacity="0.6"/>
-                    <circle cx="310" cy="118" r="5" fill="var(--amber)" fill-opacity="0.6"/>
-                    <ellipse cx="322" cy="110" rx="30" ry="22" fill="none" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3" opacity="0.5"/>
-                    <!-- Cluster 3: Classical -->
-                    <circle cx="260" cy="190" r="6" fill="var(--teal)"/><text x="270" y="185" class="d-tiny" fill="var(--teal)">clásica</text>
-                    <circle cx="275" cy="200" r="5" fill="var(--teal)" fill-opacity="0.6"/>
-                    <circle cx="250" cy="205" r="5" fill="var(--teal)" fill-opacity="0.6"/>
-                    <ellipse cx="262" cy="198" rx="30" ry="22" fill="none" stroke="var(--teal)" stroke-width="1" stroke-dasharray="3" opacity="0.5"/>
-                    <!-- New point -->
-                    <circle cx="215" cy="105" r="4" fill="var(--red)" stroke="var(--red)" stroke-width="2"/>
-                    <line x1="168" y1="148" x2="213" y2="107" stroke="var(--red)" stroke-width="1" stroke-dasharray="4"/>
-                    <text x="195" y="92" class="d-tiny" fill="var(--red)">query</text>
-                  </svg>
-                </div>
-              </div>
             </div>
+            <div class="audio-examples" data-family="embeddings"></div>
           </div>
         </div>
       </div>
@@ -653,22 +572,49 @@
       <div class="slide-inner">
         <div class="card" data-card="representations">
           <div class="card-header" data-toggle="representations">
-            <div class="card-header-left">
-              <span class="section-tag tag-disc">Discriminativo</span>
-              <h3>Aprendizaje y Análisis de Representaciones</h3>
-              <p class="card-summary">Investiga qué información codifica cada capa de un modelo pre-entrenado. Probes lineales revelan que las capas tempranas capturan acústica y las tardías, semántica.</p>
-            </div>
-            <div class="card-header-right">
-              <svg viewBox="0 0 200 100" class="diagram-thumb">
-                <rect x="10" y="20" width="20" height="60" rx="3" fill="var(--blue)" fill-opacity="0.3"/>
-                <rect x="35" y="15" width="20" height="70" rx="3" fill="var(--blue)" fill-opacity="0.4"/>
-                <rect x="60" y="25" width="20" height="50" rx="3" fill="var(--teal)" fill-opacity="0.4"/>
-                <rect x="85" y="10" width="20" height="80" rx="3" fill="var(--teal)" fill-opacity="0.5"/>
-                <rect x="110" y="30" width="20" height="40" rx="3" fill="var(--amber)" fill-opacity="0.4"/>
-                <rect x="135" y="20" width="20" height="60" rx="3" fill="var(--amber)" fill-opacity="0.5"/>
-                <text x="100" y="95" class="d-tiny" text-anchor="middle" fill="var(--muted)">capa →</text>
-              </svg>
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-disc">Discriminativo</span>
+                <h3>Aprendizaje y Análisis de Representaciones</h3>
+                <p class="card-summary">Investiga qué información codifica cada capa de un modelo pre-entrenado. Probes lineales revelan que las capas tempranas capturan acústica y las tardías, semántica.</p>
+              </div>
               <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 120">
+                <!-- Layer bars with gradient -->
+                <g>
+                  <rect x="55" y="20" width="38" height="55" rx="6" fill="var(--blue)" fill-opacity="0.4"/>
+                  <text x="74" y="88" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">L1</text>
+                  <rect x="103" y="15" width="38" height="60" rx="6" fill="var(--blue)" fill-opacity="0.33"/>
+                  <text x="122" y="88" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">L2</text>
+                  <rect x="151" y="22" width="38" height="53" rx="6" fill="var(--blue)" fill-opacity="0.22"/>
+                  <text x="170" y="88" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">L3</text>
+                  <rect x="199" y="24" width="38" height="51" rx="6" fill="var(--teal)" fill-opacity="0.25"/>
+                  <text x="218" y="88" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">L4</text>
+                  <rect x="247" y="17" width="38" height="58" rx="6" fill="var(--teal)" fill-opacity="0.35"/>
+                  <text x="266" y="88" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">L5</text>
+                  <rect x="295" y="13" width="38" height="62" rx="6" fill="var(--amber)" fill-opacity="0.28"/>
+                  <text x="314" y="88" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">L6</text>
+                  <rect x="343" y="18" width="38" height="57" rx="6" fill="var(--amber)" fill-opacity="0.35"/>
+                  <text x="362" y="88" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">L7</text>
+                  <rect x="391" y="25" width="38" height="50" rx="6" fill="var(--amber)" fill-opacity="0.42"/>
+                  <text x="410" y="88" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="9">L8</text>
+                </g>
+                <!-- Labels -->
+                <text x="55" y="10" fill="var(--blue)" font-family="var(--font)" font-size="11" font-weight="600">🎵 pitch, timbre</text>
+                <text x="340" y="10" fill="var(--amber)" font-family="var(--font)" font-size="11" font-weight="600">🏷️ género, emoción</text>
+                <!-- Gradient bar -->
+                <defs>
+                  <linearGradient id="layerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:var(--blue);stop-opacity:1"/>
+                    <stop offset="50%" style="stop-color:var(--teal);stop-opacity:1"/>
+                    <stop offset="100%" style="stop-color:var(--amber);stop-opacity:1"/>
+                  </linearGradient>
+                </defs>
+                <rect x="55" y="93" width="394" height="3" rx="1.5" fill="url(#layerGrad)" opacity="0.6"/>
+                <text x="252" y="115" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="12" font-weight="500">capas tempranas → acústico · capas tardías → semántico</text>
+              </svg>
             </div>
           </div>
           <div class="card-body" id="card-representations">
@@ -702,50 +648,9 @@
                   <span>Ejemplos:</span> MERT · MuQ · SoniDo
                 </div>
               </div>
-              <div class="card-col">
-                <div class="diagram-full">
-                  <svg viewBox="0 0 420 280" class="diagram-representations">
-                    <!-- Audio input -->
-                    <text x="20" y="25" class="d-label-sm" fill="var(--muted)">Audio</text>
-                    <path d="M10,50 Q25,30 40,50 Q55,70 70,50" stroke="var(--blue)" fill="none" stroke-width="2"/>
-                    <!-- Arrow down -->
-                    <line x1="40" y1="75" x2="40" y2="95" stroke="var(--blue)" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
-                    <!-- Layers stack -->
-                    <rect x="10" y="100" width="70" height="25" rx="5" fill="var(--blue)" fill-opacity="0.25" stroke="var(--blue)" stroke-width="1"/>
-                    <text x="45" y="117" class="d-tiny" text-anchor="middle">Capa 1</text>
-                    <rect x="10" y="130" width="70" height="25" rx="5" fill="var(--blue)" fill-opacity="0.18" stroke="var(--blue)" stroke-width="1"/>
-                    <text x="45" y="147" class="d-tiny" text-anchor="middle">Capa 2</text>
-                    <text x="45" y="170" class="d-tiny" text-anchor="middle" fill="var(--muted)">⋮</text>
-                    <rect x="10" y="178" width="70" height="25" rx="5" fill="var(--amber)" fill-opacity="0.18" stroke="var(--amber)" stroke-width="1"/>
-                    <text x="45" y="195" class="d-tiny" text-anchor="middle">Capa L-1</text>
-                    <rect x="10" y="208" width="70" height="25" rx="5" fill="var(--amber)" fill-opacity="0.25" stroke="var(--amber)" stroke-width="1"/>
-                    <text x="45" y="225" class="d-tiny" text-anchor="middle">Capa L</text>
-                    <!-- Arrows to probes -->
-                    <line x1="85" y1="112" x2="140" y2="112" stroke="var(--blue)" stroke-width="1" marker-end="url(#arrowBlue)"/>
-                    <line x1="85" y1="142" x2="140" y2="142" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3"/>
-                    <line x1="85" y1="190" x2="140" y2="190" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3"/>
-                    <line x1="85" y1="220" x2="140" y2="220" stroke="var(--amber)" stroke-width="1" marker-end="url(#arrowAmber)"/>
-                    <!-- Probes -->
-                    <rect x="145" y="95" width="110" height="35" rx="8" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="1.5"/>
-                    <text x="200" y="117" class="d-label-sm" text-anchor="middle">🎵 Pitch, Timbre</text>
-                    <rect x="145" y="200" width="110" height="35" rx="8" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="1.5"/>
-                    <text x="200" y="222" class="d-label-sm" text-anchor="middle">🏷️ Género, Emoción</text>
-                    <!-- Results -->
-                    <line x1="260" y1="112" x2="290" y2="112" stroke="var(--blue)" stroke-width="1" marker-end="url(#arrowBlue)"/>
-                    <line x1="260" y1="218" x2="290" y2="218" stroke="var(--amber)" stroke-width="1" marker-end="url(#arrowAmber)"/>
-                    <!-- Mini chart area -->
-                    <rect x="295" y="75" width="110" height="180" rx="10" fill="var(--fg)" fill-opacity="0.02" stroke="var(--muted)" stroke-width="1"/>
-                    <text x="350" y="95" class="d-label-sm" text-anchor="middle" fill="var(--muted)">Score vs Capa</text>
-                    <!-- Rising line (acoustic) -->
-                    <polyline points="310,220 325,200 340,180 355,210 370,230 385,240" fill="none" stroke="var(--blue)" stroke-width="2"/>
-                    <!-- Rising line (semantic) -->
-                    <polyline points="310,230 325,225 340,215 355,190 370,160 385,140" fill="none" stroke="var(--amber)" stroke-width="2"/>
-                    <text x="395" y="243" class="d-tiny" fill="var(--blue)">ac.</text>
-                    <text x="395" y="143" class="d-tiny" fill="var(--amber)">sem.</text>
-                  </svg>
-                </div>
-              </div>
             </div>
+
+            <div class="audio-examples" data-family="representations"></div>
 
             <!-- Discriminative plots section -->
             <div class="disc-plots">

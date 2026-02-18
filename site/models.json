@@ -1,0 +1,215 @@
+{
+  "ar": {
+    "label": "Autoregresivo / Token-Based",
+    "models": [
+      {
+        "name": "Music Transformer",
+        "year": 2018,
+        "description": "Transformer con relative attention para generación de piano largo"
+      },
+      {
+        "name": "MusicVAE",
+        "year": 2018,
+        "description": "VAE jerárquico para interpolación y generación de secuencias MIDI"
+      },
+      {
+        "name": "Jukebox",
+        "year": 2020,
+        "description": "VQ-VAE + Transformer para generar audio con voz en crudo"
+      },
+      {
+        "name": "AudioLM",
+        "year": 2022,
+        "description": "Modelado de lenguaje sobre tokens de audio (SoundStream + w2v-BERT)"
+      },
+      {
+        "name": "MusicLM",
+        "year": 2023,
+        "description": "Generación de música a partir de texto, construido sobre AudioLM"
+      },
+      {
+        "name": "MusicGen",
+        "year": 2023,
+        "description": "Transformer de Meta para generación condicionada a texto/melodía"
+      }
+    ],
+    "examples": [
+      {
+        "title": "Music Transformer — Jazz coherente",
+        "model": "Music Transformer",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_transformer/relatively_jazz.mp3",
+        "context": "Generación autónoma estilo jazz con relative attention"
+      },
+      {
+        "title": "MusicVAE — Melodía 16 compases",
+        "model": "MusicVAE",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_vae/mel_16bar-a.mp3",
+        "context": "Generación latent-space de melodías largas con coherencia estructural"
+      }
+    ]
+  },
+  "gan": {
+    "label": "GAN (Generative Adversarial Networks)",
+    "models": [
+      {
+        "name": "GANSynth",
+        "year": 2019,
+        "description": "GAN para síntesis de notas individuales con control de pitch y timbre"
+      },
+      {
+        "name": "WaveGAN",
+        "year": 2019,
+        "description": "GAN que genera waveforms crudas de un segundo"
+      },
+      {
+        "name": "MelGAN",
+        "year": 2019,
+        "description": "Vocoder GAN rápido para síntesis mel-spectrogram → audio"
+      },
+      {
+        "name": "HiFi-GAN",
+        "year": 2020,
+        "description": "Vocoder de alta fidelidad usado en pipelines TTS y música"
+      }
+    ],
+    "examples": [
+      {
+        "title": "GANHarp — Síntesis interactiva",
+        "model": "GANSynth",
+        "year": 2019,
+        "url": "https://magenta.withgoogle.com/assets/demos/ganharp.mp4",
+        "type": "video",
+        "context": "Demo interactiva de síntesis GAN con control en tiempo real"
+      },
+      {
+        "title": "NSynth Super — Interpolación de timbres",
+        "model": "NSynth / GAN",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/demos/nsynth_super.mp4",
+        "type": "video",
+        "context": "Dispositivo físico para explorar el espacio latente de timbres"
+      }
+    ]
+  },
+  "diffusion": {
+    "label": "Difusión",
+    "models": [
+      {
+        "name": "DDSP / Tone Transfer",
+        "year": 2020,
+        "description": "Síntesis diferenciable con transferencia de timbre en tiempo real"
+      },
+      {
+        "name": "DiffWave",
+        "year": 2021,
+        "description": "Modelo de difusión para generación de audio waveform"
+      },
+      {
+        "name": "Riffusion",
+        "year": 2022,
+        "description": "Stable Diffusion fine-tuneado sobre espectrogramas para generar música"
+      },
+      {
+        "name": "AudioLDM2",
+        "year": 2023,
+        "description": "Latent diffusion multi-modal para audio, música y voz"
+      },
+      {
+        "name": "Stable Audio Open",
+        "year": 2024,
+        "description": "Modelo abierto de Stability AI para generación de audio y música"
+      },
+      {
+        "name": "Mustango",
+        "year": 2023,
+        "description": "Text-to-music con control musical explícito (tempo, acorde, instrumento)"
+      }
+    ],
+    "examples": [
+      {
+        "title": "DDSP — Violín a flauta (transferencia de timbre)",
+        "model": "DDSP / Tone Transfer",
+        "year": 2020,
+        "url": "https://storage.googleapis.com/ddsp/timbre_transfer/instruments/violin_flute2.mp3",
+        "context": "Transferencia de timbre: entrada violín → salida flauta"
+      },
+      {
+        "title": "DDSP — Voz cantada transformada",
+        "model": "DDSP / Tone Transfer",
+        "year": 2020,
+        "url": "https://storage.googleapis.com/ddsp/timbre_transfer/singing.mp3",
+        "context": "Voz humana transformada a instrumento vía síntesis diferenciable"
+      }
+    ]
+  },
+  "contrastive": {
+    "label": "Modelado Contrastivo / Asociativo",
+    "models": [
+      {
+        "name": "CLAP",
+        "year": 2023,
+        "description": "Contrastive Language-Audio Pretraining — alinea audio y texto"
+      },
+      {
+        "name": "BYOL-A",
+        "year": 2022,
+        "description": "Self-supervised learning para audio sin negativos explícitos"
+      },
+      {
+        "name": "Wav2CLIP",
+        "year": 2022,
+        "description": "Destilación de CLIP hacia representaciones de audio"
+      }
+    ],
+    "examples": []
+  },
+  "embeddings": {
+    "label": "Espacios Vectoriales (Embeddings)",
+    "models": [
+      {
+        "name": "OpenL3",
+        "year": 2019,
+        "description": "Embeddings audio-visuales aprendidos de video"
+      },
+      {
+        "name": "YAMNet",
+        "year": 2020,
+        "description": "Clasificador de eventos sonoros sobre MobileNet, embeddings reutilizables"
+      },
+      {
+        "name": "VGGish",
+        "year": 2017,
+        "description": "Embeddings de audio basados en VGG entrenado en AudioSet"
+      }
+    ],
+    "examples": []
+  },
+  "representations": {
+    "label": "Aprendizaje y Análisis de Representaciones",
+    "models": [
+      {
+        "name": "MERT",
+        "year": 2023,
+        "description": "Music understanding model pre-entrenado con teacher acústico+musical"
+      },
+      {
+        "name": "MuQ",
+        "year": 2024,
+        "description": "Music understanding quantizer con pre-training multi-tarea"
+      },
+      {
+        "name": "MusicFM",
+        "year": 2024,
+        "description": "Foundation model para música con masked prediction"
+      },
+      {
+        "name": "SoniDo",
+        "year": 2024,
+        "description": "Separación y análisis de fuentes musicales vía representaciones"
+      }
+    ],
+    "examples": []
+  }
+}
