@@ -26,11 +26,11 @@
       <li>
         <a href="#generativo" class="nav-link" data-section="generativo">Generativo</a>
         <ul class="subnav">
-          <li><a href="#ar" class="nav-link" data-section="ar">Autoregresivo</a></li>
-          <li><a href="#gan" class="nav-link" data-section="gan">GAN</a></li>
-          <li><a href="#diffusion" class="nav-link" data-section="diffusion">Difusión</a></li>
           <li><a href="#vae" class="nav-link" data-section="vae">VAE / Flow</a></li>
+          <li><a href="#gan" class="nav-link" data-section="gan">GAN</a></li>
           <li><a href="#ddsp" class="nav-link" data-section="ddsp">Síntesis Neural</a></li>
+          <li><a href="#ar" class="nav-link" data-section="ar">Autoregresivo</a></li>
+          <li><a href="#diffusion" class="nav-link" data-section="diffusion">Difusión</a></li>
         </ul>
       </li>
       <li>
@@ -39,8 +39,8 @@
           <li><a href="#supervised" class="nav-link" data-section="supervised">Supervisado</a></li>
           <li><a href="#selfsupervised" class="nav-link" data-section="selfsupervised">Auto Supervisado</a></li>
           <li><a href="#multimodal" class="nav-link" data-section="multimodal">Multimodal</a></li>
-          <li><a href="#embeddings" class="nav-link" data-section="embeddings">Embeddings</a></li>
           <li><a href="#representations" class="nav-link" data-section="representations">Representaciones</a></li>
+          <li><a href="#embeddings" class="nav-link" data-section="embeddings">Embeddings</a></li>
         </ul>
       </li>
     </ul>
@@ -249,91 +249,92 @@
       </div>
     </section>
 
-    <!-- ━━━ AUTOREGRESIVO ━━━ -->
-    <section class="slide" id="ar">
+    <!-- ━━━ VAE / FLOW ━━━ -->
+    <section class="slide" id="vae">
       <div class="slide-inner">
-        <div class="card" data-card="ar">
-          <div class="card-header" data-toggle="ar">
+        <div class="card" data-card="vae">
+          <div class="card-header" data-toggle="vae">
             <div class="card-header-top">
               <div class="card-header-left">
                 <span class="section-tag tag-gen">Generativo</span>
-                <h3>Autoregresivo / Token-Based</h3>
-                <p class="card-summary">Genera audio o notas token a token, prediciendo el siguiente elemento dado el contexto previo — como un modelo de lenguaje, pero para música.</p>
+                <h3>VAE y Modelos de Flujo</h3>
+                <p class="card-summary">Modelos con espacio latente continuo que permiten interpolación, manipulación de atributos y generación paralela mediante flujos invertibles.</p>
               </div>
               <span class="expand-icon">＋</span>
             </div>
             <div class="card-hero-diagram">
-              <svg viewBox="0 0 600 145">
-                <!-- Musical staff -->
-                <g opacity="0.3">
-                  <line x1="30" y1="30" x2="570" y2="30" stroke="var(--muted)" stroke-width="0.8"/>
-                  <line x1="30" y1="42" x2="570" y2="42" stroke="var(--muted)" stroke-width="0.8"/>
-                  <line x1="30" y1="54" x2="570" y2="54" stroke="var(--muted)" stroke-width="0.8"/>
-                  <line x1="30" y1="66" x2="570" y2="66" stroke="var(--muted)" stroke-width="0.8"/>
-                  <line x1="30" y1="78" x2="570" y2="78" stroke="var(--muted)" stroke-width="0.8"/>
-                </g>
-                <text x="42" y="68" font-size="42" fill="var(--blue)" opacity="0.4" font-family="serif">𝄞</text>
-                <!-- Generated notes on staff -->
-                <g fill="var(--blue)">
-                  <ellipse cx="105" cy="78" rx="8" ry="5.5" transform="rotate(-10,105,78)"/><line x1="113" y1="78" x2="113" y2="42" stroke="var(--blue)" stroke-width="1.8"/>
-                  <ellipse cx="155" cy="60" rx="8" ry="5.5" transform="rotate(-10,155,60)"/><line x1="163" y1="60" x2="163" y2="24" stroke="var(--blue)" stroke-width="1.8"/>
-                  <ellipse cx="205" cy="48" rx="8" ry="5.5" transform="rotate(-10,205,48)"/><line x1="213" y1="48" x2="213" y2="12" stroke="var(--blue)" stroke-width="1.8"/>
-                  <ellipse cx="255" cy="60" rx="8" ry="5.5" transform="rotate(-10,255,60)"/><line x1="263" y1="60" x2="263" y2="24" stroke="var(--blue)" stroke-width="1.8"/>
-                  <ellipse cx="305" cy="36" rx="8" ry="5.5" transform="rotate(-10,305,36)"/><line x1="313" y1="36" x2="313" y2="4" stroke="var(--blue)" stroke-width="1.8"/>
-                  <ellipse cx="355" cy="48" rx="8" ry="5.5" transform="rotate(-10,355,48)"/><line x1="363" y1="48" x2="363" y2="12" stroke="var(--blue)" stroke-width="1.8"/>
-                  <ellipse cx="405" cy="54" rx="8" ry="5.5" transform="rotate(-10,405,54)"/><line x1="413" y1="54" x2="413" y2="18" stroke="var(--blue)" stroke-width="1.8"/>
-                </g>
-                <!-- Next note prediction (amber glow) -->
-                <ellipse cx="455" cy="42" rx="10" ry="7" fill="var(--amber)" fill-opacity="0.15" stroke="var(--amber)" stroke-width="2.5" transform="rotate(-10,455,42)">
-                  <animate attributeName="fill-opacity" values="0.08;0.35;0.08" dur="2s" repeatCount="indefinite"/>
-                </ellipse>
-                <line x1="465" y1="42" x2="465" y2="8" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="5"/>
-                <text x="465" y="5" fill="var(--amber)" font-size="13" text-anchor="middle" font-weight="700">?</text>
-                <!-- Ghost future notes -->
-                <g opacity="0.1">
-                  <ellipse cx="505" cy="66" rx="8" ry="5.5" fill="var(--muted)" transform="rotate(-10,505,66)" stroke="var(--muted)" stroke-width="0.7" stroke-dasharray="3"/>
-                  <ellipse cx="545" cy="54" rx="8" ry="5.5" fill="var(--muted)" transform="rotate(-10,545,54)" stroke="var(--muted)" stroke-width="0.7" stroke-dasharray="3"/>
-                </g>
-                <!-- Prediction arc -->
-                <path d="M418,48 C435,22 445,20 453,38" stroke="var(--amber)" stroke-width="1.5" fill="none" stroke-dasharray="4"/>
-                <polygon points="451,38 456,44 448,44" fill="var(--amber)"/>
-                <!-- Labels -->
-                <text x="300" y="110" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">nota a nota, predice la melodía</text>
-                <text x="300" y="128" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="10">P(tₙ | t₁, t₂ … tₙ₋₁)</text>
+              <svg viewBox="0 0 600 130">
+                <!-- Input waveform -->
+                <path d="M20,55 Q35,30 50,55 Q65,80 80,55" stroke="var(--blue)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="50" y="92" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">audio</text>
+                <!-- Arrow to encoder -->
+                <text x="96" y="58" fill="var(--blue)" font-size="16" opacity="0.5">→</text>
+                <!-- Encoder -->
+                <rect x="112" y="35" width="55" height="38" rx="10" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="1.5"/>
+                <text x="139" y="58" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="12" font-weight="600">Enc</text>
+                <!-- Arrow to latent -->
+                <text x="180" y="58" fill="var(--blue)" font-size="16" opacity="0.5">→</text>
+                <!-- Latent space (central, larger) -->
+                <ellipse cx="300" cy="55" rx="95" ry="48" fill="var(--purple)" fill-opacity="0.03" stroke="var(--purple)" stroke-width="1" stroke-dasharray="4"/>
+                <text x="300" y="20" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="10" opacity="0.6">espacio latente z</text>
+                <!-- Distribution curve (mu, sigma) -->
+                <path d="M240,72 Q260,32 280,55 Q300,78 320,42 Q340,60 360,72" stroke="var(--purple)" fill="none" stroke-width="1.5" opacity="0.35"/>
+                <!-- Dots in latent space -->
+                <circle cx="260" cy="50" r="4" fill="var(--blue)" opacity="0.4"/>
+                <circle cx="285" cy="62" r="3.5" fill="var(--blue)" opacity="0.3"/>
+                <circle cx="310" cy="45" r="4" fill="var(--amber)" opacity="0.4"/>
+                <circle cx="335" cy="58" r="3.5" fill="var(--amber)" opacity="0.3"/>
+                <!-- Interpolation line -->
+                <line x1="262" y1="52" x2="308" y2="47" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="3" opacity="0.5"/>
+                <circle cx="285" cy="49.5" r="3" fill="var(--teal)" stroke="var(--teal)" stroke-width="1.5">
+                  <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <text x="285" y="85" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="9" font-weight="500">interpolación</text>
+                <!-- Arrow to decoder -->
+                <text x="408" y="58" fill="var(--amber)" font-size="16" opacity="0.5">→</text>
+                <!-- Decoder -->
+                <rect x="425" y="35" width="55" height="38" rx="10" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="1.5"/>
+                <text x="452" y="58" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="12" font-weight="600">Dec</text>
+                <!-- Arrow to output -->
+                <text x="492" y="58" fill="var(--amber)" font-size="16" opacity="0.5">→</text>
+                <!-- Output waveform -->
+                <path d="M510,55 Q525,30 540,55 Q555,80 570,55" stroke="var(--amber)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="540" y="92" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="10">reconstruido</text>
+                <!-- Bottom label -->
+                <text x="300" y="120" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">codifica, interpola y decodifica</text>
               </svg>
             </div>
           </div>
-          <div class="card-body" id="card-ar">
+          <div class="card-body" id="card-vae">
             <div class="card-columns">
               <div class="card-col">
                 <h4>Qué es</h4>
-                <p>Un modelo que genera secuencias de forma secuencial, prediciendo cada token (nota, sample codificado, código VQ) basándose en todos los anteriores.</p>
+                <p>Modelos que aprenden un espacio latente continuo y estructurado. Los VAE codifican audio en distribuciones, permitiendo interpolación y manipulación. Los Flows usan transformaciones invertibles para generación paralela.</p>
 
                 <h4>Cómo funciona</h4>
                 <ol>
-                  <li>El audio se tokeniza (MIDI, VQ-VAE codes, espectro discretizado)</li>
-                  <li>Un modelo (RNN, Transformer) aprende P(tₙ | t₁…tₙ₋₁)</li>
-                  <li>En generación, se muestrea token a token</li>
-                  <li>Los tokens se decodifican a audio (synthesizer, vocoder)</li>
-                  <li>El contexto crece con cada paso → memoria limitada</li>
+                  <li>Un encoder comprime el audio en parámetros (μ, σ) de una distribución latente</li>
+                  <li>Se muestrea z ~ N(μ, σ²) usando el reparameterization trick</li>
+                  <li>Un decoder reconstruye audio/MIDI desde z</li>
+                  <li>La loss combina reconstrucción + regularización KL</li>
+                  <li>En Flows: transformaciones invertibles permiten cálculo exacto de likelihood</li>
                 </ol>
 
                 <h4>Fortalezas</h4>
                 <ul>
-                  <li>Excelente coherencia local y continuidad melódica</li>
-                  <li>Escala bien con datos; base de los LLM musicales modernos</li>
+                  <li>Interpolación suave entre estilos y atributos musicales</li>
+                  <li>Espacio latente interpretable; control sobre generación</li>
+                  <li>VQ-VAE/RVQ: base de tokenizadores para modelos de lenguaje</li>
                 </ul>
 
                 <h4>Modos de fallo típicos</h4>
                 <ul>
-                  <li>Repetición o "wandering" en piezas largas</li>
-                  <li>Generación lenta (secuencial por naturaleza)</li>
+                  <li>Reconstrucciones "borrosas" (VAE vanilla)</li>
+                  <li>Posterior collapse: el decoder ignora z</li>
                 </ul>
-
               </div>
             </div>
-            <!-- Audio examples from JSON -->
-            <div class="audio-examples" data-family="ar"></div>
+            <div class="audio-examples" data-family="vae"></div>
           </div>
         </div>
       </div>
@@ -420,6 +421,189 @@
               </div>
             </div>
             <div class="audio-examples" data-family="gan"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ━━━ DDSP / NEURAL SYNTHESIS ━━━ -->
+    <section class="slide" id="ddsp">
+      <div class="slide-inner">
+        <div class="card" data-card="ddsp">
+          <div class="card-header" data-toggle="ddsp">
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-gen">Generativo</span>
+                <h3>Síntesis Neural / DDSP</h3>
+                <p class="card-summary">Combina modelos físicos de síntesis (osciladores, filtros, ruido) con redes neuronales. Control explícito sobre pitch, loudness y timbre con calidad de audio excepcional.</p>
+              </div>
+              <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 130">
+                <!-- Input: audio analysis -->
+                <path d="M20,50 Q35,25 50,50 Q65,75 80,50" stroke="var(--blue)" fill="none" stroke-width="2" stroke-linecap="round"/>
+                <text x="50" y="85" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">audio in</text>
+                <text x="96" y="53" fill="var(--blue)" font-size="14" opacity="0.5">→</text>
+                <!-- Analysis box -->
+                <rect x="110" y="25" width="70" height="50" rx="10" fill="var(--blue)" fill-opacity="0.06" stroke="var(--blue)" stroke-width="1"/>
+                <text x="145" y="44" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="9">f₀</text>
+                <text x="145" y="58" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="9">loudness</text>
+                <text x="145" y="70" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="9">z_timbre</text>
+                <!-- Arrow -->
+                <text x="192" y="53" fill="var(--blue)" font-size="14" opacity="0.5">→</text>
+                <!-- Neural network -->
+                <rect x="208" y="30" width="58" height="40" rx="10" fill="var(--purple)" fill-opacity="0.08" stroke="var(--purple)" stroke-width="1.5"/>
+                <text x="237" y="54" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="11" font-weight="600">NN</text>
+                <!-- Arrows to synth components -->
+                <line x1="270" y1="42" x2="320" y2="32" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3"/>
+                <line x1="270" y1="50" x2="320" y2="55" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3"/>
+                <line x1="270" y1="58" x2="320" y2="78" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3"/>
+                <!-- Harmonic oscillator -->
+                <rect x="322" y="18" width="80" height="26" rx="7" fill="var(--teal)" fill-opacity="0.08" stroke="var(--teal)" stroke-width="1"/>
+                <text x="362" y="35" text-anchor="middle" fill="var(--teal)" font-family="var(--mono)" font-size="9">∑ sin(kω)</text>
+                <text x="362" y="14" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="8" opacity="0.6">harmónico</text>
+                <!-- Noise -->
+                <rect x="322" y="50" width="80" height="22" rx="7" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="1"/>
+                <text x="362" y="65" text-anchor="middle" fill="var(--amber)" font-family="var(--mono)" font-size="9">noise · H(z)</text>
+                <!-- Filter -->
+                <rect x="322" y="78" width="80" height="22" rx="7" fill="var(--red)" fill-opacity="0.06" stroke="var(--red)" stroke-width="1"/>
+                <text x="362" y="93" text-anchor="middle" fill="var(--red)" font-family="var(--mono)" font-size="9">reverb</text>
+                <!-- Sum -->
+                <line x1="406" y1="31" x2="440" y2="50" stroke="var(--muted)" stroke-width="1"/>
+                <line x1="406" y1="61" x2="440" y2="50" stroke="var(--muted)" stroke-width="1"/>
+                <line x1="406" y1="89" x2="440" y2="55" stroke="var(--muted)" stroke-width="1"/>
+                <circle cx="450" cy="52" r="12" fill="var(--teal)" fill-opacity="0.06" stroke="var(--teal)" stroke-width="1.5"/>
+                <text x="450" y="56" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="14" font-weight="700">Σ</text>
+                <!-- Output -->
+                <text x="474" y="55" fill="var(--teal)" font-size="14" opacity="0.5">→</text>
+                <path d="M490,52 Q505,30 520,52 Q535,74 550,52" stroke="var(--teal)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="520" y="85" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10">audio out</text>
+                <!-- Bottom label -->
+                <text x="300" y="120" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">sintetizadores diferenciables con control explícito</text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body" id="card-ddsp">
+            <div class="card-columns">
+              <div class="card-col">
+                <h4>Qué es</h4>
+                <p>Un paradigma que integra componentes clásicos de síntesis de audio (osciladores armónicos, ruido filtrado, reverberación) como operaciones diferenciables dentro de una red neuronal.</p>
+
+                <h4>Cómo funciona</h4>
+                <ol>
+                  <li>Se analiza el audio de entrada: pitch (f₀), loudness, y opcionalmente timbre</li>
+                  <li>Una red neuronal predice parámetros de síntesis a partir de estas features</li>
+                  <li>Componentes diferenciables generan audio: oscilador harmónico + ruido + filtro</li>
+                  <li>La loss se calcula sobre espectrogramas multi-escala (spectral loss)</li>
+                  <li>El modelo aprende a reconstruir/transferir timbres con control explícito</li>
+                </ol>
+
+                <h4>Fortalezas</h4>
+                <ul>
+                  <li>Control explícito sobre pitch, timbre y dinámica — interpretable</li>
+                  <li>Transferencia de timbre en tiempo real (Tone Transfer)</li>
+                  <li>Mucho más eficiente que modelos puramente neurales</li>
+                </ul>
+
+                <h4>Modos de fallo típicos</h4>
+                <ul>
+                  <li>Limitado a sonidos quasi-harmónicos (no percusión compleja)</li>
+                  <li>Requiere buen tracking de pitch como entrada</li>
+                </ul>
+              </div>
+            </div>
+            <div class="audio-examples" data-family="ddsp"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ━━━ AUTOREGRESIVO ━━━ -->
+    <section class="slide" id="ar">
+      <div class="slide-inner">
+        <div class="card" data-card="ar">
+          <div class="card-header" data-toggle="ar">
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-gen">Generativo</span>
+                <h3>Autoregresivo / Token-Based</h3>
+                <p class="card-summary">Genera audio o notas token a token, prediciendo el siguiente elemento dado el contexto previo — como un modelo de lenguaje, pero para música.</p>
+              </div>
+              <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 145">
+                <!-- Musical staff -->
+                <g opacity="0.3">
+                  <line x1="30" y1="30" x2="570" y2="30" stroke="var(--muted)" stroke-width="0.8"/>
+                  <line x1="30" y1="42" x2="570" y2="42" stroke="var(--muted)" stroke-width="0.8"/>
+                  <line x1="30" y1="54" x2="570" y2="54" stroke="var(--muted)" stroke-width="0.8"/>
+                  <line x1="30" y1="66" x2="570" y2="66" stroke="var(--muted)" stroke-width="0.8"/>
+                  <line x1="30" y1="78" x2="570" y2="78" stroke="var(--muted)" stroke-width="0.8"/>
+                </g>
+                <text x="42" y="68" font-size="42" fill="var(--blue)" opacity="0.4" font-family="serif">𝄞</text>
+                <!-- Generated notes on staff -->
+                <g fill="var(--blue)">
+                  <ellipse cx="105" cy="78" rx="8" ry="5.5" transform="rotate(-10,105,78)"/><line x1="113" y1="78" x2="113" y2="42" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="155" cy="60" rx="8" ry="5.5" transform="rotate(-10,155,60)"/><line x1="163" y1="60" x2="163" y2="24" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="205" cy="48" rx="8" ry="5.5" transform="rotate(-10,205,48)"/><line x1="213" y1="48" x2="213" y2="12" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="255" cy="60" rx="8" ry="5.5" transform="rotate(-10,255,60)"/><line x1="263" y1="60" x2="263" y2="24" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="305" cy="36" rx="8" ry="5.5" transform="rotate(-10,305,36)"/><line x1="313" y1="36" x2="313" y2="4" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="355" cy="48" rx="8" ry="5.5" transform="rotate(-10,355,48)"/><line x1="363" y1="48" x2="363" y2="12" stroke="var(--blue)" stroke-width="1.8"/>
+                  <ellipse cx="405" cy="54" rx="8" ry="5.5" transform="rotate(-10,405,54)"/><line x1="413" y1="54" x2="413" y2="18" stroke="var(--blue)" stroke-width="1.8"/>
+                </g>
+                <!-- Next note prediction (amber glow) -->
+                <ellipse cx="455" cy="42" rx="10" ry="7" fill="var(--amber)" fill-opacity="0.15" stroke="var(--amber)" stroke-width="2.5" transform="rotate(-10,455,42)">
+                  <animate attributeName="fill-opacity" values="0.08;0.35;0.08" dur="2s" repeatCount="indefinite"/>
+                </ellipse>
+                <line x1="465" y1="42" x2="465" y2="8" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="5"/>
+                <text x="465" y="5" fill="var(--amber)" font-size="13" text-anchor="middle" font-weight="700">?</text>
+                <!-- Ghost future notes -->
+                <g opacity="0.1">
+                  <ellipse cx="505" cy="66" rx="8" ry="5.5" fill="var(--muted)" transform="rotate(-10,505,66)" stroke="var(--muted)" stroke-width="0.7" stroke-dasharray="3"/>
+                  <ellipse cx="545" cy="54" rx="8" ry="5.5" fill="var(--muted)" transform="rotate(-10,545,54)" stroke="var(--muted)" stroke-width="0.7" stroke-dasharray="3"/>
+                </g>
+                <!-- Prediction arc -->
+                <path d="M418,48 C435,22 445,20 453,38" stroke="var(--amber)" stroke-width="1.5" fill="none" stroke-dasharray="4"/>
+                <polygon points="451,38 456,44 448,44" fill="var(--amber)"/>
+                <!-- Labels -->
+                <text x="300" y="110" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">nota a nota, predice la melodía</text>
+                <text x="300" y="128" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="10">P(tₙ | t₁, t₂ … tₙ₋₁)</text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body" id="card-ar">
+            <div class="card-columns">
+              <div class="card-col">
+                <h4>Qué es</h4>
+                <p>Un modelo que genera secuencias de forma secuencial, prediciendo cada token (nota, sample codificado, código VQ) basándose en todos los anteriores.</p>
+
+                <h4>Cómo funciona</h4>
+                <ol>
+                  <li>El audio se tokeniza (MIDI, VQ-VAE codes, espectro discretizado)</li>
+                  <li>Un modelo (RNN, Transformer) aprende P(tₙ | t₁…tₙ₋₁)</li>
+                  <li>En generación, se muestrea token a token</li>
+                  <li>Los tokens se decodifican a audio (synthesizer, vocoder)</li>
+                  <li>El contexto crece con cada paso → memoria limitada</li>
+                </ol>
+
+                <h4>Fortalezas</h4>
+                <ul>
+                  <li>Excelente coherencia local y continuidad melódica</li>
+                  <li>Escala bien con datos; base de los LLM musicales modernos</li>
+                </ul>
+
+                <h4>Modos de fallo típicos</h4>
+                <ul>
+                  <li>Repetición o "wandering" en piezas largas</li>
+                  <li>Generación lenta (secuencial por naturaleza)</li>
+                </ul>
+
+              </div>
+            </div>
+            <!-- Audio examples from JSON -->
+            <div class="audio-examples" data-family="ar"></div>
           </div>
         </div>
       </div>
@@ -525,190 +709,6 @@
               </div>
             </div>
             <div class="audio-examples" data-family="diffusion"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ━━━ VAE / FLOW ━━━ -->
-    <section class="slide" id="vae">
-      <div class="slide-inner">
-        <div class="card" data-card="vae">
-          <div class="card-header" data-toggle="vae">
-            <div class="card-header-top">
-              <div class="card-header-left">
-                <span class="section-tag tag-gen">Generativo</span>
-                <h3>VAE y Modelos de Flujo</h3>
-                <p class="card-summary">Modelos con espacio latente continuo que permiten interpolación, manipulación de atributos y generación paralela mediante flujos invertibles.</p>
-              </div>
-              <span class="expand-icon">＋</span>
-            </div>
-            <div class="card-hero-diagram">
-              <svg viewBox="0 0 600 130">
-                <!-- Input waveform -->
-                <path d="M20,55 Q35,30 50,55 Q65,80 80,55" stroke="var(--blue)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
-                <text x="50" y="92" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">audio</text>
-                <!-- Arrow to encoder -->
-                <text x="96" y="58" fill="var(--blue)" font-size="16" opacity="0.5">→</text>
-                <!-- Encoder -->
-                <rect x="112" y="35" width="55" height="38" rx="10" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="1.5"/>
-                <text x="139" y="58" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="12" font-weight="600">Enc</text>
-                <!-- Arrow to latent -->
-                <text x="180" y="58" fill="var(--blue)" font-size="16" opacity="0.5">→</text>
-                <!-- Latent space (central, larger) -->
-                <ellipse cx="300" cy="55" rx="95" ry="48" fill="var(--purple)" fill-opacity="0.03" stroke="var(--purple)" stroke-width="1" stroke-dasharray="4"/>
-                <text x="300" y="20" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="10" opacity="0.6">espacio latente z</text>
-                <!-- Distribution curve (mu, sigma) -->
-                <path d="M240,72 Q260,32 280,55 Q300,78 320,42 Q340,60 360,72" stroke="var(--purple)" fill="none" stroke-width="1.5" opacity="0.35"/>
-                <!-- Dots in latent space -->
-                <circle cx="260" cy="50" r="4" fill="var(--blue)" opacity="0.4"/>
-                <circle cx="285" cy="62" r="3.5" fill="var(--blue)" opacity="0.3"/>
-                <circle cx="310" cy="45" r="4" fill="var(--amber)" opacity="0.4"/>
-                <circle cx="335" cy="58" r="3.5" fill="var(--amber)" opacity="0.3"/>
-                <!-- Interpolation line -->
-                <line x1="262" y1="52" x2="308" y2="47" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="3" opacity="0.5"/>
-                <circle cx="285" cy="49.5" r="3" fill="var(--teal)" stroke="var(--teal)" stroke-width="1.5">
-                  <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
-                </circle>
-                <text x="285" y="85" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="9" font-weight="500">interpolación</text>
-                <!-- Arrow to decoder -->
-                <text x="408" y="58" fill="var(--amber)" font-size="16" opacity="0.5">→</text>
-                <!-- Decoder -->
-                <rect x="425" y="35" width="55" height="38" rx="10" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="1.5"/>
-                <text x="452" y="58" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="12" font-weight="600">Dec</text>
-                <!-- Arrow to output -->
-                <text x="492" y="58" fill="var(--amber)" font-size="16" opacity="0.5">→</text>
-                <!-- Output waveform -->
-                <path d="M510,55 Q525,30 540,55 Q555,80 570,55" stroke="var(--amber)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
-                <text x="540" y="92" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="10">reconstruido</text>
-                <!-- Bottom label -->
-                <text x="300" y="120" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">codifica, interpola y decodifica</text>
-              </svg>
-            </div>
-          </div>
-          <div class="card-body" id="card-vae">
-            <div class="card-columns">
-              <div class="card-col">
-                <h4>Qué es</h4>
-                <p>Modelos que aprenden un espacio latente continuo y estructurado. Los VAE codifican audio en distribuciones, permitiendo interpolación y manipulación. Los Flows usan transformaciones invertibles para generación paralela.</p>
-
-                <h4>Cómo funciona</h4>
-                <ol>
-                  <li>Un encoder comprime el audio en parámetros (μ, σ) de una distribución latente</li>
-                  <li>Se muestrea z ~ N(μ, σ²) usando el reparameterization trick</li>
-                  <li>Un decoder reconstruye audio/MIDI desde z</li>
-                  <li>La loss combina reconstrucción + regularización KL</li>
-                  <li>En Flows: transformaciones invertibles permiten cálculo exacto de likelihood</li>
-                </ol>
-
-                <h4>Fortalezas</h4>
-                <ul>
-                  <li>Interpolación suave entre estilos y atributos musicales</li>
-                  <li>Espacio latente interpretable; control sobre generación</li>
-                  <li>VQ-VAE/RVQ: base de tokenizadores para modelos de lenguaje</li>
-                </ul>
-
-                <h4>Modos de fallo típicos</h4>
-                <ul>
-                  <li>Reconstrucciones "borrosas" (VAE vanilla)</li>
-                  <li>Posterior collapse: el decoder ignora z</li>
-                </ul>
-              </div>
-            </div>
-            <div class="audio-examples" data-family="vae"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ━━━ DDSP / NEURAL SYNTHESIS ━━━ -->
-    <section class="slide" id="ddsp">
-      <div class="slide-inner">
-        <div class="card" data-card="ddsp">
-          <div class="card-header" data-toggle="ddsp">
-            <div class="card-header-top">
-              <div class="card-header-left">
-                <span class="section-tag tag-gen">Generativo</span>
-                <h3>Síntesis Neural / DDSP</h3>
-                <p class="card-summary">Combina modelos físicos de síntesis (osciladores, filtros, ruido) con redes neuronales. Control explícito sobre pitch, loudness y timbre con calidad de audio excepcional.</p>
-              </div>
-              <span class="expand-icon">＋</span>
-            </div>
-            <div class="card-hero-diagram">
-              <svg viewBox="0 0 600 130">
-                <!-- Input: audio analysis -->
-                <path d="M20,50 Q35,25 50,50 Q65,75 80,50" stroke="var(--blue)" fill="none" stroke-width="2" stroke-linecap="round"/>
-                <text x="50" y="85" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">audio in</text>
-                <text x="96" y="53" fill="var(--blue)" font-size="14" opacity="0.5">→</text>
-                <!-- Analysis box -->
-                <rect x="110" y="25" width="70" height="50" rx="10" fill="var(--blue)" fill-opacity="0.06" stroke="var(--blue)" stroke-width="1"/>
-                <text x="145" y="44" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="9">f₀</text>
-                <text x="145" y="58" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="9">loudness</text>
-                <text x="145" y="70" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="9">z_timbre</text>
-                <!-- Arrow -->
-                <text x="192" y="53" fill="var(--blue)" font-size="14" opacity="0.5">→</text>
-                <!-- Neural network -->
-                <rect x="208" y="30" width="58" height="40" rx="10" fill="var(--purple)" fill-opacity="0.08" stroke="var(--purple)" stroke-width="1.5"/>
-                <text x="237" y="54" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="11" font-weight="600">NN</text>
-                <!-- Arrows to synth components -->
-                <line x1="270" y1="42" x2="320" y2="32" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3"/>
-                <line x1="270" y1="50" x2="320" y2="55" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3"/>
-                <line x1="270" y1="58" x2="320" y2="78" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3"/>
-                <!-- Harmonic oscillator -->
-                <rect x="322" y="18" width="80" height="26" rx="7" fill="var(--teal)" fill-opacity="0.08" stroke="var(--teal)" stroke-width="1"/>
-                <text x="362" y="35" text-anchor="middle" fill="var(--teal)" font-family="var(--mono)" font-size="9">∑ sin(kω)</text>
-                <text x="362" y="14" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="8" opacity="0.6">harmónico</text>
-                <!-- Noise -->
-                <rect x="322" y="50" width="80" height="22" rx="7" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="1"/>
-                <text x="362" y="65" text-anchor="middle" fill="var(--amber)" font-family="var(--mono)" font-size="9">noise · H(z)</text>
-                <!-- Filter -->
-                <rect x="322" y="78" width="80" height="22" rx="7" fill="var(--red)" fill-opacity="0.06" stroke="var(--red)" stroke-width="1"/>
-                <text x="362" y="93" text-anchor="middle" fill="var(--red)" font-family="var(--mono)" font-size="9">reverb</text>
-                <!-- Sum -->
-                <line x1="406" y1="31" x2="440" y2="50" stroke="var(--muted)" stroke-width="1"/>
-                <line x1="406" y1="61" x2="440" y2="50" stroke="var(--muted)" stroke-width="1"/>
-                <line x1="406" y1="89" x2="440" y2="55" stroke="var(--muted)" stroke-width="1"/>
-                <circle cx="450" cy="52" r="12" fill="var(--teal)" fill-opacity="0.06" stroke="var(--teal)" stroke-width="1.5"/>
-                <text x="450" y="56" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="14" font-weight="700">Σ</text>
-                <!-- Output -->
-                <text x="474" y="55" fill="var(--teal)" font-size="14" opacity="0.5">→</text>
-                <path d="M490,52 Q505,30 520,52 Q535,74 550,52" stroke="var(--teal)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
-                <text x="520" y="85" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10">audio out</text>
-                <!-- Bottom label -->
-                <text x="300" y="120" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">sintetizadores diferenciables con control explícito</text>
-              </svg>
-            </div>
-          </div>
-          <div class="card-body" id="card-ddsp">
-            <div class="card-columns">
-              <div class="card-col">
-                <h4>Qué es</h4>
-                <p>Un paradigma que integra componentes clásicos de síntesis de audio (osciladores armónicos, ruido filtrado, reverberación) como operaciones diferenciables dentro de una red neuronal.</p>
-
-                <h4>Cómo funciona</h4>
-                <ol>
-                  <li>Se analiza el audio de entrada: pitch (f₀), loudness, y opcionalmente timbre</li>
-                  <li>Una red neuronal predice parámetros de síntesis a partir de estas features</li>
-                  <li>Componentes diferenciables generan audio: oscilador harmónico + ruido + filtro</li>
-                  <li>La loss se calcula sobre espectrogramas multi-escala (spectral loss)</li>
-                  <li>El modelo aprende a reconstruir/transferir timbres con control explícito</li>
-                </ol>
-
-                <h4>Fortalezas</h4>
-                <ul>
-                  <li>Control explícito sobre pitch, timbre y dinámica — interpretable</li>
-                  <li>Transferencia de timbre en tiempo real (Tone Transfer)</li>
-                  <li>Mucho más eficiente que modelos puramente neurales</li>
-                </ul>
-
-                <h4>Modos de fallo típicos</h4>
-                <ul>
-                  <li>Limitado a sonidos quasi-harmónicos (no percusión compleja)</li>
-                  <li>Requiere buen tracking de pitch como entrada</li>
-                </ul>
-              </div>
-            </div>
-            <div class="audio-examples" data-family="ddsp"></div>
           </div>
         </div>
       </div>
@@ -1037,97 +1037,6 @@
       </div>
     </section>
 
-    <!-- ━━━ EMBEDDINGS ━━━ -->
-    <section class="slide" id="embeddings">
-      <div class="slide-inner">
-        <div class="card" data-card="embeddings">
-          <div class="card-header" data-toggle="embeddings">
-            <div class="card-header-top">
-              <div class="card-header-left">
-                <span class="section-tag tag-disc">Discriminativo</span>
-                <h3>Generación de Espacio Vectorial (Embeddings)</h3>
-                <p class="card-summary">Extrae embeddings de audio con modelos pre-entrenados y los usa para analizar estructura musical: matrices de auto-similitud, recurrencia y detección de secciones.</p>
-              </div>
-              <span class="expand-icon">＋</span>
-            </div>
-            <div class="card-hero-diagram">
-              <svg viewBox="0 0 600 120">
-                <!-- Waveform input -->
-                <path d="M30,50 Q48,22 66,50 Q84,78 102,50" stroke="var(--blue)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
-                <text x="66" y="90" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">audio</text>
-                <text x="118" y="54" fill="var(--blue)" font-size="18" opacity="0.6">→</text>
-                <!-- Encoder -->
-                <rect x="135" y="30" width="60" height="38" rx="10" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="1.5"/>
-                <text x="165" y="54" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="12" font-weight="600">enc</text>
-                <text x="210" y="54" fill="var(--blue)" font-size="18" opacity="0.6">→</text>
-                <!-- Vector space -->
-                <rect x="228" y="5" width="350" height="95" rx="14" fill="var(--fg)" fill-opacity="0.02" stroke="var(--muted)" stroke-width="0.8" stroke-dasharray="4"/>
-                <text x="403" y="20" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">espacio de embeddings</text>
-                <!-- Jazz cluster -->
-                <circle cx="285" cy="45" r="7" fill="var(--blue)"/><circle cx="300" cy="58" r="5.5" fill="var(--blue)" opacity="0.5"/><circle cx="275" cy="60" r="5" fill="var(--blue)" opacity="0.4"/><circle cx="293" cy="36" r="4.5" fill="var(--blue)" opacity="0.3"/>
-                <ellipse cx="288" cy="50" rx="28" ry="22" fill="none" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
-                <text x="288" y="82" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="10" font-weight="500">jazz</text>
-                <!-- Rock cluster -->
-                <circle cx="405" cy="40" r="7" fill="var(--amber)"/><circle cx="420" cy="52" r="5.5" fill="var(--amber)" opacity="0.5"/><circle cx="395" cy="54" r="5" fill="var(--amber)" opacity="0.4"/><circle cx="413" cy="32" r="4.5" fill="var(--amber)" opacity="0.3"/>
-                <ellipse cx="408" cy="44" rx="28" ry="22" fill="none" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
-                <text x="408" y="76" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="10" font-weight="500">rock</text>
-                <!-- Classical cluster -->
-                <circle cx="525" cy="50" r="7" fill="var(--teal)"/><circle cx="540" cy="62" r="5.5" fill="var(--teal)" opacity="0.5"/><circle cx="515" cy="64" r="5" fill="var(--teal)" opacity="0.4"/><circle cx="533" cy="40" r="4.5" fill="var(--teal)" opacity="0.3"/>
-                <ellipse cx="528" cy="52" rx="28" ry="22" fill="none" stroke="var(--teal)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
-                <text x="528" y="84" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10" font-weight="500">clásica</text>
-                <!-- Query point -->
-                <circle cx="283" cy="47" r="4" fill="var(--red)" stroke="var(--red)" stroke-width="2">
-                  <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
-                </circle>
-                <line x1="223" y1="49" x2="277" y2="47" stroke="var(--red)" stroke-width="1" stroke-dasharray="4"/>
-                <text x="250" y="42" fill="var(--red)" font-family="var(--font)" font-size="9">query</text>
-                <!-- Label -->
-                <text x="300" y="113" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">canciones similares quedan cerca en el espacio</text>
-              </svg>
-            </div>
-          </div>
-          <div class="card-body" id="card-embeddings">
-            <div class="card-columns">
-              <div class="card-col">
-                <h4>Qué es</h4>
-                <p>El proceso de generar representaciones vectoriales de audio usando modelos SSL pre-entrenados (como MuQ) y analizar su estructura temporal. Los embeddings capturan información musical que permite descubrir la forma de una pieza.</p>
-
-                <h4>Pipeline de análisis</h4>
-                <ol>
-                  <li>Se descarga o carga un audio (WAV 16kHz mono)</li>
-                  <li>Se pasa por un modelo pre-entrenado (MuQ) para obtener embeddings por frame</li>
-                  <li>Se calcula la matriz de auto-similitud coseno entre todos los frames</li>
-                  <li>Se construye la recurrence matrix (k-NN binarizada, librosa)</li>
-                  <li>Agglomerative clustering detecta secciones musicales (verso, estribillo, puente…)</li>
-                  <li>La curva de novedad muestra cambios: picos = transiciones de sección</li>
-                </ol>
-
-                <h4>Qué revela</h4>
-                <ul>
-                  <li>La diagonal principal = auto-similitud (siempre alta)</li>
-                  <li>Bloques fuera de la diagonal = secciones que se repiten (forma ABA, AABB…)</li>
-                  <li>La curva de novedad marca transiciones entre secciones</li>
-                </ul>
-
-              </div>
-            </div>
-
-            <!-- Heatmap images generated by embedding_demo.py -->
-            <div class="embedding-heatmaps">
-              <h4>📊 Demo: Análisis con MERT (auto-similitud + recurrencia)</h4>
-              <p class="plot-method-note"><strong>Audio:</strong> Jazz snippet (60s) · <strong>Modelo:</strong> MERT-v1-95M (capa 7 de 13) · <strong>Features:</strong> 4499 frames × 768 dims</p>
-              <div class="heatmap-gallery">
-                <img src="embedding_analysis.png" alt="Matriz de auto-similitud, recurrencia y novedad" class="heatmap-img" loading="lazy">
-                <img src="layer_comparison.png" alt="Comparación de capas: acústico vs semántico" class="heatmap-img" loading="lazy">
-              </div>
-            </div>
-
-            <div class="audio-examples" data-family="embeddings"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ━━━ REPRESENTATIONS ━━━ -->
     <section class="slide" id="representations">
       <div class="slide-inner">
@@ -1228,6 +1137,135 @@
       </div>
     </section>
 
+    <!-- ━━━ EMBEDDINGS ━━━ -->
+    <section class="slide" id="embeddings">
+      <div class="slide-inner">
+        <div class="card" data-card="embeddings">
+          <div class="card-header" data-toggle="embeddings">
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-disc">Discriminativo</span>
+                <h3>Generación de Espacio Vectorial (Embeddings)</h3>
+                <p class="card-summary">Extrae embeddings de audio con modelos pre-entrenados y los usa para analizar estructura musical: matrices de auto-similitud, recurrencia y detección de secciones.</p>
+              </div>
+              <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 120">
+                <!-- Waveform input -->
+                <path d="M30,50 Q48,22 66,50 Q84,78 102,50" stroke="var(--blue)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="66" y="90" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">audio</text>
+                <text x="118" y="54" fill="var(--blue)" font-size="18" opacity="0.6">→</text>
+                <!-- Encoder -->
+                <rect x="135" y="30" width="60" height="38" rx="10" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="1.5"/>
+                <text x="165" y="54" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="12" font-weight="600">enc</text>
+                <text x="210" y="54" fill="var(--blue)" font-size="18" opacity="0.6">→</text>
+                <!-- Vector space -->
+                <rect x="228" y="5" width="350" height="95" rx="14" fill="var(--fg)" fill-opacity="0.02" stroke="var(--muted)" stroke-width="0.8" stroke-dasharray="4"/>
+                <text x="403" y="20" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">espacio de embeddings</text>
+                <!-- Jazz cluster -->
+                <circle cx="285" cy="45" r="7" fill="var(--blue)"/><circle cx="300" cy="58" r="5.5" fill="var(--blue)" opacity="0.5"/><circle cx="275" cy="60" r="5" fill="var(--blue)" opacity="0.4"/><circle cx="293" cy="36" r="4.5" fill="var(--blue)" opacity="0.3"/>
+                <ellipse cx="288" cy="50" rx="28" ry="22" fill="none" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
+                <text x="288" y="82" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="10" font-weight="500">jazz</text>
+                <!-- Rock cluster -->
+                <circle cx="405" cy="40" r="7" fill="var(--amber)"/><circle cx="420" cy="52" r="5.5" fill="var(--amber)" opacity="0.5"/><circle cx="395" cy="54" r="5" fill="var(--amber)" opacity="0.4"/><circle cx="413" cy="32" r="4.5" fill="var(--amber)" opacity="0.3"/>
+                <ellipse cx="408" cy="44" rx="28" ry="22" fill="none" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
+                <text x="408" y="76" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="10" font-weight="500">rock</text>
+                <!-- Classical cluster -->
+                <circle cx="525" cy="50" r="7" fill="var(--teal)"/><circle cx="540" cy="62" r="5.5" fill="var(--teal)" opacity="0.5"/><circle cx="515" cy="64" r="5" fill="var(--teal)" opacity="0.4"/><circle cx="533" cy="40" r="4.5" fill="var(--teal)" opacity="0.3"/>
+                <ellipse cx="528" cy="52" rx="28" ry="22" fill="none" stroke="var(--teal)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
+                <text x="528" y="84" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10" font-weight="500">clásica</text>
+                <!-- Query point -->
+                <circle cx="283" cy="47" r="4" fill="var(--red)" stroke="var(--red)" stroke-width="2">
+                  <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <line x1="223" y1="49" x2="277" y2="47" stroke="var(--red)" stroke-width="1" stroke-dasharray="4"/>
+                <text x="250" y="42" fill="var(--red)" font-family="var(--font)" font-size="9">query</text>
+                <!-- Label -->
+                <text x="300" y="113" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">canciones similares quedan cerca en el espacio</text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body" id="card-embeddings">
+            <div class="card-columns">
+              <div class="card-col">
+                <h4>Qué es</h4>
+                <p>El proceso de generar representaciones vectoriales de audio usando modelos SSL pre-entrenados (como MuQ) y analizar su estructura temporal. Los embeddings capturan información musical que permite descubrir la forma de una pieza.</p>
+
+                <h4>Pipeline de análisis</h4>
+                <ol>
+                  <li>Se descarga o carga un audio (WAV 16kHz mono)</li>
+                  <li>Se pasa por un modelo pre-entrenado (MuQ) para obtener embeddings por frame</li>
+                  <li>Se calcula la matriz de auto-similitud coseno entre todos los frames</li>
+                  <li>Se construye la recurrence matrix (k-NN binarizada, librosa)</li>
+                  <li>Agglomerative clustering detecta secciones musicales (verso, estribillo, puente…)</li>
+                  <li>La curva de novedad muestra cambios: picos = transiciones de sección</li>
+                </ol>
+
+                <h4>Qué revela</h4>
+                <ul>
+                  <li>La diagonal principal = auto-similitud (siempre alta)</li>
+                  <li>Bloques fuera de la diagonal = secciones que se repiten (forma ABA, AABB…)</li>
+                  <li>La curva de novedad marca transiciones entre secciones</li>
+                </ul>
+
+              </div>
+            </div>
+
+            <!-- Heatmap images generated by embedding_demo.py -->
+            <div class="embedding-heatmaps">
+              <h4>📊 Demo: Análisis con MERT (auto-similitud + recurrencia)</h4>
+              <p class="plot-method-note"><strong>Audio:</strong> Jazz snippet (60s) · <strong>Modelo:</strong> MERT-v1-95M (capa 7 de 13) · <strong>Features:</strong> 4499 frames × 768 dims</p>
+              <div class="heatmap-gallery">
+                <img src="embedding_analysis.png" alt="Matriz de auto-similitud, recurrencia y novedad" class="heatmap-img" loading="lazy">
+                <img src="layer_comparison.png" alt="Comparación de capas: acústico vs semántico" class="heatmap-img" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Layer-wise recurrence matrix carousel with Mozart audio -->
+            <div class="layer-carousel">
+              <h4>🎹 Matrices de recurrencia por capa — Mozart K.525 (MuQ)</h4>
+              <p class="plot-method-note"><strong>Audio:</strong> Mozart — Sinfonía N.º 25 · <strong>Modelo:</strong> MuQ (13 capas) · Cada capa revela distintos niveles de estructura musical.</p>
+
+              <div class="layer-carousel-audio">
+                <label>🔊 Escuchá mientras explorás las capas:</label>
+                <audio controls preload="none" style="border-radius:8px;">
+                  <source src="Mozart25.wav" type="audio/wav">
+                  No soportado
+                </audio>
+              </div>
+
+              <div class="carousel-wrapper">
+                <div class="carousel-img-container" id="layerCarousel">
+                  <img src="layers/similarity_layer_00.png" alt="Capa 0" class="active" data-layer="0">
+                  <img src="layers/similarity_layer_01.png" alt="Capa 1" data-layer="1" loading="lazy">
+                  <img src="layers/similarity_layer_02.png" alt="Capa 2" data-layer="2" loading="lazy">
+                  <img src="layers/similarity_layer_03.png" alt="Capa 3" data-layer="3" loading="lazy">
+                  <img src="layers/similarity_layer_04.png" alt="Capa 4" data-layer="4" loading="lazy">
+                  <img src="layers/similarity_layer_05.png" alt="Capa 5" data-layer="5" loading="lazy">
+                  <img src="layers/similarity_layer_06.png" alt="Capa 6" data-layer="6" loading="lazy">
+                  <img src="layers/similarity_layer_07.png" alt="Capa 7" data-layer="7" loading="lazy">
+                  <img src="layers/similarity_layer_08.png" alt="Capa 8" data-layer="8" loading="lazy">
+                  <img src="layers/similarity_layer_09.png" alt="Capa 9" data-layer="9" loading="lazy">
+                  <img src="layers/similarity_layer_10.png" alt="Capa 10" data-layer="10" loading="lazy">
+                  <img src="layers/similarity_layer_11.png" alt="Capa 11" data-layer="11" loading="lazy">
+                  <img src="layers/similarity_layer_12.png" alt="Capa 12" data-layer="12" loading="lazy">
+                </div>
+                <div class="carousel-controls">
+                  <button class="carousel-btn" id="layerPrev" title="Capa anterior">◀</button>
+                  <input type="range" class="carousel-slider" id="layerSlider" min="0" max="12" value="0" step="1">
+                  <button class="carousel-btn" id="layerNext" title="Capa siguiente">▶</button>
+                </div>
+                <div class="carousel-label" id="layerLabel">Capa 0 / 12 — acústica</div>
+              </div>
+            </div>
+
+            <div class="audio-examples" data-family="embeddings"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   <!-- Final section for thanks and qr -->
     <section class="slide" id="gracias">
       <div class="slide-inner" style="text-align:center;">
@@ -1247,5 +1285,6 @@
   <script src="js/main.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/plots.js"></script>
+  <script src="js/carousel.js"></script>
 </body>
 </html>

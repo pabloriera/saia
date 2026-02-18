@@ -27,7 +27,7 @@
   }
 
   function renderAllSections() {
-    const families = ['ar', 'gan', 'diffusion', 'vae', 'ddsp', 'supervised', 'selfsupervised', 'multimodal', 'embeddings', 'representations'];
+    const families = ['vae', 'gan', 'ddsp', 'ar', 'diffusion', 'supervised', 'selfsupervised', 'multimodal', 'representations', 'embeddings'];
     families.forEach(family => {
       const section = modelsData[family];
       if (!section) return;
