@@ -205,18 +205,18 @@
       legendY += 22;
     });
 
-    // Layer group annotations
+    // Layer group annotations (no gaps between regions)
     ctx.fillStyle = 'rgba(59,130,246,0.06)';
-    const earlyEnd = pad.left + (2 / 11) * cw;
+    const earlyEnd = pad.left + (2.5 / 11) * cw;
     ctx.fillRect(pad.left, pad.top, earlyEnd - pad.left, ch);
 
     ctx.fillStyle = 'rgba(217,119,6,0.06)';
-    const midStart = pad.left + (3 / 11) * cw;
-    const midEnd = pad.left + (7 / 11) * cw;
+    const midStart = earlyEnd;
+    const midEnd = pad.left + (7.5 / 11) * cw;
     ctx.fillRect(midStart, pad.top, midEnd - midStart, ch);
 
     ctx.fillStyle = 'rgba(220,38,38,0.04)';
-    const lateStart = pad.left + (8 / 11) * cw;
+    const lateStart = midEnd;
     ctx.fillRect(lateStart, pad.top, pad.left + cw - lateStart, ch);
 
     // Group labels
@@ -232,7 +232,6 @@
 
   // ── Init ──
   function initPlots() {
-    drawChart('plotMusicFM', DATA.musicfm);
     drawChart('plotMuQ', DATA.muq);
   }
 
