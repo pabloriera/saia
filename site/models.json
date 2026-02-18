@@ -3,14 +3,24 @@
     "label": "Autoregresivo / Token-Based",
     "models": [
       {
+        "name": "SampleRNN",
+        "year": 2017,
+        "description": "RNN multi-escala que genera audio crudo a tres resoluciones temporales"
+      },
+      {
+        "name": "WaveNet",
+        "year": 2016,
+        "description": "Red convolucional causal dilated que genera audio sample a sample"
+      },
+      {
+        "name": "WaveRNN",
+        "year": 2018,
+        "description": "RNN eficiente para síntesis de audio en tiempo real (vocoder AR)"
+      },
+      {
         "name": "Music Transformer",
         "year": 2018,
         "description": "Transformer con relative attention para generación de piano largo"
-      },
-      {
-        "name": "MusicVAE",
-        "year": 2018,
-        "description": "VAE jerárquico para interpolación y generación de secuencias MIDI"
       },
       {
         "name": "Jukebox",
@@ -35,6 +45,13 @@
     ],
     "examples": [
       {
+        "title": "Performance RNN — Pieza larga",
+        "model": "Performance RNN",
+        "year": 2016,
+        "url": "https://magenta.withgoogle.com/assets/performance_rnn/long.mp3",
+        "context": "RNN generando piano con dinámica y tempo expresivo"
+      },
+      {
         "title": "Music Transformer — Jazz coherente",
         "model": "Music Transformer",
         "year": 2018,
@@ -42,11 +59,11 @@
         "context": "Generación autónoma estilo jazz con relative attention"
       },
       {
-        "title": "MusicVAE — Melodía 16 compases",
-        "model": "MusicVAE",
+        "title": "Music Transformer — Continuación de Chopin",
+        "model": "Music Transformer",
         "year": 2018,
-        "url": "https://magenta.withgoogle.com/assets/music_vae/mel_16bar-a.mp3",
-        "context": "Generación latent-space de melodías largas con coherencia estructural"
+        "url": "https://magenta.withgoogle.com/assets/music_transformer/primed_chopin_low_repetition.mp3",
+        "context": "Primed con fragmento de Chopin, baja repetición"
       }
     ]
   },
@@ -76,35 +93,33 @@
     ],
     "examples": [
       {
-        "title": "GANHarp — Síntesis interactiva",
+        "title": "GANSynth — Bach con un solo vector latente",
         "model": "GANSynth",
         "year": 2019,
-        "url": "https://magenta.withgoogle.com/assets/demos/ganharp.mp4",
-        "type": "video",
-        "context": "Demo interactiva de síntesis GAN con control en tiempo real"
+        "url": "https://magenta.withgoogle.com/assets/gansynth/bach_single_latent_vector.mp3",
+        "context": "Bach renderizado con timbre constante desde un punto del espacio latente"
       },
       {
-        "title": "NSynth Super — Interpolación de timbres",
-        "model": "NSynth / GAN",
-        "year": 2018,
-        "url": "https://magenta.withgoogle.com/assets/demos/nsynth_super.mp4",
-        "type": "video",
-        "context": "Dispositivo físico para explorar el espacio latente de timbres"
+        "title": "GANSynth — Bach interpolado",
+        "model": "GANSynth",
+        "year": 2019,
+        "url": "https://magenta.withgoogle.com/assets/gansynth/bach_interpolated.mp3",
+        "context": "Interpolación continua de timbre durante una pieza de Bach"
       }
     ]
   },
   "diffusion": {
-    "label": "Difusión",
+    "label": "Difusión / Score-Based",
     "models": [
-      {
-        "name": "DDSP / Tone Transfer",
-        "year": 2020,
-        "description": "Síntesis diferenciable con transferencia de timbre en tiempo real"
-      },
       {
         "name": "DiffWave",
         "year": 2021,
         "description": "Modelo de difusión para generación de audio waveform"
+      },
+      {
+        "name": "WaveGrad",
+        "year": 2021,
+        "description": "Difusión condicional para síntesis de voz de alta calidad"
       },
       {
         "name": "Riffusion",
@@ -125,74 +140,144 @@
         "name": "Mustango",
         "year": 2023,
         "description": "Text-to-music con control musical explícito (tempo, acorde, instrumento)"
+      },
+      {
+        "name": "MusicLDM",
+        "year": 2023,
+        "description": "Latent diffusion específico para generación de música"
+      }
+    ],
+    "examples": []
+  },
+  "vae": {
+    "label": "VAE y Modelos de Flujo",
+    "models": [
+      {
+        "name": "MusicVAE",
+        "year": 2018,
+        "description": "VAE jerárquico para interpolación y generación de secuencias MIDI"
+      },
+      {
+        "name": "VQ-VAE / VQ-VAE-2",
+        "year": 2017,
+        "description": "Codificación discreta de audio en espacio latente, base de Jukebox"
+      },
+      {
+        "name": "WaveGlow",
+        "year": 2019,
+        "description": "Flow generativo para síntesis de voz paralela en tiempo real"
+      },
+      {
+        "name": "FloWaveNet",
+        "year": 2019,
+        "description": "Flow-based model para generación paralela de waveforms"
       }
     ],
     "examples": [
       {
-        "title": "DDSP — Violín a flauta (transferencia de timbre)",
-        "model": "DDSP / Tone Transfer",
+        "title": "MusicVAE — Melodía 16 compases",
+        "model": "MusicVAE",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_vae/mel_16bar-a.mp3",
+        "context": "Generación de melodías largas desde espacio latente"
+      },
+      {
+        "title": "MusicVAE — Interpolación de batería",
+        "model": "MusicVAE",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_vae/mel_2bar-dumsamp.mp3",
+        "context": "Interpolación en espacio latente entre patrones rítmicos"
+      },
+      {
+        "title": "MusicVAE — Atributo high",
+        "model": "MusicVAE",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_vae/attr-hi.mp3",
+        "context": "Manipulación de atributos musicales en el espacio latente"
+      }
+    ]
+  },
+  "ddsp": {
+    "label": "Síntesis Neural / Modelos Físicos Diferenciables",
+    "models": [
+      {
+        "name": "DDSP",
+        "year": 2020,
+        "description": "Síntesis diferenciable: harmónico + ruido + filtros con control explícito de f0 y loudness"
+      },
+      {
+        "name": "Synths diferenciables",
+        "year": 2021,
+        "description": "Familia de modelos wavetable y sustractivos diferenciables"
+      }
+    ],
+    "examples": [
+      {
+        "title": "DDSP — Violín a flauta",
+        "model": "DDSP",
         "year": 2020,
         "url": "https://storage.googleapis.com/ddsp/timbre_transfer/instruments/violin_flute2.mp3",
         "context": "Transferencia de timbre: entrada violín → salida flauta"
       },
       {
         "title": "DDSP — Voz cantada transformada",
-        "model": "DDSP / Tone Transfer",
+        "model": "DDSP",
         "year": 2020,
         "url": "https://storage.googleapis.com/ddsp/timbre_transfer/singing.mp3",
         "context": "Voz humana transformada a instrumento vía síntesis diferenciable"
+      },
+      {
+        "title": "NSynth — Interpolación de instrumentos",
+        "model": "NSynth",
+        "year": 2017,
+        "url": "https://magenta.withgoogle.com/assets/nsynth_05_18_17/morph_o1.mp3",
+        "context": "Morphing continuo entre timbres usando WaveNet autoencoder"
       }
     ]
   },
-  "contrastive": {
-    "label": "Modelado Contrastivo / Asociativo",
+  "supervised": {
+    "label": "Supervisado (Datos con Etiquetas)",
     "models": [
-      {
-        "name": "CLAP",
-        "year": 2023,
-        "description": "Contrastive Language-Audio Pretraining — alinea audio y texto"
-      },
-      {
-        "name": "BYOL-A",
-        "year": 2022,
-        "description": "Self-supervised learning para audio sin negativos explícitos"
-      },
-      {
-        "name": "Wav2CLIP",
-        "year": 2022,
-        "description": "Destilación de CLIP hacia representaciones de audio"
-      }
-    ],
-    "examples": []
-  },
-  "embeddings": {
-    "label": "Espacios Vectoriales (Embeddings)",
-    "models": [
-      {
-        "name": "OpenL3",
-        "year": 2019,
-        "description": "Embeddings audio-visuales aprendidos de video"
-      },
       {
         "name": "YAMNet",
         "year": 2020,
-        "description": "Clasificador de eventos sonoros sobre MobileNet, embeddings reutilizables"
+        "description": "Clasificador de 521 eventos sonoros sobre MobileNet, entrenado en AudioSet"
       },
       {
         "name": "VGGish",
         "year": 2017,
-        "description": "Embeddings de audio basados en VGG entrenado en AudioSet"
+        "description": "Embeddings de audio basados en VGG16 entrenado en AudioSet"
       }
     ],
     "examples": []
   },
-  "representations": {
-    "label": "Aprendizaje y Análisis de Representaciones",
+  "selfsupervised": {
+    "label": "Auto Supervisado (Masking, Asociativo, Contrastivo)",
     "models": [
+      {
+        "name": "SSAST",
+        "year": 2022,
+        "description": "Self-Supervised Audio Spectrogram Transformer con masked patching"
+      },
+            {
+        "name": "BYOL-A",
+        "year": 2022,
+        "description": "Bootstrap Your Own Latent for Audio"
+      },
       {
         "name": "MERT",
         "year": 2023,
-        "description": "Music understanding model pre-entrenado con teacher acústico+musical"
+        "description": "Music understanding model pre-entrenado con teacher acústico + musical"
+      },
+      {
+        "name": "MusicFM",
+        "year": 2024,
+        "description": "Foundation model para música con masked prediction multi-tarea"
+      },
+      {
+        "name": "EncodecMAE",
+        "year": 2024,
+        "description": "Masked autoencoder sobre tokens de Encodec para representaciones de audio"
       },
       {
         "name": "MuQ",
@@ -200,16 +285,32 @@
         "description": "Music understanding quantizer con pre-training multi-tarea"
       },
       {
-        "name": "MusicFM",
-        "year": 2024,
-        "description": "Foundation model para música con masked prediction"
-      },
-      {
         "name": "SoniDo",
         "year": 2024,
-        "description": "Separación y análisis de fuentes musicales vía representaciones"
+        "description": "Modelo auto-supervisado para separación y análisis de fuentes musicales"
       }
     ],
+    "examples": []
+  },
+  "multimodal": {
+    "label": "Modelado Multimodal",
+    "models": [
+      {
+        "name": "CLAP",
+        "year": 2023,
+        "description": "Contrastive Language-Audio Pretraining — alinea audio y texto en un espacio compartido"
+      }
+    ],
+    "examples": []
+  },
+  "embeddings": {
+    "label": "Generación de Espacio Vectorial (Embeddings)",
+    "models": [],
+    "examples": []
+  },
+  "representations": {
+    "label": "Análisis de Representaciones",
+    "models": [],
     "examples": []
   }
 }

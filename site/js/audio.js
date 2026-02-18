@@ -27,7 +27,7 @@
   }
 
   function renderAllSections() {
-    const families = ['ar', 'gan', 'diffusion', 'contrastive', 'embeddings', 'representations'];
+    const families = ['ar', 'gan', 'diffusion', 'vae', 'ddsp', 'supervised', 'selfsupervised', 'multimodal', 'embeddings', 'representations'];
     families.forEach(family => {
       const section = modelsData[family];
       if (!section) return;
@@ -82,8 +82,12 @@
           </div>`;
       });
       html += '</div></div>';
-    } else if (!section.models || section.models.length === 0) {
-      html += '<div class="audio-empty">No hay ejemplos disponibles para esta sección.</div>';
+    }
+
+    // If there's nothing to show (no models and no examples), hide the container entirely
+    if (!html) {
+      container.style.display = 'none';
+      return;
     }
 
     container.innerHTML = html;

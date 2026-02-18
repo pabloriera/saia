@@ -387,17 +387,6 @@ body {
 
 .card-col ol li::marker { color: var(--blue); font-weight: 600; }
 
-.examples-tag {
-  margin-top: 20px;
-  font-size: 0.95rem;
-  color: var(--muted);
-  background: var(--bg);
-  padding: 10px 14px;
-  border-radius: 8px;
-  line-height: 1.5;
-}
-.examples-tag span { font-weight: 600; color: var(--fg); }
-
 /* ─── Audio Examples ─── */
 .audio-examples {
   margin-top: 24px;
@@ -542,57 +531,6 @@ body {
 
 
 
-/* ─── Paper Table ─── */
-.paper-table {
-  margin-top: 20px;
-}
-.paper-table h5 {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-
-.table-scroll {
-  overflow-x: auto;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
-}
-thead { background: var(--bg); }
-th {
-  text-align: left;
-  padding: 10px 14px;
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-  border-bottom: 1px solid var(--border);
-}
-td {
-  padding: 8px 14px;
-  border-bottom: 1px solid var(--border);
-}
-tr:last-child td { border-bottom: none; }
-tr:hover { background: rgba(59,130,246,0.02); }
-
-.type-acoustic { color: var(--blue); font-weight: 500; font-size: 13px; }
-.type-semantic { color: var(--amber); font-weight: 500; font-size: 13px; }
-.type-comp { color: var(--purple); font-weight: 500; font-size: 13px; }
-
-.table-note {
-  margin-top: 10px;
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
 /* ─── Presentation Mode ─── */
 body.presentation-mode .sidenav { transform: translateX(-100%); }
 body.presentation-mode .content { margin-left: 0; }
@@ -682,3 +620,36 @@ body.presentation-mode .card.expanded .card-body { max-height: 3000px; }
   transition: opacity 0.15s;
 }
 .tooltip.show { opacity: 1; }
+
+/* ─── Embedding Heatmaps ─── */
+.embedding-heatmaps {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.embedding-heatmaps h4 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.heatmap-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.heatmap-img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 768px) {
+  .heatmap-gallery {
+    gap: 1rem;
+  }
+}
