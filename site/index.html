@@ -329,7 +329,7 @@
                   <li>VQ-VAE/RVQ: base de tokenizadores para modelos de lenguaje</li>
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Reconstrucciones "borrosas" (VAE vanilla)</li>
                   <li>Posterior collapse: el decoder ignora z</li>
@@ -343,7 +343,7 @@
             </div>
 
             <div class="listening-criteria">
-              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <h4>Qué escuchar en estos ejemplos</h4>
               <ul>
                 <li><strong>Borrosidad:</strong> reconstrucciones difusas vs. el original — pérdida de detalle fino</li>
                 <li><strong>Interpolación:</strong> ¿las transiciones entre estilos son suaves o hay saltos?</li>
@@ -376,7 +376,7 @@
               <div class="card-header-left">
                 <span class="section-tag tag-gen">Generativo</span>
                 <h3>GAN (Generative Adversarial Networks)</h3>
-                <p class="card-summary">Dos redes compiten: un generador crea audio sintético y un discriminador intenta distinguirlo del real. El resultado: síntesis de alta calidad perceptual.</p>
+                <p class="card-summary">Dos redes compiten: un generador crea audio sintético y un discriminador intenta distinguirlo de audio real. El resultado: síntesis de alta calidad perceptual.</p>
               </div>
               <span class="expand-icon">＋</span>
             </div>
@@ -439,7 +439,7 @@
                   <li>Alta calidad perceptual para vocoders (MelGAN, HiFi-GAN)</li>
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Mode collapse: poca variedad en las muestras generadas</li>
                   <li>Entrenamiento inestable, sensible a hiperparámetros</li>
@@ -454,7 +454,7 @@
             </div>
 
             <div class="listening-criteria">
-              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <h4> Qué escuchar en estos ejemplos</h4>
               <ul>
                 <li><strong>Metalicidad:</strong> “crackle” o brillo artificial en frecuencias altas</li>
                 <li><strong>Micro-timing:</strong> consistencia del groove y naturalidad rítmica</li>
@@ -558,7 +558,7 @@
                   <li>Mucho más eficiente que modelos puramente neurales</li>
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Limitado a sonidos quasi-harmónicos (no percusión compleja)</li>
                   <li>Requiere buen tracking de pitch como entrada</li>
@@ -572,7 +572,7 @@
             </div>
 
             <div class="listening-criteria">
-              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <h4> Qué escuchar en estos ejemplos</h4>
               <ul>
                 <li><strong>Transferencia tímbrica:</strong> ¿suena como el instrumento target o queda híbrido?</li>
                 <li><strong>Pitch tracking:</strong> estabilidad en notas rápidas, ornamentos y vibratos</li>
@@ -674,7 +674,7 @@
                   <li>Escala bien con datos; base de los LLM musicales modernos</li>
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Repetición o "wandering" en piezas largas</li>
                   <li>Generación lenta (secuencial por naturaleza)</li>
@@ -689,7 +689,7 @@
             </div>
 
             <div class="listening-criteria">
-              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <h4> Qué escuchar en estos ejemplos</h4>
               <ul>
                 <li><strong>Coherencia temporal:</strong> ¿la pieza mantiene estructura y dirección a largo plazo?</li>
                 <li><strong>Repetición:</strong> ¿hay loops obsesivos o “wandering” sin rumbo?</li>
@@ -806,7 +806,7 @@
                   <li>Condicionamiento flexible (texto, imagen, audio)</li>
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Generación lenta (muchos pasos de denoising)</li>
                   <li>Límites en duración/coherencia temporal larga</li>
@@ -821,7 +821,7 @@
             </div>
 
             <div class="listening-criteria">
-              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <h4> Qué escuchar en estos ejemplos</h4>
               <ul>
                 <li><strong>Calidad tímbrica:</strong> naturalidad general — ¿suena “real” o sintético?</li>
                 <li><strong>Estructura:</strong> ¿hay forma musical (intro, desarrollo, cierre) o es estático?</li>
@@ -948,7 +948,7 @@
             </div>
 
             <div class="listening-criteria">
-              <h4>🎧 Qué escuchar en reconstrucciones codec</h4>
+              <h4> Qué escuchar en reconstrucciones codec</h4>
               <ul>
                 <li><strong>Cuantización:</strong> "burbujeo" o pérdida de definición en transientes rápidos</li>
                 <li><strong>Estabilidad tonal:</strong> ¿las notas sostenidas mantienen su timbre sin fluctuaciones?</li>
@@ -1061,7 +1061,7 @@
                   <li>Embeddings pre-entrenados reutilizables para downstream tasks</li>
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Requiere grandes datasets etiquetados (costoso)</li>
                   <li>Sesgo del dataset: sub-representación de géneros/culturas</li>
@@ -1197,7 +1197,7 @@
                   <li>Captura estructura jerárquica: acústica (capas tempranas) → semántica (capas tardías)</li>
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Sensible a augmentaciones y selección de teacher</li>
                   <li>Puede aprender atajos (shortcuts) en vez de semántica real</li>
@@ -1236,7 +1236,7 @@
               <span class="expand-icon">＋</span>
             </div>
             <div class="card-hero-diagram">
-              <svg viewBox="0 0 600 120">
+              <svg viewBox="0 0 600 140">
                 <!-- Audio encoder branch -->
                 <g>
                   <path d="M30,38 Q45,18 60,38 Q75,58 90,38" stroke="var(--teal)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
@@ -1275,7 +1275,7 @@
                 <text x="480" y="58" fill="var(--amber)" font-family="var(--font)" font-size="10">🏷️ zero-shot</text>
                 <text x="480" y="78" fill="var(--purple)" font-family="var(--font)" font-size="10">🔄 retrieval</text>
                 <!-- Bottom label -->
-                <text x="300" y="112" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">audio y texto alineados en un espacio compartido</text>
+                <text x="300" y="132" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="13" font-weight="600" opacity="0.7">audio y texto alineados en un espacio compartido</text>
               </svg>
             </div>
           </div>
@@ -1300,7 +1300,7 @@
                   <li>Búsqueda cross-modal: encontrar audio desde texto y vice versa</li>                  
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Dependencia de la calidad de las descripciones textuales</li>
                   <li>Sesgo hacia el dominio del dataset de entrenamiento</li>
@@ -1333,7 +1333,7 @@
               <div class="card-header-left">
                 <span class="section-tag tag-disc">Discriminativo</span>
                 <h3>Análisis de Representaciones</h3>
-                <p class="card-summary">Investiga qué información codifica cada capa de un modelo pre-entrenado. Probes lineales revelan que las capas tempranas capturan acústica y las tardías, semántica.</p>
+                <p class="card-summary">¿Cómo se representa la información en un modelo pre-entrenado? ¿Cómo se organiza la información en las distintas capas?</p>
               </div>
               <span class="expand-icon">＋</span>
             </div>
@@ -1378,13 +1378,13 @@
             <div class="card-columns">
               <div class="card-col">
                 <h4>Qué es</h4>
-                <p>Un enfoque analítico: se toman las representaciones intermedias de modelos SSL y se evalúa con probes simples qué tipo de información musical codifican en cada capa.</p>
+                <p>Un enfoque analítico: se toman las representaciones intermedias de modelos SSL y se evalúa con sondas simples qué tipo de información musical codifican en cada capa.</p>
 
                 <h4>Cómo funciona</h4>
                 <ol>
                   <li>Se congela un modelo pre-entrenado (MERT, MuQ, MusicFM)</li>
                   <li>Se extraen embeddings capa por capa</li>
-                  <li>Un probe lineal simple se entrena para cada tarea (pitch, género, timbre…)</li>
+                  <li>Una sonda lineal simple se entrena para cada tarea (pitch, género, timbre…)</li>
                   <li>Se compara rendimiento por capa → mapa de especialización</li>
                   <li>Hallazgo clave: acústico → temprano, semántico → tardío</li>
                 </ol>
@@ -1395,7 +1395,7 @@
                   <li>Permite uso eficiente de modelos grandes sin fine-tuning completo</li>
                 </ul>
 
-                <h4>Modos de fallo típicos</h4>
+                <h4>Falencias</h4>
                 <ul>
                   <li>Probes demasiado simples pueden subestimar información codificada</li>
                   <li>Resultados dependen del benchmark y dataset utilizado</li>
@@ -1520,7 +1520,10 @@
               <p class="plot-method-note"><strong>Audio:</strong> Mozart — Sinfonía N.º 25 · <strong>Modelo:</strong> MERT-v1-95M (13 capas) · Cada capa revela distintos niveles de estructura musical.</p>
 
               <div class="layer-carousel-audio">
-                <label>Escuchá mientras explorás las capas:</label>
+                <!-- <label>Escuchá mientras explorás las capas:</label> -->
+                <!-- newline here -->
+                 <p></p>
+
                 <audio controls preload="none" style="border-radius:8px;" title="Mozart — Sinfonía N.º 25, 60 segundos">
                   <source src="Mozart25_60s.mp3" type="audio/mpeg">
                   Tu navegador no soporta audio HTML5. <a href="Mozart25_60s.mp3">Descargar MP3</a>

@@ -815,9 +815,6 @@ button:focus-visible, .carousel-btn:focus-visible, .expand-icon:focus-visible {
   padding-left: 1.4em;
   text-indent: -1.4em;
 }
-.listening-criteria li::before {
-  content: '👂 ';
-}
 
 /* ─── Method Box ─── */
 .method-box {
@@ -874,7 +871,6 @@ button:focus-visible, .carousel-btn:focus-visible, .expand-icon:focus-visible {
   padding: 4px 0;
 }
 .sources-drawer summary::-webkit-details-marker { display: none; }
-.sources-drawer summary::before { content: '📚 '; }
 .sources-drawer[open] summary { color: var(--blue); }
 .sources-drawer ul {
   padding: 10px 0 0 0;
