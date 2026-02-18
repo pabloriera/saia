@@ -1,4 +1,119 @@
 {
+  "vae": {
+    "label": "VAE y Modelos de Flujo",
+    "models": [
+      {
+        "name": "MusicVAE",
+        "year": 2018,
+        "description": "VAE jerárquico para interpolación y generación de secuencias MIDI"
+      },
+      {
+        "name": "VQ-VAE / VQ-VAE-2",
+        "year": 2017,
+        "description": "Codificación discreta de audio en espacio latente, base de Jukebox"
+      },
+      {
+        "name": "WaveGlow",
+        "year": 2019,
+        "description": "Flow generativo para síntesis de voz paralela en tiempo real"
+      },
+      {
+        "name": "FloWaveNet",
+        "year": 2019,
+        "description": "Flow-based model para generación paralela de waveforms"
+      }
+    ],
+    "examples": [
+      {
+        "title": "MusicVAE — Melodía 16 compases",
+        "model": "MusicVAE",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_vae/mel_16bar-a.mp3",
+        "context": "Generación de melodías largas desde espacio latente"
+      },
+      {
+        "title": "MusicVAE — Interpolación de batería",
+        "model": "MusicVAE",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_vae/mel_2bar-dumsamp.mp3",
+        "context": "Interpolación en espacio latente entre patrones rítmicos"
+      },
+      {
+        "title": "MusicVAE — Atributo high",
+        "model": "MusicVAE",
+        "year": 2018,
+        "url": "https://magenta.withgoogle.com/assets/music_vae/attr-hi.mp3",
+        "context": "Manipulación de atributos musicales en el espacio latente"
+      }
+    ]
+  },
+  "gan": {
+    "label": "GAN (Generative Adversarial Networks)",
+    "models": [
+      {
+        "name": "GANSynth",
+        "year": 2019,
+        "description": "GAN para síntesis de notas individuales con control de pitch y timbre"
+      },
+      {
+        "name": "WaveGAN",
+        "year": 2019,
+        "description": "GAN que genera waveforms crudas de un segundo"
+      },
+      {
+        "name": "MelGAN",
+        "year": 2019,
+        "description": "Vocoder GAN rápido para síntesis mel-spectrogram → audio"
+      },
+      {
+        "name": "HiFi-GAN",
+        "year": 2020,
+        "description": "Vocoder de alta fidelidad usado en pipelines TTS y música"
+      }
+    ],
+    "examples": [
+      {
+        "title": "GANSynth — Bach con un solo vector latente",
+        "model": "GANSynth",
+        "year": 2019,
+        "url": "https://magenta.withgoogle.com/assets/gansynth/bach_single_latent_vector.mp3",
+        "context": "Bach renderizado con timbre constante desde un punto del espacio latente"
+      },
+      {
+        "title": "GANSynth — Bach interpolado",
+        "model": "GANSynth",
+        "year": 2019,
+        "url": "https://magenta.withgoogle.com/assets/gansynth/bach_interpolated.mp3",
+        "context": "Interpolación continua de timbre durante una pieza de Bach"
+      }
+    ]
+  },
+  "ddsp": {
+    "label": "Síntesis Neural / Modelos Físicos Diferenciables",
+    "models": [
+      {
+        "name": "DDSP",
+        "year": 2020,
+        "description": "Síntesis diferenciable: harmónico + ruido + filtros con control explícito de f0 y loudness"
+      }
+    ],
+    "examples": [
+      {
+        "title": "DDSP — Voz cantada transformada a violín",
+        "model": "DDSP",
+        "year": 2020,
+        "url": "https://storage.googleapis.com/ddsp/timbre_transfer/singing.mp3",
+        "context": "Transferencia de timbre: VOZ a violín"
+      },
+      {
+        "title": "DDSP — Violín original",
+        "model": "DDSP",
+        "year": 2020,
+        "url": "https://storage.googleapis.com/ddsp/timbre_transfer/violin.mp3",
+        "context": "Transferencia de timbre: voz a VIOLIN"
+      }
+    ]
+  },
   "ar": {
     "label": "Autoregresivo / Token-Based",
     "models": [
@@ -105,47 +220,6 @@
       }
     ]
   },
-  "gan": {
-    "label": "GAN (Generative Adversarial Networks)",
-    "models": [
-      {
-        "name": "GANSynth",
-        "year": 2019,
-        "description": "GAN para síntesis de notas individuales con control de pitch y timbre"
-      },
-      {
-        "name": "WaveGAN",
-        "year": 2019,
-        "description": "GAN que genera waveforms crudas de un segundo"
-      },
-      {
-        "name": "MelGAN",
-        "year": 2019,
-        "description": "Vocoder GAN rápido para síntesis mel-spectrogram → audio"
-      },
-      {
-        "name": "HiFi-GAN",
-        "year": 2020,
-        "description": "Vocoder de alta fidelidad usado en pipelines TTS y música"
-      }
-    ],
-    "examples": [
-      {
-        "title": "GANSynth — Bach con un solo vector latente",
-        "model": "GANSynth",
-        "year": 2019,
-        "url": "https://magenta.withgoogle.com/assets/gansynth/bach_single_latent_vector.mp3",
-        "context": "Bach renderizado con timbre constante desde un punto del espacio latente"
-      },
-      {
-        "title": "GANSynth — Bach interpolado",
-        "model": "GANSynth",
-        "year": 2019,
-        "url": "https://magenta.withgoogle.com/assets/gansynth/bach_interpolated.mp3",
-        "context": "Interpolación continua de timbre durante una pieza de Bach"
-      }
-    ]
-  },
   "diffusion": {
     "label": "Difusión / Score-Based",
     "models": [
@@ -210,80 +284,6 @@
       }
     ]
   },
-  "vae": {
-    "label": "VAE y Modelos de Flujo",
-    "models": [
-      {
-        "name": "MusicVAE",
-        "year": 2018,
-        "description": "VAE jerárquico para interpolación y generación de secuencias MIDI"
-      },
-      {
-        "name": "VQ-VAE / VQ-VAE-2",
-        "year": 2017,
-        "description": "Codificación discreta de audio en espacio latente, base de Jukebox"
-      },
-      {
-        "name": "WaveGlow",
-        "year": 2019,
-        "description": "Flow generativo para síntesis de voz paralela en tiempo real"
-      },
-      {
-        "name": "FloWaveNet",
-        "year": 2019,
-        "description": "Flow-based model para generación paralela de waveforms"
-      }
-    ],
-    "examples": [
-      {
-        "title": "MusicVAE — Melodía 16 compases",
-        "model": "MusicVAE",
-        "year": 2018,
-        "url": "https://magenta.withgoogle.com/assets/music_vae/mel_16bar-a.mp3",
-        "context": "Generación de melodías largas desde espacio latente"
-      },
-      {
-        "title": "MusicVAE — Interpolación de batería",
-        "model": "MusicVAE",
-        "year": 2018,
-        "url": "https://magenta.withgoogle.com/assets/music_vae/mel_2bar-dumsamp.mp3",
-        "context": "Interpolación en espacio latente entre patrones rítmicos"
-      },
-      {
-        "title": "MusicVAE — Atributo high",
-        "model": "MusicVAE",
-        "year": 2018,
-        "url": "https://magenta.withgoogle.com/assets/music_vae/attr-hi.mp3",
-        "context": "Manipulación de atributos musicales en el espacio latente"
-      }
-    ]
-  },
-  "ddsp": {
-    "label": "Síntesis Neural / Modelos Físicos Diferenciables",
-    "models": [
-      {
-        "name": "DDSP",
-        "year": 2020,
-        "description": "Síntesis diferenciable: harmónico + ruido + filtros con control explícito de f0 y loudness"
-      }
-    ],
-    "examples": [
-      {
-        "title": "DDSP — Voz cantada transformada a violín",
-        "model": "DDSP",
-        "year": 2020,
-        "url": "https://storage.googleapis.com/ddsp/timbre_transfer/singing.mp3",
-        "context": "Transferencia de timbre: VOZ a violín"
-      },
-      {
-        "title": "DDSP — Violín original",
-        "model": "DDSP",
-        "year": 2020,
-        "url": "https://storage.googleapis.com/ddsp/timbre_transfer/violin.mp3",
-        "context": "Transferencia de timbre: voz a VIOLIN"
-      }
-    ]
-  },
   "supervised": {
     "label": "Supervisado (Datos con Etiquetas)",
     "models": [
@@ -308,7 +308,7 @@
         "year": 2022,
         "description": "Self-Supervised Audio Spectrogram Transformer con masked patching"
       },
-            {
+      {
         "name": "BYOL-A",
         "year": 2022,
         "description": "Bootstrap Your Own Latent for Audio"
@@ -352,13 +352,13 @@
     ],
     "examples": []
   },
-  "embeddings": {
-    "label": "Generación de Espacio Vectorial (Embeddings)",
+  "representations": {
+    "label": "Análisis de Representaciones",
     "models": [],
     "examples": []
   },
-  "representations": {
-    "label": "Análisis de Representaciones",
+  "embeddings": {
+    "label": "Generación de Espacio Vectorial (Embeddings)",
     "models": [],
     "examples": []
   }
