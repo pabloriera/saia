@@ -33,6 +33,38 @@
       if (!section) return;
       renderSection(family, section);
     });
+    logMissingPaperInfo();
+  }
+
+  // ── Console report: missing paper info ──
+  function logMissingPaperInfo() {
+    const missingUrl = [];
+    const missingCite = [];
+
+    Object.entries(modelsData).forEach(([family, section]) => {
+      if (!section.models) return;
+      section.models.forEach(m => {
+        const p = m.paper;
+        if (!p || !p.url) missingUrl.push(`[${family}] ${m.name} (${m.year})`);
+        if (!p || !p.cite) missingCite.push(`[${family}] ${m.name} (${m.year})`);
+      });
+    });
+
+    if (missingUrl.length) {
+      console.group('%c📄 Modelos sin paper URL — buscar y completar en models.json', 'color:#e67e22;font-weight:bold');
+      missingUrl.forEach(s => console.log(' •', s));
+      console.groupEnd();
+    } else {
+      console.log('%c✅ Todos los modelos tienen paper URL', 'color:#27ae60;font-weight:bold');
+    }
+
+    if (missingCite.length) {
+      console.group('%c✍️  Modelos sin cita completa — agregar "cite" en models.json', 'color:#e67e22;font-weight:bold');
+      missingCite.forEach(s => console.log(' •', s));
+      console.groupEnd();
+    } else {
+      console.log('%c✅ Todos los modelos tienen cita completa', 'color:#27ae60;font-weight:bold');
+    }
   }
 
   function renderSection(family, section) {
@@ -41,12 +73,13 @@
 
     let html = '';
 
-    // ── Model list ──
+    // ── Model list (sorted by year) ──
     if (section.models && section.models.length > 0) {
+      const sortedModels = [...section.models].sort((a, b) => (a.year || 0) - (b.year || 0));
       html += '<div class="models-list">';
       html += '<h4>Modelos</h4>';
       html += '<div class="models-grid">';
-      section.models.forEach(m => {
+      sortedModels.forEach(m => {
         html += `
           <div class="model-chip">
             <div class="model-chip-name">${escapeHTML(m.name)} <span class="model-chip-year">${m.year}</span></div>
@@ -97,6 +130,26 @@
     }
 
     container.innerHTML = html;
+
+    // ── Inject paper links into the nearest .sources-drawer ──
+    if (section.models && section.models.length > 0) {
+      const card = container.closest('.card-body') || container.closest('.card') || container.parentElement;
+      const drawer = card ? card.querySelector('.sources-drawer ul') : null;
+      if (drawer) {
+        section.models.forEach(m => {
+          if (!m.paper || !m.paper.url) return;
+          // Avoid duplicates: skip if a link to this URL already exists
+          if (drawer.querySelector(`a[href="${m.paper.url}"]`)) return;
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = m.paper.url;
+          a.target = '_blank';
+          a.textContent = m.paper.cite || m.name;
+          li.appendChild(a);
+          drawer.appendChild(li);
+        });
+      }
+    }
 
     // Add error handling for audio/video elements
     container.querySelectorAll('audio, video').forEach(el => {

@@ -63,166 +63,128 @@
         <h1 class="hero-title">Modelado en<br>Música y Sonido</h1>
         <p class="hero-sub">.</p>
         <div class="hero-diagram">
-          <svg viewBox="0 0 800 340" class="diagram-hero">
+          <svg viewBox="0 0 800 310" class="diagram-hero">
             <defs>
-              <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="var(--blue)"/></marker>
-              <marker id="arrowTeal" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="var(--teal)"/></marker>
-              <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:var(--blue);stop-opacity:0.6"/>
-                <stop offset="100%" style="stop-color:var(--teal);stop-opacity:0.6"/>
+              <!-- Gradient fill under generative distribution curve -->
+              <linearGradient id="distFill" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:var(--blue);stop-opacity:0.22"/>
+                <stop offset="100%" style="stop-color:var(--blue);stop-opacity:0.02"/>
               </linearGradient>
-              <!-- Noise pattern for diffusion -->
-              <filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="2"/><feColorMatrix type="saturate" values="0"/></filter>
+              <!-- Gradient fill under second curve -->
+              <linearGradient id="distFill2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:var(--purple);stop-opacity:0.18"/>
+                <stop offset="100%" style="stop-color:var(--purple);stop-opacity:0.02"/>
+              </linearGradient>
+              <!-- Clip for discriminative plot area -->
+              <clipPath id="discClipDef">
+                <rect x="448" y="28" width="304" height="248"/>
+              </clipPath>
             </defs>
 
-            <!-- ─── Central audio waveform ─── -->
-            <g class="anim-fade-up" style="--delay:0.1s">
-              <path d="M280,168 Q300,120 320,168 Q340,216 360,168 Q380,120 400,168 Q420,216 440,168 Q460,120 480,168 Q500,216 520,168" stroke="url(#waveGrad)" fill="none" stroke-width="3.5" stroke-linecap="round" opacity="0.35"/>
-              <path d="M320,168 Q340,135 360,168 Q380,201 400,168 Q420,135 440,168 Q460,201 480,168" stroke="url(#waveGrad)" fill="none" stroke-width="2" stroke-linecap="round" opacity="0.2"/>
-            </g>
-
-            <!-- ═══════════ LEFT: GENERATIVE ═══════════ -->
-            <!-- Branching arrow up-left -->
+            <!-- ═══════════ LEFT: GENERATIVE — distribution + sampling ═══════════ -->
             <g class="anim-fade-up" style="--delay:0.3s">
-              <path d="M370,155 C350,130 280,110 200,78" stroke="var(--blue)" stroke-width="1.8" fill="none" stroke-dasharray="6" opacity="0.5"/>
-              <polygon points="200,78 209,76 206,85" fill="var(--blue)" opacity="0.6"/>
-            </g>
 
-            <!-- AR: musical notes sequence -->
-            <g class="anim-fade-up" style="--delay:0.5s">
-              <rect x="28" y="22" width="175" height="70" rx="14" fill="var(--blue)" fill-opacity="0.04" stroke="var(--blue)" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
-              <!-- Mini staff -->
-              <g opacity="0.2"><line x1="40" y1="38" x2="190" y2="38" stroke="var(--muted)" stroke-width="0.6"/><line x1="40" y1="46" x2="190" y2="46" stroke="var(--muted)" stroke-width="0.6"/><line x1="40" y1="54" x2="190" y2="54" stroke="var(--muted)" stroke-width="0.6"/><line x1="40" y1="62" x2="190" y2="62" stroke="var(--muted)" stroke-width="0.6"/><line x1="40" y1="70" x2="190" y2="70" stroke="var(--muted)" stroke-width="0.6"/></g>
-              <!-- Notes -->
-              <g fill="var(--blue)">
-                <ellipse cx="60" cy="62" rx="6" ry="4" transform="rotate(-10,60,62)"/><line x1="66" y1="62" x2="66" y2="38" stroke="var(--blue)" stroke-width="1.4"/>
-                <ellipse cx="85" cy="50" rx="6" ry="4" transform="rotate(-10,85,50)"/><line x1="91" y1="50" x2="91" y2="26" stroke="var(--blue)" stroke-width="1.4"/>
-                <ellipse cx="110" cy="58" rx="6" ry="4" transform="rotate(-10,110,58)"/><line x1="116" y1="58" x2="116" y2="34" stroke="var(--blue)" stroke-width="1.4"/>
-                <ellipse cx="135" cy="42" rx="6" ry="4" transform="rotate(-10,135,42)"/><line x1="141" y1="42" x2="141" y2="18" stroke="var(--blue)" stroke-width="1.4"/>
-              </g>
-              <!-- Prediction glow -->
-              <ellipse cx="160" cy="54" rx="7" ry="5" fill="var(--amber)" fill-opacity="0.12" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="3" transform="rotate(-10,160,54)">
-                <animate attributeName="fill-opacity" values="0.05;0.25;0.05" dur="2.5s" repeatCount="indefinite"/>
-              </ellipse>
-              <text x="115" y="84" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">AR</text>
-            </g>
+              <!-- Generativo label -->
+              <text x="200" y="18" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="14" font-weight="700" letter-spacing="0.04em">Generativo</text>
 
-            <!-- GAN: G→D adversarial -->
-            <g class="anim-fade-up" style="--delay:0.7s">
-              <rect x="28" y="110" width="175" height="70" rx="14" fill="var(--blue)" fill-opacity="0.04" stroke="var(--blue)" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
-              <!-- Noise dots -->
-              <g fill="var(--muted)" opacity="0.4">
-                <circle cx="48" cy="138" r="1.8"/><circle cx="56" cy="128" r="1.2"/><circle cx="42" cy="148" r="2"/>
-                <circle cx="60" cy="145" r="1"/><circle cx="52" cy="155" r="1.5"/><circle cx="38" cy="135" r="1.3"/>
-              </g>
-              <text x="51" cy="140" y="165" fill="var(--muted)" font-family="var(--mono)" font-size="7" text-anchor="middle">z</text>
-              <!-- G block -->
-              <rect x="72" y="125" width="32" height="28" rx="8" fill="var(--purple)" fill-opacity="0.1" stroke="var(--purple)" stroke-width="1.5"/>
-              <text x="88" y="143" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="13" font-weight="700">G</text>
-              <!-- Fake wave -->
-              <path d="M112,139 Q120,125 128,139 Q136,153 144,139" stroke="var(--amber)" fill="none" stroke-width="1.8" stroke-linecap="round"/>
-              <!-- D block -->
-              <rect x="152" y="125" width="32" height="28" rx="8" fill="var(--red)" fill-opacity="0.08" stroke="var(--red)" stroke-width="1.5"/>
-              <text x="168" y="143" text-anchor="middle" fill="var(--red)" font-family="var(--font)" font-size="13" font-weight="700">D</text>
-              <!-- Feedback arc -->
-              <path d="M168,157 Q168,172 88,172 Q72,172 72,157" stroke="var(--muted)" stroke-width="0.8" fill="none" stroke-dasharray="3" opacity="0.4"/>
-              <text x="115" y="175" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">GAN</text>
-            </g>
+              <!-- Axes -->
+              <line x1="50" y1="250" x2="350" y2="250" stroke="var(--muted)" stroke-width="1" opacity="0.35"/>
+              <line x1="50" y1="38" x2="50" y2="252" stroke="var(--muted)" stroke-width="1" opacity="0.35"/>
+              <text x="200" y="268" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="9" opacity="0.5">x (espacio de datos)</text>
+              <text x="36" y="145" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="9" opacity="0.5" transform="rotate(-90,36,145)">p(x)</text>
 
-            <!-- Diffusion: noise → clean -->
-            <g class="anim-fade-up" style="--delay:0.9s">
-              <rect x="28" y="200" width="175" height="70" rx="14" fill="var(--blue)" fill-opacity="0.04" stroke="var(--blue)" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
-              <!-- Noise panel -->
-              <rect x="38" y="215" width="35" height="35" rx="6" fill="var(--muted)" fill-opacity="0.06" stroke="var(--muted)" stroke-width="0.6"/>
-              <g fill="var(--muted)">
-                <circle cx="45" cy="224" r="1.5" opacity="0.5"/><circle cx="55" cy="240" r="1.2" opacity="0.4"/><circle cx="50" cy="228" r="1.8" opacity="0.3"/>
-                <circle cx="62" cy="222" r="1" opacity="0.6"/><circle cx="48" cy="238" r="1.5" opacity="0.4"/><circle cx="58" cy="232" r="1.3" opacity="0.5"/>
-                <circle cx="42" cy="235" r="1" opacity="0.3"/><circle cx="66" cy="242" r="1.2" opacity="0.4"/><circle cx="53" cy="220" r="1.5" opacity="0.5"/>
-              </g>
-              <!-- Arrows -->
-              <text x="80" y="236" fill="var(--teal)" font-size="11" opacity="0.5">→</text>
-              <!-- Intermediate -->
-              <rect x="90" y="220" width="28" height="28" rx="5" fill="var(--teal)" fill-opacity="0.03" stroke="var(--muted)" stroke-width="0.5"/>
-              <path d="M94,234 Q101,224 108,234" stroke="var(--teal)" fill="none" stroke-width="1" opacity="0.3"/>
-              <g fill="var(--teal)" opacity="0.25"><circle cx="97" cy="228" r="1"/><circle cx="110" cy="240" r="1"/></g>
-              <text x="124" y="236" fill="var(--teal)" font-size="11" opacity="0.5">→</text>
-              <!-- Clean -->
-              <rect x="134" y="220" width="28" height="28" rx="5" fill="var(--teal)" fill-opacity="0.06" stroke="var(--teal)" stroke-width="0.8"/>
-              <path d="M138,234 Q145,220 152,234 Q157,244 158,236" stroke="var(--teal)" fill="none" stroke-width="1.8" stroke-linecap="round"/>
-              <!-- Output note -->
-              <text x="170" y="236" fill="var(--teal)" font-size="12" opacity="0.5">♪</text>
-              <text x="115" y="263" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">Difusión</text>
-            </g>
+              <!-- Distribution curve 1 (blue, left mode) — filled -->
+              <path d="M55,248 C65,248 78,245 92,230 C106,215 112,175 120,140 C128,105 132,72 145,58 C158,72 162,105 170,140 C178,175 184,215 198,230 C212,245 225,248 235,248 Z"
+                    fill="url(#distFill)" stroke="none"/>
+              <path d="M55,248 C65,248 78,245 92,230 C106,215 112,175 120,140 C128,105 132,72 145,58 C158,72 162,105 170,140 C178,175 184,215 198,230 C212,245 225,248 235,248"
+                    fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"/>
 
-            <!-- Generativo label -->
-            <g class="anim-fade-up" style="--delay:0.4s">
-              <text x="115" y="14" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="14" font-weight="700" letter-spacing="0.04em">Generativo</text>
-            </g>
+              <!-- Distribution curve 2 (purple, right mode, flatter) — filled -->
+              <path d="M175,248 C185,248 195,246 210,238 C225,230 230,210 240,185 C250,160 255,138 265,130 C275,138 280,160 290,185 C300,210 305,230 320,238 C335,246 345,248 355,248 Z"
+                    fill="url(#distFill2)" stroke="none"/>
+              <path d="M175,248 C185,248 195,246 210,238 C225,230 230,210 240,185 C250,160 255,138 265,130 C275,138 280,160 290,185 C300,210 305,230 320,238 C335,246 345,248 355,248"
+                    fill="none" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="5,3" opacity="0.7"/>
 
-            <!-- ═══════════ RIGHT: DISCRIMINATIVE ═══════════ -->
-            <!-- Branching arrow down-right -->
-            <g class="anim-fade-up" style="--delay:0.3s">
-              <path d="M430,180 C450,210 520,230 590,240" stroke="var(--teal)" stroke-width="1.8" fill="none" stroke-dasharray="6" opacity="0.5"/>
-              <polygon points="590,240 581,238 584,247" fill="var(--teal)" opacity="0.6"/>
-            </g>
+              <!-- Mode labels -->
+              <text x="145" y="52" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="9" opacity="0.6">p(x|clase A)</text>
+              <text x="265" y="124" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="9" opacity="0.6">p(x|clase B)</text>
 
-            <!-- Contrastive: pull/push circles -->
-            <g class="anim-fade-up" style="--delay:0.5s">
-              <rect x="597" y="22" width="175" height="70" rx="14" fill="var(--teal)" fill-opacity="0.04" stroke="var(--teal)" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
-              <circle cx="645" cy="52" r="16" fill="var(--teal)" fill-opacity="0.08" stroke="var(--teal)" stroke-width="1.5"/>
-              <text x="645" y="48" text-anchor="middle" fill="var(--teal)" font-size="12">🎵</text>
-              <text x="645" y="62" text-anchor="middle" fill="var(--teal)" font-size="7">audio</text>
-              <!-- Pull line -->
-              <line x1="663" y1="48" x2="703" y2="48" stroke="var(--teal)" stroke-width="2" stroke-dasharray="4"/>
-              <circle cx="723" cy="48" r="14" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="1.5"/>
-              <text x="723" y="44" text-anchor="middle" fill="var(--amber)" font-size="10">📝</text>
-              <text x="723" y="56" text-anchor="middle" fill="var(--amber)" font-size="7">texto</text>
-              <!-- Push X -->
-              <circle cx="758" cy="70" r="8" fill="none" stroke="var(--red)" stroke-width="1" stroke-dasharray="3" opacity="0.4"/>
-              <text x="758" y="73" text-anchor="middle" fill="var(--red)" font-size="8" opacity="0.4">✗</text>
-              <text x="684" y="86" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">Auto Supervisado</text>
-            </g>
-
-            <!-- Embeddings: clusters -->
-            <g class="anim-fade-up" style="--delay:0.7s">
-              <rect x="597" y="110" width="175" height="70" rx="14" fill="var(--teal)" fill-opacity="0.04" stroke="var(--teal)" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
-              <!-- Cluster 1 -->
-              <circle cx="635" cy="138" r="5" fill="var(--blue)"/><circle cx="645" cy="148" r="4" fill="var(--blue)" opacity="0.5"/><circle cx="628" cy="148" r="3.5" fill="var(--blue)" opacity="0.4"/>
-              <ellipse cx="636" cy="145" rx="16" ry="13" fill="none" stroke="var(--blue)" stroke-width="0.7" stroke-dasharray="3" opacity="0.4"/>
-              <!-- Cluster 2 -->
-              <circle cx="690" cy="135" r="5" fill="var(--amber)"/><circle cx="700" cy="145" r="4" fill="var(--amber)" opacity="0.5"/><circle cx="683" cy="143" r="3.5" fill="var(--amber)" opacity="0.4"/>
-              <ellipse cx="691" cy="141" rx="16" ry="13" fill="none" stroke="var(--amber)" stroke-width="0.7" stroke-dasharray="3" opacity="0.4"/>
-              <!-- Cluster 3 -->
-              <circle cx="745" cy="140" r="5" fill="var(--teal)"/><circle cx="755" cy="150" r="4" fill="var(--teal)" opacity="0.5"/><circle cx="738" cy="148" r="3.5" fill="var(--teal)" opacity="0.4"/>
-              <ellipse cx="746" cy="146" rx="16" ry="13" fill="none" stroke="var(--teal)" stroke-width="0.7" stroke-dasharray="3" opacity="0.4"/>
-              <!-- Query -->
-              <circle cx="633" cy="140" r="2.5" fill="var(--red)" stroke="var(--red)" stroke-width="1.5">
-                <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+              <!-- Sampling arrows — from different x positions on curve down to axis, with sampled point -->
+              <!-- Sample 1 -->
+              <line x1="120" y1="140" x2="120" y2="248" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+              <circle cx="120" cy="248" r="4" fill="var(--blue)" opacity="0.85"/>
+              <!-- Sample 2 -->
+              <line x1="145" y1="58" x2="145" y2="248" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+              <circle cx="145" cy="248" r="5" fill="var(--blue)" opacity="0.6">
+                <animate attributeName="r" values="3;6;3" dur="2.2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/>
               </circle>
-              <text x="684" y="175" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">Embeddings</text>
+              <!-- Sample 3 -->
+              <line x1="170" y1="140" x2="170" y2="248" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+              <circle cx="170" cy="248" r="4" fill="var(--blue)" opacity="0.85"/>
+              <!-- Sample from second distribution -->
+              <line x1="265" y1="130" x2="265" y2="248" stroke="var(--purple)" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+              <circle cx="265" cy="248" r="4" fill="var(--purple)" opacity="0.7"/>
+
+              <!-- "muestra" annotation with curved arrow -->
+              <path d="M145,232 Q155,220 165,225" stroke="var(--amber)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <polygon points="165,225 160,220 170,220" fill="var(--amber)" opacity="0.8"/>
+              <text x="135" y="228" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="9" font-weight="600" opacity="0.9">muestra</text>
             </g>
 
-            <!-- Representations: layer bars -->
-            <g class="anim-fade-up" style="--delay:0.9s">
-              <rect x="597" y="200" width="175" height="70" rx="14" fill="var(--teal)" fill-opacity="0.04" stroke="var(--teal)" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
-              <!-- Layer bars gradient -->
-              <rect x="612" y="218" width="14" height="32" rx="3" fill="var(--blue)" fill-opacity="0.35"/>
-              <rect x="630" y="215" width="14" height="35" rx="3" fill="var(--blue)" fill-opacity="0.25"/>
-              <rect x="648" y="220" width="14" height="30" rx="3" fill="var(--teal)" fill-opacity="0.25"/>
-              <rect x="666" y="216" width="14" height="34" rx="3" fill="var(--teal)" fill-opacity="0.30"/>
-              <rect x="684" y="213" width="14" height="37" rx="3" fill="var(--amber)" fill-opacity="0.25"/>
-              <rect x="702" y="218" width="14" height="32" rx="3" fill="var(--amber)" fill-opacity="0.30"/>
-              <rect x="720" y="221" width="14" height="29" rx="3" fill="var(--amber)" fill-opacity="0.38"/>
-              <rect x="738" y="224" width="14" height="26" rx="3" fill="var(--amber)" fill-opacity="0.42"/>
-              <!-- Gradient bar -->
-              <defs><linearGradient id="layerGradHero" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--blue);stop-opacity:1"/><stop offset="50%" style="stop-color:var(--teal);stop-opacity:1"/><stop offset="100%" style="stop-color:var(--amber);stop-opacity:1"/></linearGradient></defs>
-              <rect x="612" y="253" width="140" height="2" rx="1" fill="url(#layerGradHero)" opacity="0.5"/>
-              <text x="684" y="265" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">Representaciones</text>
-            </g>
-
-            <!-- Discriminativo label -->
+            <!-- ═══════════ RIGHT: DISCRIMINATIVE — decision boundary ═══════════ -->
             <g class="anim-fade-up" style="--delay:0.4s">
-              <text x="684" y="14" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="14" font-weight="700" letter-spacing="0.04em">Discriminativo</text>
+
+              <!-- Discriminativo label -->
+              <text x="600" y="18" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="14" font-weight="700" letter-spacing="0.04em">Discriminativo</text>
+
+              <!-- Axes frame -->
+              <rect x="448" y="28" width="304" height="248" rx="10" fill="none" stroke="var(--muted)" stroke-width="0.8" opacity="0.2"/>
+              <text x="600" y="288" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="9" opacity="0.5">característica 1</text>
+              <text x="434" y="152" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="9" opacity="0.5" transform="rotate(-90,434,152)">característica 2</text>
+
+              <!-- Class A region (blue tint, left) -->
+              <path d="M448,28 L540,28 Q510,80 505,152 Q500,224 540,276 L448,276 Z"
+                    fill="var(--blue)" fill-opacity="0.06" clip-path="url(#discClipDef)"/>
+              <!-- Class B region (teal tint, right) -->
+              <path d="M540,28 L752,28 L752,276 L540,276 Q510,224 505,152 Q500,80 540,28 Z"
+                    fill="var(--teal)" fill-opacity="0.06" clip-path="url(#discClipDef)"/>
+
+              <!-- Decision boundary curve -->
+              <path d="M528,28 Q510,80 505,152 Q500,224 518,276"
+                    fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+              <text x="495" y="165" text-anchor="end" fill="var(--red)" font-family="var(--font)" font-size="14" font-weight="700" opacity="0.8">frontera</text>
+
+              <!-- Class A points (blue circles, left region) -->
+              <circle cx="475" cy="75"  r="5" fill="var(--blue)" opacity="0.75"/>
+              <circle cx="490" cy="110" r="5" fill="var(--blue)" opacity="0.75"/>
+              <circle cx="468" cy="148" r="5" fill="var(--blue)" opacity="0.75"/>
+              <circle cx="480" cy="185" r="5" fill="var(--blue)" opacity="0.75"/>
+              <circle cx="462" cy="220" r="5" fill="var(--blue)" opacity="0.75"/>
+              <circle cx="492" cy="240" r="4" fill="var(--blue)" opacity="0.6"/>
+              <circle cx="472" cy="58"  r="4" fill="var(--blue)" opacity="0.6"/>
+
+              <!-- Class B points (teal circles, right region) -->
+              <circle cx="590" cy="65"  r="5" fill="var(--teal)" opacity="0.75"/>
+              <circle cx="650" cy="95"  r="5" fill="var(--teal)" opacity="0.75"/>
+              <circle cx="620" cy="140" r="5" fill="var(--teal)" opacity="0.75"/>
+              <circle cx="700" cy="110" r="5" fill="var(--teal)" opacity="0.75"/>
+              <circle cx="680" cy="180" r="5" fill="var(--teal)" opacity="0.75"/>
+              <circle cx="740" cy="150" r="5" fill="var(--teal)" opacity="0.75"/>
+              <circle cx="660" cy="230" r="4" fill="var(--teal)" opacity="0.6"/>
+              <circle cx="720" cy="220" r="4" fill="var(--teal)" opacity="0.6"/>
+
+              <!-- Class labels -->
+              <text x="472" y="45" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">clase A</text>
+              <text x="680" y="45" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">clase B</text>
+
+              <!-- Query point with pulsing ring near boundary -->
+              <circle cx="533" cy="152" r="5.5" fill="var(--amber)" opacity="0.9"/>
+              <circle cx="533" cy="152" r="10" fill="none" stroke="var(--amber)" stroke-width="1.5" opacity="0.5">
+                <animate attributeName="r" values="7;14;7" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <text x="548" y="145" fill="var(--amber)" font-family="var(--font)" font-size="9" font-weight="600" opacity="0.85">?</text>
             </g>
 
             <!-- Center divider line -->
@@ -230,10 +192,10 @@
               <line x1="400" y1="25" x2="400" y2="310" stroke="var(--muted)" stroke-width="1" stroke-dasharray="6"/>
             </g>
 
-            <!-- Bottom summary icons -->
+            <!-- Bottom summary labels -->
             <g class="anim-fade-up" style="--delay:1.1s">
-              <text x="200" y="310" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="11" font-weight="500" opacity="0.5">produce audio nuevo</text>
-              <text x="600" y="310" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="11" font-weight="500" opacity="0.5">analiza y comprende</text>
+              <text x="200" y="298" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="14" font-weight="500" opacity="0.5">aprende a producir</text>
+              <text x="600" y="298" text-anchor="middle" fill="var(--teal)" font-family="var(--font)" font-size="14" font-weight="500" opacity="0.5">aprende a decidir</text>
             </g>
           </svg>
         </div>

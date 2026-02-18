@@ -5,22 +5,38 @@
             {
                 "name": "MusicVAE",
                 "year": 2018,
-                "description": "VAE jerárquico para interpolación y generación de secuencias MIDI"
+                "description": "VAE jerárquico para interpolación y generación de secuencias MIDI",
+                "paper": {
+                    "url": "https://arxiv.org/abs/1803.05428",
+                    "cite": "Roberts et al. (2018) — A Hierarchical Latent Vector Model for Learning Long-Term Structure in Music"
+                }
             },
             {
                 "name": "VQ-VAE / VQ-VAE-2",
                 "year": 2017,
-                "description": "Codificación discreta de audio en espacio latente, base de Jukebox"
+                "description": "Codificación discreta de audio en espacio latente, base de Jukebox",
+                "paper": {
+                    "url": "https://arxiv.org/abs/1711.00937",
+                    "cite": "van den Oord et al. (2017) — Neural Discrete Representation Learning (VQ-VAE)"
+                }
             },
             {
                 "name": "WaveGlow",
                 "year": 2019,
-                "description": "Flow generativo para síntesis de voz paralela en tiempo real"
+                "description": "Flow generativo para síntesis de voz paralela en tiempo real",
+                "paper": {
+                    "url": "https://arxiv.org/abs/1811.00002",
+                    "cite": "Prenger et al. (2019) — WaveGlow: A Flow-based Generative Network for Speech Synthesis"
+                }
             },
             {
                 "name": "FloWaveNet",
                 "year": 2019,
-                "description": "Flow-based model para generación paralela de waveforms"
+                "description": "Flow-based model para generación paralela de waveforms",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             }
         ],
         "examples": [
@@ -53,22 +69,38 @@
             {
                 "name": "GANSynth",
                 "year": 2019,
-                "description": "GAN para síntesis de notas individuales con control de pitch y timbre"
+                "description": "GAN para síntesis de notas individuales con control de pitch y timbre",
+                "paper": {
+                    "url": "https://arxiv.org/abs/1902.08710",
+                    "cite": "Engel et al. (2019) — GANSynth: Adversarial Neural Audio Synthesis"
+                }
             },
             {
                 "name": "WaveGAN",
                 "year": 2019,
-                "description": "GAN que genera waveforms crudas de un segundo"
+                "description": "GAN que genera waveforms crudas de un segundo",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "MelGAN",
                 "year": 2019,
-                "description": "Vocoder GAN rápido para síntesis mel-spectrogram → audio"
+                "description": "Vocoder GAN rápido para síntesis mel-spectrogram → audio",
+                "paper": {
+                    "url": "https://arxiv.org/abs/1910.06711",
+                    "cite": "Kumar et al. (2019) — MelGAN: Generative Adversarial Networks for Conditional Waveform Synthesis"
+                }
             },
             {
                 "name": "HiFi-GAN",
                 "year": 2020,
-                "description": "Vocoder de alta fidelidad usado en pipelines TTS y música"
+                "description": "Vocoder de alta fidelidad usado en pipelines TTS y música",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2010.05646",
+                    "cite": "Kong et al. (2020) — HiFi-GAN: Generative Adversarial Networks for Efficient and High Fidelity Speech Synthesis"
+                }
             }
         ],
         "examples": [
@@ -94,7 +126,11 @@
             {
                 "name": "DDSP",
                 "year": 2020,
-                "description": "Síntesis diferenciable: harmónico + ruido + filtros con control explícito de f0 y loudness"
+                "description": "Síntesis diferenciable: harmónico + ruido + filtros con control explícito de f0 y loudness",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2001.04643",
+                    "cite": "Engel et al. (2020) — DDSP: Differentiable Digital Signal Processing"
+                }
             }
         ],
         "examples": [
@@ -120,42 +156,74 @@
             {
                 "name": "SampleRNN",
                 "year": 2017,
-                "description": "RNN multi-escala que genera audio crudo a tres resoluciones temporales"
+                "description": "RNN multi-escala que genera audio crudo a tres resoluciones temporales",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "WaveNet",
                 "year": 2016,
-                "description": "Red convolucional causal dilated que genera audio sample a sample"
+                "description": "Red convolucional causal dilated que genera audio sample a sample",
+                "paper": {
+                    "url": "https://arxiv.org/abs/1609.03499",
+                    "cite": "van den Oord et al. (2016) — WaveNet: A Generative Model for Raw Audio"
+                }
             },
             {
                 "name": "WaveRNN",
                 "year": 2018,
-                "description": "RNN eficiente para síntesis de audio en tiempo real (vocoder AR)"
+                "description": "RNN eficiente para síntesis de audio en tiempo real (vocoder AR)",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "Music Transformer",
                 "year": 2018,
-                "description": "Transformer con relative attention para generación de piano largo"
+                "description": "Transformer con relative attention para generación de piano largo",
+                "paper": {
+                    "url": "https://arxiv.org/abs/1809.04281",
+                    "cite": "Huang et al. (2018) — Music Transformer: Generating Music with Long-Term Structure"
+                }
             },
             {
                 "name": "Jukebox",
                 "year": 2020,
-                "description": "VQ-VAE + Transformer para generar audio con voz en crudo"
+                "description": "VQ-VAE + Transformer para generar audio con voz en crudo",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "AudioLM",
                 "year": 2022,
-                "description": "Modelado de lenguaje sobre tokens de audio (SoundStream + w2v-BERT)"
+                "description": "Modelado de lenguaje sobre tokens de audio (SoundStream + w2v-BERT)",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2209.03143",
+                    "cite": "Borsos et al. (2022) — AudioLM: a Language Modeling Approach to Audio Generation"
+                }
             },
             {
                 "name": "MusicLM",
                 "year": 2023,
-                "description": "Generación de música a partir de texto, construido sobre AudioLM"
+                "description": "Generación de música a partir de texto, construido sobre AudioLM",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "MusicGen",
                 "year": 2023,
-                "description": "Transformer de Meta para generación condicionada a texto/melodía"
+                "description": "Transformer de Meta para generación condicionada a texto/melodía",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2306.05284",
+                    "cite": "Copet et al. (2023) — Simple and Controllable Music Generation (MusicGen)"
+                }
             }
         ],
         "examples": [
@@ -226,37 +294,65 @@
             {
                 "name": "DiffWave",
                 "year": 2021,
-                "description": "Modelo de difusión para generación de audio waveform"
+                "description": "Modelo de difusión para generación de audio waveform",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2009.09761",
+                    "cite": "Kong et al. (2021) — DiffWave: A Versatile Diffusion Model for Audio Synthesis"
+                }
             },
             {
                 "name": "WaveGrad",
                 "year": 2021,
-                "description": "Difusión condicional para síntesis de voz de alta calidad"
+                "description": "Difusión condicional para síntesis de voz de alta calidad",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "Riffusion",
                 "year": 2022,
-                "description": "Stable Diffusion fine-tuneado sobre espectrogramas para generar música"
+                "description": "Stable Diffusion fine-tuneado sobre espectrogramas para generar música",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "AudioLDM2",
                 "year": 2023,
-                "description": "Latent diffusion multi-modal para audio, música y voz"
+                "description": "Latent diffusion multi-modal para audio, música y voz",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2308.05734",
+                    "cite": "Liu et al. (2023) — AudioLDM 2: Learning Holistic Audio Generation with Self-supervised Pretraining"
+                }
             },
             {
                 "name": "Stable Audio Open",
                 "year": 2024,
-                "description": "Modelo abierto de Stability AI para generación de audio y música"
+                "description": "Modelo abierto de Stability AI para generación de audio y música",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2407.14358",
+                    "cite": "Evans et al. (2024) — Stable Audio Open"
+                }
             },
             {
                 "name": "Mustango",
                 "year": 2023,
-                "description": "Text-to-music con control musical explícito (tempo, acorde, instrumento)"
+                "description": "Text-to-music con control musical explícito (tempo, acorde, instrumento)",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "MusicLDM",
                 "year": 2023,
-                "description": "Latent diffusion específico para generación de música"
+                "description": "Latent diffusion específico para generación de música",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             }
         ],
         "examples": [
@@ -290,17 +386,29 @@
             {
                 "name": "SoundStream",
                 "year": 2021,
-                "description": "Primer codec neural end-to-end con RVQ, base de AudioLM"
+                "description": "Primer codec neural end-to-end con RVQ, base de AudioLM",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2107.03312",
+                    "cite": "Zeghidour et al. (2021) — SoundStream: An End-to-End Neural Audio Codec"
+                }
             },
             {
                 "name": "EnCodec",
                 "year": 2022,
-                "description": "Codec neural de Meta con RVQ, usado en MusicGen y AudioLM"
+                "description": "Codec neural de Meta con RVQ, usado en MusicGen y AudioLM",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2210.13438",
+                    "cite": "Défossez et al. (2022) — High Fidelity Neural Audio Compression (EnCodec)"
+                }
             },
             {
                 "name": "DAC (Descript Audio Codec)",
                 "year": 2023,
-                "description": "Codec de alta fidelidad optimizado para música con menor bitrate"
+                "description": "Codec de alta fidelidad optimizado para música con menor bitrate",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2306.06546",
+                    "cite": "Kumar et al. (2023) — High-Fidelity Audio Compression with Improved RVQGAN (DAC)"
+                }
             }
         ],
         "examples": []
@@ -311,12 +419,20 @@
             {
                 "name": "YAMNet",
                 "year": 2020,
-                "description": "Clasificador de 521 eventos sonoros sobre MobileNet, entrenado en AudioSet"
+                "description": "Clasificador de 521 eventos sonoros sobre MobileNet, entrenado en AudioSet",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "VGGish",
                 "year": 2017,
-                "description": "Embeddings de audio basados en VGG16 entrenado en AudioSet"
+                "description": "Embeddings de audio basados en VGG16 entrenado en AudioSet",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             }
         ],
         "examples": []
@@ -327,37 +443,65 @@
             {
                 "name": "SSAST",
                 "year": 2022,
-                "description": "Self-Supervised Audio Spectrogram Transformer con masked patching"
+                "description": "Self-Supervised Audio Spectrogram Transformer con masked patching",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2110.09784",
+                    "cite": "Gong et al. (2022) — SSAST: Self-Supervised Audio Spectrogram Transformer"
+                }
             },
             {
                 "name": "BYOL-A",
                 "year": 2022,
-                "description": "Bootstrap Your Own Latent for Audio"
+                "description": "Bootstrap Your Own Latent for Audio",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "MERT",
                 "year": 2023,
-                "description": "Music understanding model pre-entrenado con teacher acústico + musical"
+                "description": "Music understanding model pre-entrenado con teacher acústico + musical",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2306.00107",
+                    "cite": "Li et al. (2023) — MERT: Acoustic Music Understanding Model with Large-Scale Self-supervised Training"
+                }
             },
             {
                 "name": "MusicFM",
                 "year": 2024,
-                "description": "Foundation model para música con masked prediction multi-tarea"
+                "description": "Foundation model para música con masked prediction multi-tarea",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "EncodecMAE",
                 "year": 2024,
-                "description": "Masked autoencoder sobre tokens de Encodec para representaciones de audio"
+                "description": "Masked autoencoder sobre tokens de Encodec para representaciones de audio",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             },
             {
                 "name": "MuQ",
                 "year": 2024,
-                "description": "Music understanding quantizer con pre-training multi-tarea"
+                "description": "Music understanding quantizer con pre-training multi-tarea",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2505.16306",
+                    "cite": "MuQ + layer-wise analysis (2025) — arXiv:2505.16306"
+                }
             },
             {
                 "name": "SoniDo",
                 "year": 2024,
-                "description": "Modelo auto-supervisado para separación y análisis de fuentes musicales"
+                "description": "Modelo auto-supervisado para separación y análisis de fuentes musicales",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             }
         ],
         "examples": []
@@ -368,12 +512,20 @@
             {
                 "name": "CLAP",
                 "year": 2023,
-                "description": "Contrastive Language-Audio Pretraining — alinea audio y texto en un espacio compartido"
+                "description": "Contrastive Language-Audio Pretraining — alinea audio y texto en un espacio compartido",
+                "paper": {
+                    "url": "https://arxiv.org/abs/2211.06687",
+                    "cite": "Elizalde et al. (2023) — CLAP: Learning Audio Concepts From Natural Language Supervision"
+                }
             },
             {
                 "name": "OpenL3",
                 "year": 2019,
-                "description": "Look, Listen, and Learn — Modelo de representación de audio y video basado en aprendizaje profundo"
+                "description": "Look, Listen, and Learn — Modelo de representación de audio y video basado en aprendizaje profundo",
+                "paper": {
+                    "url": null,
+                    "cite": null
+                }
             }
         ],
         "examples": []
