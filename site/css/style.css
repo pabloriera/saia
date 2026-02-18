@@ -4,7 +4,7 @@
 :root {
   --bg: #fafafa;
   --fg: #1a1a2e;
-  --muted: #8892a4;
+  --muted: #64748b;
   --border: #e5e7eb;
   --card-bg: #ffffff;
   --blue: #3b82f6;
@@ -766,4 +766,171 @@ body.presentation-mode .card.expanded .card-body { max-height: 3000px; }
   background: var(--blue);
   cursor: pointer;
   border: 2px solid var(--bg);
+}
+
+/* ─── Accessibility: Focus States ─── */
+*:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+button:focus-visible, .carousel-btn:focus-visible, .expand-icon:focus-visible {
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
+}
+
+/* Constrain line length for readability */
+.card-col p, .card-col li, .plot-method-note {
+  max-width: 72ch;
+}
+
+/* ─── Listening Criteria ─── */
+.listening-criteria {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(217,119,6,0.04), rgba(59,130,246,0.04));
+  border: 1px solid rgba(217,119,6,0.15);
+  border-radius: 12px;
+  border-left: 3px solid var(--amber);
+}
+.listening-criteria h4 {
+  font-size: 0.95rem !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: var(--amber) !important;
+  margin-bottom: 10px !important;
+  margin-top: 0 !important;
+}
+.listening-criteria ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+}
+.listening-criteria li {
+  font-size: 0.9rem;
+  color: var(--fg);
+  line-height: 1.5;
+  padding-left: 1.4em;
+  text-indent: -1.4em;
+}
+.listening-criteria li::before {
+  content: '👂 ';
+}
+
+/* ─── Method Box ─── */
+.method-box {
+  margin: 24px 0;
+  padding: 20px 24px;
+  background: rgba(59,130,246,0.03);
+  border: 1px solid rgba(59,130,246,0.12);
+  border-radius: 12px;
+  border-left: 3px solid var(--blue);
+}
+.method-box h4 {
+  font-size: 1rem !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: var(--blue) !important;
+  margin-bottom: 10px !important;
+  margin-top: 0 !important;
+}
+.method-box ul {
+  list-style: none;
+  padding: 0;
+}
+.method-box li {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.method-box a { color: var(--blue); }
+.method-disclaimer {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(217,119,6,0.06);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+/* ─── Sources Drawer ─── */
+.sources-drawer {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.sources-drawer summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+.sources-drawer summary::-webkit-details-marker { display: none; }
+.sources-drawer summary::before { content: '📚 '; }
+.sources-drawer[open] summary { color: var(--blue); }
+.sources-drawer ul {
+  padding: 10px 0 0 0;
+  list-style: none;
+}
+.sources-drawer li {
+  font-size: 0.82rem;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.sources-drawer a {
+  color: var(--blue);
+  text-decoration: none;
+}
+.sources-drawer a:hover { text-decoration: underline; }
+
+/* ─── Section Progress ─── */
+.section-progress {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  background: var(--bg);
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ─── Presenter Mode Improvements ─── */
+body.presentation-mode .card-col p,
+body.presentation-mode .card-col li {
+  font-size: 1.15rem;
+}
+body.presentation-mode .card-header h3 {
+  font-size: 1.8rem;
+}
+body.presentation-mode .card-summary {
+  font-size: 1.2rem;
+}
+body.presentation-mode .listening-criteria ul {
+  grid-template-columns: 1fr;
+}
+body.presentation-mode .sources-drawer {
+  display: none;
+}
+body.presentation-mode .section-progress {
+  font-size: 0.85rem;
+  padding: 4px 14px;
+}
+
+/* ─── Responsive: Listening Criteria ─── */
+@media (max-width: 768px) {
+  .listening-criteria ul {
+    grid-template-columns: 1fr;
+  }
 }

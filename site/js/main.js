@@ -88,8 +88,11 @@
     presentationMode = !presentationMode;
     document.body.classList.toggle('presentation-mode', presentationMode);
     presToggle.classList.toggle('active', presentationMode);
+    presToggle.setAttribute('aria-pressed', presentationMode);
 
     if (presentationMode) {
+      // Collapse all cards for cleaner view
+      document.querySelectorAll('.card.expanded').forEach(c => c.classList.remove('expanded'));
       // Snap to nearest slide
       let nearest = 0;
       let minDist = Infinity;
@@ -130,6 +133,18 @@
   });
 
   // ── Card expand/collapse ──
+  // Restore persisted state
+  const savedCards = JSON.parse(sessionStorage.getItem('saia-expanded') || '[]');
+  savedCards.forEach(name => {
+    const card = document.querySelector(`.card[data-card="${name}"]`);
+    if (card) card.classList.add('expanded');
+  });
+
+  function persistExpanded() {
+    const expanded = [...document.querySelectorAll('.card.expanded')].map(c => c.dataset.card);
+    sessionStorage.setItem('saia-expanded', JSON.stringify(expanded));
+  }
+
   document.querySelectorAll('[data-toggle]').forEach(header => {
     header.addEventListener('click', () => {
       const cardName = header.dataset.toggle;
@@ -142,6 +157,7 @@
       });
 
       card.classList.toggle('expanded', !isExpanded);
+      persistExpanded();
 
       // Scroll card into view if expanding
       if (!isExpanded) {

@@ -27,7 +27,7 @@
   }
 
   function renderAllSections() {
-    const families = ['vae', 'gan', 'ddsp', 'ar', 'diffusion', 'supervised', 'selfsupervised', 'multimodal', 'representations', 'embeddings'];
+    const families = ['vae', 'gan', 'ddsp', 'ar', 'diffusion', 'tokenizers', 'supervised', 'selfsupervised', 'multimodal', 'representations', 'embeddings'];
     families.forEach(family => {
       const section = modelsData[family];
       if (!section) return;
@@ -61,19 +61,21 @@
       html += '<div class="curated-examples">';
       html += '<h4>Ejemplos de audio</h4>';
       html += '<div class="audio-list">';
-      section.examples.forEach(ex => {
+      section.examples.forEach((ex, idx) => {
         const isVideo = ex.type === 'video' || (ex.url && (ex.url.endsWith('.mp4') || ex.url.endsWith('.webm')));
         const isSoundCloud = ex.type === 'soundcloud' || (ex.url && ex.url.includes('soundcloud.com'));
+        // Only preload the first example per section; others load on demand
+        const preloadAttr = idx === 0 ? 'metadata' : 'none';
 
         let playerHTML = '';
         if (isSoundCloud) {
           const scUrl = encodeURIComponent(ex.url);
-          playerHTML = `<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" style="border-radius:8px;" src="https://w.soundcloud.com/player/?url=${scUrl}&color=%23e67e22&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>`;
+          playerHTML = `<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" style="border-radius:8px;" src="https://w.soundcloud.com/player/?url=${scUrl}&color=%23e67e22&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false" title="${escapeHTML(ex.title)}"></iframe>`;
         } else if (isVideo) {
-          playerHTML = `<video controls preload="none" width="280" height="160" style="border-radius:8px;flex-shrink:0"><source src="${escapeHTML(ex.url)}">No soportado</video>`;
+          playerHTML = `<video controls preload="${preloadAttr}" width="280" height="160" style="border-radius:8px;flex-shrink:0" title="${escapeHTML(ex.title)}"><source src="${escapeHTML(ex.url)}">Tu navegador no soporta video HTML5. <a href="${escapeHTML(ex.url)}" target="_blank">Descargar</a></video>`;
         } else if (ex.url) {
           const ext = ex.url.split('.').pop();
-          playerHTML = `<audio controls preload="none"><source src="${escapeHTML(ex.url)}" type="audio/${ext}">No soportado</audio>`;
+          playerHTML = `<audio controls preload="${preloadAttr}" title="${escapeHTML(ex.title)}"><source src="${escapeHTML(ex.url)}" type="audio/${ext}">Tu navegador no soporta audio HTML5. <a href="${escapeHTML(ex.url)}" target="_blank">Descargar</a></audio>`;
         }
 
         html += `
@@ -95,6 +97,17 @@
     }
 
     container.innerHTML = html;
+
+    // Add error handling for audio/video elements
+    container.querySelectorAll('audio, video').forEach(el => {
+      el.addEventListener('error', function() {
+        const item = this.closest('.audio-item');
+        if (item) {
+          const src = this.querySelector('source')?.src || '';
+          this.outerHTML = `<span style="font-size:0.82rem;color:var(--muted);padding:8px 12px;background:var(--bg);border-radius:8px;display:inline-block;">⚠️ Audio no disponible — <a href="${src}" target="_blank" style="color:var(--blue);">abrir enlace</a></span>`;
+        }
+      }, true);
+    });
   }
 
   function escapeHTML(str) {

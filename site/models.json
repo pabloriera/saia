@@ -284,6 +284,27 @@
       }
     ]
   },
+  "tokenizers": {
+    "label": "Tokenizers (Audio Codecs)",
+    "models": [
+      {
+        "name": "SoundStream",
+        "year": 2021,
+        "description": "Primer codec neural end-to-end con RVQ, base de AudioLM"
+      },
+      {
+        "name": "EnCodec",
+        "year": 2022,
+        "description": "Codec neural de Meta con RVQ, usado en MusicGen y AudioLM"
+      },
+      {
+        "name": "DAC (Descript Audio Codec)",
+        "year": 2023,
+        "description": "Codec de alta fidelidad optimizado para música con menor bitrate"
+      }
+    ],
+    "examples": []
+  },
   "supervised": {
     "label": "Supervisado (Datos con Etiquetas)",
     "models": [

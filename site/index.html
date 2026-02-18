@@ -31,6 +31,7 @@
           <li><a href="#ddsp" class="nav-link" data-section="ddsp">Síntesis Neural</a></li>
           <li><a href="#ar" class="nav-link" data-section="ar">Autoregresivo</a></li>
           <li><a href="#diffusion" class="nav-link" data-section="diffusion">Difusión</a></li>
+          <li><a href="#tokenizers" class="nav-link" data-section="tokenizers">Tokenizers</a></li>
         </ul>
       </li>
       <li>
@@ -244,7 +245,7 @@
     <section class="slide slide-header" id="generativo">
       <div class="slide-inner">
         <span class="section-tag tag-gen">Parte 1</span>
-        <h2>Modelado Generativo</h2>
+        <h2>Modelado Generativo <span class="section-progress">Parte 1 / 2</span></h2>
         <p class="section-desc">Modelos que aprenden a <strong>producir</strong> audio o secuencias musicales nuevas.</p>
       </div>
     </section>
@@ -258,7 +259,7 @@
               <div class="card-header-left">
                 <span class="section-tag tag-gen">Generativo</span>
                 <h3>VAE y Modelos de Flujo</h3>
-                <p class="card-summary">Modelos con espacio latente continuo que permiten interpolación, manipulación de atributos y generación paralela mediante flujos invertibles.</p>
+                <p class="card-summary">Modelos con espacio latente continuo que permiten interpolación e manipulación de atributos.</p>
               </div>
               <span class="expand-icon">＋</span>
             </div>
@@ -318,6 +319,7 @@
                   <li>Un decoder reconstruye audio/MIDI desde z</li>
                   <li>La loss combina reconstrucción + regularización KL</li>
                   <li>En Flows: transformaciones invertibles permiten cálculo exacto de likelihood</li>
+                  <li><em>Nota:</em> <strong>Normalizing Flows</strong> (WaveGlow, FloWaveNet) son exactamente invertibles con likelihood tractable. <strong>Flow Matching / Rectified Flows</strong> (usados en modelos modernos tipo difusión) entrenan trayectorias de transporte óptimo — más flexibles y escalables, pero sin invertibilidad estricta.</li>
                 </ol>
 
                 <h4>Fortalezas</h4>
@@ -332,8 +334,33 @@
                   <li>Reconstrucciones "borrosas" (VAE vanilla)</li>
                   <li>Posterior collapse: el decoder ignora z</li>
                 </ul>
+
+                <h4>Condicionamiento típico</h4>
+                <ul>
+                  <li>Clase de instrumento, género, atributos musicales (en el espacio latente)</li>
+                </ul>
               </div>
             </div>
+
+            <div class="listening-criteria">
+              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <ul>
+                <li><strong>Borrosidad:</strong> reconstrucciones difusas vs. el original — pérdida de detalle fino</li>
+                <li><strong>Interpolación:</strong> ¿las transiciones entre estilos son suaves o hay saltos?</li>
+                <li><strong>Pitch:</strong> estabilidad en notas sostenidas y reconstrucciones</li>
+                <li><strong>Noise floor:</strong> ruido agregado en la reconstrucción</li>
+              </ul>
+            </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/1803.05428" target="_blank">MusicVAE (Roberts et al., 2018)</a></li>
+                <li><a href="https://arxiv.org/abs/1711.00937" target="_blank">VQ-VAE (van den Oord et al., 2017)</a></li>
+                <li><a href="https://arxiv.org/abs/1811.00002" target="_blank">WaveGlow (Prenger et al., 2019)</a></li>
+              </ul>
+            </details>
+
             <div class="audio-examples" data-family="vae"></div>
           </div>
         </div>
@@ -418,8 +445,33 @@
                   <li>Entrenamiento inestable, sensible a hiperparámetros</li>
                 </ul>
 
+                <h4>Condicionamiento típico</h4>
+                <ul>
+                  <li>Mel-espectrograma (vocoders: MelGAN, HiFi-GAN), pitch/clase (GANSynth)</li>
+                </ul>
+
               </div>
             </div>
+
+            <div class="listening-criteria">
+              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <ul>
+                <li><strong>Metalicidad:</strong> “crackle” o brillo artificial en frecuencias altas</li>
+                <li><strong>Micro-timing:</strong> consistencia del groove y naturalidad rítmica</li>
+                <li><strong>Artefactos:</strong> clicks, pops o discontinuidades en la forma de onda</li>
+                <li><strong>Diversidad:</strong> ¿las muestras son variadas o repetitivas? (mode collapse)</li>
+              </ul>
+            </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/1902.08710" target="_blank">GANSynth (Engel et al., 2019)</a></li>
+                <li><a href="https://arxiv.org/abs/2010.05646" target="_blank">HiFi-GAN (Kong et al., 2020)</a></li>
+                <li><a href="https://arxiv.org/abs/1910.06711" target="_blank">MelGAN (Kumar et al., 2019)</a></li>
+              </ul>
+            </details>
+
             <div class="audio-examples" data-family="gan"></div>
           </div>
         </div>
@@ -511,8 +563,32 @@
                   <li>Limitado a sonidos quasi-harmónicos (no percusión compleja)</li>
                   <li>Requiere buen tracking de pitch como entrada</li>
                 </ul>
+
+                <h4>Condicionamiento típico</h4>
+                <ul>
+                  <li>f₀ (pitch), loudness, z_timbre — control explícito sobre síntesis</li>
+                </ul>
               </div>
             </div>
+
+            <div class="listening-criteria">
+              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <ul>
+                <li><strong>Transferencia tímbrica:</strong> ¿suena como el instrumento target o queda híbrido?</li>
+                <li><strong>Pitch tracking:</strong> estabilidad en notas rápidas, ornamentos y vibratos</li>
+                <li><strong>Transientes:</strong> calidad de ataques percusivos y consonantes (punto débil)</li>
+                <li><strong>Balance harmónico/ruido:</strong> proporçción entre componente tonal y breathiness</li>
+              </ul>
+            </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/2001.04643" target="_blank">DDSP: Differentiable Digital Signal Processing (Engel et al., 2020)</a></li>
+                <li><a href="https://sites.research.google/tonetransfer" target="_blank">Tone Transfer — Google Magenta demo interactiva</a></li>
+              </ul>
+            </details>
+
             <div class="audio-examples" data-family="ddsp"></div>
           </div>
         </div>
@@ -577,7 +653,11 @@
             <div class="card-columns">
               <div class="card-col">
                 <h4>Qué es</h4>
-                <p>Un modelo que genera secuencias de forma secuencial, prediciendo cada token (nota, sample codificado, código VQ) basándose en todos los anteriores.</p>
+                <p>Un modelo que genera secuencias de forma secuencial, prediciendo cada elemento basándose en todos los anteriores. Hay dos regímenes principales:</p>
+                <ul>
+                  <li><strong>AR en waveform</strong> (sample-level): genera muestra a muestra directamente (WaveNet, SampleRNN). Máxima fidelidad, extremadamente lento.</li>
+                  <li><strong>AR sobre códigos discretos</strong> (codec tokens): genera tokens de VQ-VAE/RVQ (AudioLM, MusicGen, Jukebox). Opera en espacio comprimido, mucho más rápido y escalable.</li>
+                </ul>
 
                 <h4>Cómo funciona</h4>
                 <ol>
@@ -600,8 +680,34 @@
                   <li>Generación lenta (secuencial por naturaleza)</li>
                 </ul>
 
+                <h4>Condicionamiento típico</h4>
+                <ul>
+                  <li>Texto (MusicGen, MusicLM), melodía/audio (priming), género/artista (Jukebox)</li>
+                </ul>
+
               </div>
             </div>
+
+            <div class="listening-criteria">
+              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <ul>
+                <li><strong>Coherencia temporal:</strong> ¿la pieza mantiene estructura y dirección a largo plazo?</li>
+                <li><strong>Repetición:</strong> ¿hay loops obsesivos o “wandering” sin rumbo?</li>
+                <li><strong>Artefactos de tokens:</strong> cuantización audible en modelos de códigos discretos</li>
+                <li><strong>Transiciones:</strong> naturalidad de los cambios de sección y dinámica</li>
+              </ul>
+            </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/1609.03499" target="_blank">WaveNet (van den Oord et al., 2016)</a></li>
+                <li><a href="https://arxiv.org/abs/1809.04281" target="_blank">Music Transformer (Huang et al., 2018)</a></li>
+                <li><a href="https://arxiv.org/abs/2209.03143" target="_blank">AudioLM (Borsos et al., 2022)</a></li>
+                <li><a href="https://arxiv.org/abs/2306.05284" target="_blank">MusicGen (Copet et al., 2023)</a></li>
+              </ul>
+            </details>
+
             <!-- Audio examples from JSON -->
             <div class="audio-examples" data-family="ar"></div>
           </div>
@@ -691,7 +797,7 @@
                   <li>Se entrena una red (U-Net, DiT) para predecir el ruido en cada paso</li>
                   <li>Reverse: partiendo de ruido puro, se aplica denoising iterativo</li>
                   <li>Opcionalmente se condiciona con texto, clase o audio (classifier-free guidance)</li>
-                  <li>El resultado se decodifica del espacio latente a audio (si es latent diffusion)</li>
+                  <li><strong>Waveform diffusion</strong> (DiffWave, WaveGrad): opera directamente sobre audio crudo — alta fidelidad, alto costo. <strong>Latent diffusion</strong> (AudioLDM2, Stable Audio): opera en espacio comprimido (VAE/codec latent), lo que reduce costo computacional y permite mayor duración.</li>
                 </ol>
 
                 <h4>Fortalezas</h4>
@@ -706,9 +812,161 @@
                   <li>Límites en duración/coherencia temporal larga</li>
                 </ul>
 
+                <h4>Condicionamiento típico</h4>
+                <ul>
+                  <li>Texto (AudioLDM2, Stable Audio), audio/melodía (in-painting), clase/tempo/acorde (Mustango)</li>
+                </ul>
+
               </div>
             </div>
+
+            <div class="listening-criteria">
+              <h4>🎧 Qué escuchar en estos ejemplos</h4>
+              <ul>
+                <li><strong>Calidad tímbrica:</strong> naturalidad general — ¿suena “real” o sintético?</li>
+                <li><strong>Estructura:</strong> ¿hay forma musical (intro, desarrollo, cierre) o es estático?</li>
+                <li><strong>Warbling:</strong> inestabilidades de frecuencia o “burbujas” en tonos sostenidos</li>
+                <li><strong>Noise floor:</strong> residuos del proceso de denoising en pasajes suaves</li>
+              </ul>
+            </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/2009.09761" target="_blank">DiffWave (Kong et al., 2021)</a></li>
+                <li><a href="https://arxiv.org/abs/2308.05734" target="_blank">AudioLDM 2 (Liu et al., 2023)</a></li>
+                <li><a href="https://arxiv.org/abs/2407.14358" target="_blank">Stable Audio Open (Evans et al., 2024)</a></li>
+                <li><a href="https://www.riffusion.com" target="_blank">Riffusion — demo interactiva</a></li>
+              </ul>
+            </details>
+
             <div class="audio-examples" data-family="diffusion"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ━━━ TOKENIZERS / CODECS ━━━ -->
+    <section class="slide" id="tokenizers">
+      <div class="slide-inner">
+        <div class="card" data-card="tokenizers">
+          <div class="card-header" data-toggle="tokenizers">
+            <div class="card-header-top">
+              <div class="card-header-left">
+                <span class="section-tag tag-gen">Generativo</span>
+                <h3>Tokenizers (Audio Codecs como Discretizadores)</h3>
+                <p class="card-summary">Codecs neurales que comprimen audio en tokens discretos. Son el puente entre audio continuo y modelos de lenguaje: la capa fundamental de la generación moderna.</p>
+              </div>
+              <span class="expand-icon">＋</span>
+            </div>
+            <div class="card-hero-diagram">
+              <svg viewBox="0 0 600 130">
+                <!-- Input waveform -->
+                <path d="M20,55 Q35,30 50,55 Q65,80 80,55" stroke="var(--blue)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="50" y="92" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">audio</text>
+                <text x="96" y="58" fill="var(--blue)" font-size="16" opacity="0.5">→</text>
+                <!-- Encoder -->
+                <rect x="112" y="35" width="55" height="38" rx="10" fill="var(--blue)" fill-opacity="0.08" stroke="var(--blue)" stroke-width="1.5"/>
+                <text x="139" y="58" text-anchor="middle" fill="var(--blue)" font-family="var(--font)" font-size="11" font-weight="600">Enc</text>
+                <text x="180" y="58" fill="var(--blue)" font-size="16" opacity="0.5">→</text>
+                <!-- RVQ block -->
+                <rect x="200" y="25" width="200" height="60" rx="12" fill="var(--purple)" fill-opacity="0.04" stroke="var(--purple)" stroke-width="1" stroke-dasharray="4"/>
+                <text x="300" y="20" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="10" font-weight="600" opacity="0.7">RVQ (Residual Vector Quantization)</text>
+                <!-- Codebook layers -->
+                <rect x="215" y="35" width="36" height="22" rx="5" fill="var(--blue)" fill-opacity="0.12" stroke="var(--blue)" stroke-width="1"/>
+                <text x="233" y="50" text-anchor="middle" fill="var(--blue)" font-family="var(--mono)" font-size="8">Q₁</text>
+                <rect x="257" y="35" width="36" height="22" rx="5" fill="var(--teal)" fill-opacity="0.12" stroke="var(--teal)" stroke-width="1"/>
+                <text x="275" y="50" text-anchor="middle" fill="var(--teal)" font-family="var(--mono)" font-size="8">Q₂</text>
+                <rect x="299" y="35" width="36" height="22" rx="5" fill="var(--amber)" fill-opacity="0.12" stroke="var(--amber)" stroke-width="1"/>
+                <text x="317" y="50" text-anchor="middle" fill="var(--amber)" font-family="var(--mono)" font-size="8">Q₃</text>
+                <rect x="341" y="35" width="36" height="22" rx="5" fill="var(--red)" fill-opacity="0.08" stroke="var(--red)" stroke-width="1"/>
+                <text x="359" y="50" text-anchor="middle" fill="var(--red)" font-family="var(--mono)" font-size="8">Q₄</text>
+                <!-- Residual arrows -->
+                <text x="248" y="72" fill="var(--muted)" font-family="var(--mono)" font-size="7">residuo</text>
+                <path d="M233,60 L255,68 L275,60" stroke="var(--muted)" fill="none" stroke-width="0.8" stroke-dasharray="2"/>
+                <path d="M275,60 L297,68 L317,60" stroke="var(--muted)" fill="none" stroke-width="0.8" stroke-dasharray="2"/>
+                <path d="M317,60 L339,68 L359,60" stroke="var(--muted)" fill="none" stroke-width="0.8" stroke-dasharray="2"/>
+                <!-- Tokens output -->
+                <text x="413" y="58" fill="var(--purple)" font-size="16" opacity="0.5">→</text>
+                <g font-family="var(--mono)" font-size="9">
+                  <rect x="435" y="38" width="22" height="18" rx="4" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="0.8"/>
+                  <text x="446" y="51" text-anchor="middle" fill="var(--blue)">42</text>
+                  <rect x="461" y="38" width="22" height="18" rx="4" fill="var(--teal)" fill-opacity="0.15" stroke="var(--teal)" stroke-width="0.8"/>
+                  <text x="472" y="51" text-anchor="middle" fill="var(--teal)">17</text>
+                  <rect x="487" y="38" width="22" height="18" rx="4" fill="var(--amber)" fill-opacity="0.15" stroke="var(--amber)" stroke-width="0.8"/>
+                  <text x="498" y="51" text-anchor="middle" fill="var(--amber)">83</text>
+                  <rect x="513" y="38" width="22" height="18" rx="4" fill="var(--red)" fill-opacity="0.08" stroke="var(--red)" stroke-width="0.8"/>
+                  <text x="524" y="51" text-anchor="middle" fill="var(--red)">5</text>
+                </g>
+                <text x="480" y="76" text-anchor="middle" fill="var(--purple)" font-family="var(--mono)" font-size="9">tokens</text>
+                <!-- Decoder -->
+                <text x="545" y="58" fill="var(--amber)" font-size="16" opacity="0.5">→</text>
+                <rect x="558" y="42" width="30" height="24" rx="7" fill="var(--amber)" fill-opacity="0.08" stroke="var(--amber)" stroke-width="1"/>
+                <text x="573" y="58" text-anchor="middle" fill="var(--amber)" font-family="var(--font)" font-size="9" font-weight="600">Dec</text>
+                <!-- Bottom labels -->
+                <text x="300" y="108" text-anchor="middle" fill="var(--purple)" font-family="var(--font)" font-size="12" font-weight="600" opacity="0.7">audio → codebook IDs → reconstrucción</text>
+                <text x="300" y="122" text-anchor="middle" fill="var(--muted)" font-family="var(--font)" font-size="10">base de modelos AR y difusión latente</text>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body" id="card-tokenizers">
+            <div class="card-columns">
+              <div class="card-col">
+                <h4>Qué es</h4>
+                <p>Codecs neurales de audio (EnCodec, SoundStream, DAC) que comprimen audio en secuencias de tokens discretos usando Residual Vector Quantization (RVQ). Son la capa de discretización que permite que modelos de lenguaje operen sobre audio.</p>
+
+                <h4>Cómo funciona</h4>
+                <ol>
+                  <li>Un encoder convolucional comprime el audio a baja tasa temporal (~50-75 Hz)</li>
+                  <li>RVQ cuantiza la representación: Q₁ captura la estructura gruesa, Q₂ el residuo de Q₁, etc.</li>
+                  <li>Cada nivel de cuantización usa un codebook de ~1024 entradas</li>
+                  <li>Los IDs del codebook son los "tokens" de audio (típicamente 4–32 niveles RVQ)</li>
+                  <li>Un decoder reconstruye audio desde los tokens cuantizados</li>
+                </ol>
+
+                <h4>Qué se preserva vs. qué se pierde</h4>
+                <ul>
+                  <li><strong>Se preserva:</strong> pitch, timbre general, estructura armónica, envolvente dinámica</li>
+                  <li><strong>Se pierde:</strong> fase exacta, micro-timing fino, detalles de ruido, stereo imaging (parcial)</li>
+                  <li>A mayor bitrate (más niveles RVQ), menor la pérdida perceptual</li>
+                </ul>
+
+                <h4>Por qué importan</h4>
+                <ul>
+                  <li>Permiten que modelos AR (AudioLM, MusicGen) generen audio como si fuera "texto"</li>
+                  <li>Son la base del espacio latente para difusión latente (AudioLDM, Stable Audio)</li>
+                  <li>Definen el cuello de botella: la calidad del codec limita la calidad final</li>
+                </ul>
+
+                <h4>Modelos clave</h4>
+                <ul>
+                  <li><strong>SoundStream</strong> (Google, 2021): primer codec neural con RVQ end-to-end</li>
+                  <li><strong>EnCodec</strong> (Meta, 2022): codec de alta calidad, usado en AudioLM y MusicGen</li>
+                  <li><strong>DAC</strong> (Descript, 2023): mejora en calidad musical y menor bitrate</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="listening-criteria">
+              <h4>🎧 Qué escuchar en reconstrucciones codec</h4>
+              <ul>
+                <li><strong>Cuantización:</strong> "burbujeo" o pérdida de definición en transientes rápidos</li>
+                <li><strong>Estabilidad tonal:</strong> ¿las notas sostenidas mantienen su timbre sin fluctuaciones?</li>
+                <li><strong>Imagen estéreo:</strong> reducción del campo estéreo respecto al original</li>
+                <li><strong>Noise floor:</strong> cambios en el ruido de fondo o silencios</li>
+              </ul>
+            </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/2107.03312" target="_blank">SoundStream (Zeghidour et al., 2021)</a></li>
+                <li><a href="https://arxiv.org/abs/2210.13438" target="_blank">EnCodec (Défossez et al., 2022)</a></li>
+                <li><a href="https://arxiv.org/abs/2306.06546" target="_blank">DAC — High-Fidelity Audio Compression (Kumar et al., 2023)</a></li>
+              </ul>
+            </details>
+
+            <div class="audio-examples" data-family="tokenizers"></div>
           </div>
         </div>
       </div>
@@ -718,7 +976,7 @@
     <section class="slide slide-header" id="discriminativo">
       <div class="slide-inner">
         <span class="section-tag tag-disc">Parte 2</span>
-        <h2>Modelado Discriminativo</h2>
+        <h2>Modelado Discriminativo <span class="section-progress">Parte 2 / 2</span></h2>
         <p class="section-desc">Modelos que aprenden a <strong>analizar, clasificar y representar</strong> audio musical. No generan nuevo audio, sino que extraen estructura y significado.</p>
       </div>
     </section>
@@ -811,6 +1069,16 @@
                 </ul>
               </div>
             </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/1609.09430" target="_blank">AudioSet (Gemmeke et al., 2017) — dataset de 2M+ clips</a></li>
+                <li><a href="https://tfhub.dev/google/yamnet/1" target="_blank">YAMNet — TensorFlow Hub</a></li>
+                <li><a href="https://github.com/tensorflow/models/tree/master/research/audioset/vggish" target="_blank">VGGish — Google Research</a></li>
+              </ul>
+            </details>
+
             <div class="audio-examples" data-family="supervised"></div>
           </div>
         </div>
@@ -918,7 +1186,7 @@
                 <h4>Paradigmas de SSL</h4>
                 <ol>
                   <li><strong>Masked prediction:</strong> se ocultan patches del espectrograma y el modelo los reconstruye. Aprende contexto y estructura (SSAST, EncodecMAE)</li>
-                  <li><strong>Teacher–Student multi-tarea:</strong> un teacher provee targets acústicos (CQT, chroma) y musicales. El student aprende representaciones ricas (MERT, MuQ, MusicFM)</li>
+                  <li><strong>Teacher–Student multi-tarea:</strong> un teacher provee targets acústicos y musicales. Los targets concretos incluyen: CQT (espectro armónico), chromagram (perfil de pitch), MFCC (envolvente tímbrica), onset strength (ataques rítmicos), y codebook IDs de HuBERT/Encodec. El student aprende a predecirlos simultáneamente, obteniendo representaciones multi-nivel (MERT, MuQ, MusicFM)</li>
                   <li><strong>Contrastivo intra-modal:</strong> augmentaciones del mismo audio se acercan; audios diferentes se alejan. Aprende invarianzas útiles (SoniDo)</li>
                 </ol>
 
@@ -938,6 +1206,16 @@
 
               </div>
             </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/2306.00107" target="_blank">MERT (Li et al., 2023) — Music understanding pre-training</a></li>
+                <li><a href="https://arxiv.org/abs/2505.16306" target="_blank">MuQ + layer-wise analysis (2025)</a></li>
+                <li><a href="https://arxiv.org/abs/2110.09784" target="_blank">SSAST (Gong et al., 2022)</a></li>
+              </ul>
+            </details>
+
             <div class="audio-examples" data-family="selfsupervised"></div>
           </div>
         </div>
@@ -1031,6 +1309,15 @@
 
               </div>
             </div>
+
+            <details class="sources-drawer">
+              <summary>Fuentes y referencias</summary>
+              <ul>
+                <li><a href="https://arxiv.org/abs/2211.06687" target="_blank">CLAP (Elizalde et al., 2023) — Contrastive Language-Audio Pretraining</a></li>
+                <li><a href="https://arxiv.org/abs/2103.00020" target="_blank">CLIP (Radford et al., 2021) — base conceptual del enfoque</a></li>
+              </ul>
+            </details>
+
             <div class="audio-examples" data-family="multimodal"></div>
           </div>
         </div>
@@ -1118,6 +1405,19 @@
             </div>
 
             <div class="audio-examples" data-family="representations"></div>
+
+            <!-- Method box -->
+            <div class="method-box">
+              <h4>📐 Método de evaluación</h4>
+              <ul>
+                <li><strong>Modelos:</strong> MuQ (Conformer, 12 capas), MusicFM (Transformer, 12 capas)</li>
+                <li><strong>Probe:</strong> Clasificador lineal sobre embeddings congelados, una capa a la vez</li>
+                <li><strong>Tareas:</strong> Singer ID, Pitch detection (acústicas) · Genre classification, Structure segmentation (semánticas)</li>
+                <li><strong>Métrica:</strong> Accuracy (%) — mide cuánta información útil contiene cada representación por capa</li>
+                <li><strong>Fuente:</strong> <a href="https://arxiv.org/abs/2505.16306" target="_blank">arXiv:2505.16306</a> — curvas aproximadas de las figuras del paper</li>
+              </ul>
+              <p class="method-disclaimer">⚠️ Las tendencias por capa son dependientes de la arquitectura y el pre-entrenamiento específico. No generalizar directamente entre modelos distintos.</p>
+            </div>
 
             <!-- Discriminative plots section -->
             <div class="disc-plots">
@@ -1221,32 +1521,32 @@
 
               <div class="layer-carousel-audio">
                 <label>Escuchá mientras explorás las capas:</label>
-                <audio controls preload="none" style="border-radius:8px;">
+                <audio controls preload="none" style="border-radius:8px;" title="Mozart — Sinfonía N.º 25, 60 segundos">
                   <source src="Mozart25_60s.mp3" type="audio/mpeg">
-                  No soportado
+                  Tu navegador no soporta audio HTML5. <a href="Mozart25_60s.mp3">Descargar MP3</a>
                 </audio>
               </div>
 
               <div class="carousel-wrapper">
                 <div class="carousel-img-container" id="layerCarousel">
-                  <img src="layers/similarity_layer_00.png" alt="Capa 0" class="active" data-layer="0">
-                  <img src="layers/similarity_layer_01.png" alt="Capa 1" data-layer="1" loading="lazy">
-                  <img src="layers/similarity_layer_02.png" alt="Capa 2" data-layer="2" loading="lazy">
-                  <img src="layers/similarity_layer_03.png" alt="Capa 3" data-layer="3" loading="lazy">
-                  <img src="layers/similarity_layer_04.png" alt="Capa 4" data-layer="4" loading="lazy">
-                  <img src="layers/similarity_layer_05.png" alt="Capa 5" data-layer="5" loading="lazy">
-                  <img src="layers/similarity_layer_06.png" alt="Capa 6" data-layer="6" loading="lazy">
-                  <img src="layers/similarity_layer_07.png" alt="Capa 7" data-layer="7" loading="lazy">
-                  <img src="layers/similarity_layer_08.png" alt="Capa 8" data-layer="8" loading="lazy">
-                  <img src="layers/similarity_layer_09.png" alt="Capa 9" data-layer="9" loading="lazy">
-                  <img src="layers/similarity_layer_10.png" alt="Capa 10" data-layer="10" loading="lazy">
-                  <img src="layers/similarity_layer_11.png" alt="Capa 11" data-layer="11" loading="lazy">
-                  <img src="layers/similarity_layer_12.png" alt="Capa 12" data-layer="12" loading="lazy">
+                  <img src="layers/similarity_layer_00.png" alt="Matriz de similitud coseno, Capa 0 (acústica) — MERT, Mozart K.525" class="active" data-layer="0">
+                  <img src="layers/similarity_layer_01.png" alt="Matriz de similitud coseno, Capa 1 (espectral baja) — MERT" data-layer="1" loading="lazy">
+                  <img src="layers/similarity_layer_02.png" alt="Matriz de similitud coseno, Capa 2 (espectral media) — MERT" data-layer="2" loading="lazy">
+                  <img src="layers/similarity_layer_03.png" alt="Matriz de similitud coseno, Capa 3 (transición) — MERT" data-layer="3" loading="lazy">
+                  <img src="layers/similarity_layer_04.png" alt="Matriz de similitud coseno, Capa 4 (armónica) — MERT" data-layer="4" loading="lazy">
+                  <img src="layers/similarity_layer_05.png" alt="Matriz de similitud coseno, Capa 5 (tímbrica) — MERT" data-layer="5" loading="lazy">
+                  <img src="layers/similarity_layer_06.png" alt="Matriz de similitud coseno, Capa 6 (rítmica) — MERT" data-layer="6" loading="lazy">
+                  <img src="layers/similarity_layer_07.png" alt="Matriz de similitud coseno, Capa 7 (melódica) — MERT" data-layer="7" loading="lazy">
+                  <img src="layers/similarity_layer_08.png" alt="Matriz de similitud coseno, Capa 8 (estructural) — MERT" data-layer="8" loading="lazy">
+                  <img src="layers/similarity_layer_09.png" alt="Matriz de similitud coseno, Capa 9 (semántica baja) — MERT" data-layer="9" loading="lazy">
+                  <img src="layers/similarity_layer_10.png" alt="Matriz de similitud coseno, Capa 10 (semántica media) — MERT" data-layer="10" loading="lazy">
+                  <img src="layers/similarity_layer_11.png" alt="Matriz de similitud coseno, Capa 11 (semántica alta) — MERT" data-layer="11" loading="lazy">
+                  <img src="layers/similarity_layer_12.png" alt="Matriz de similitud coseno, Capa 12 (semántica, género) — MERT" data-layer="12" loading="lazy">
                 </div>
                 <div class="carousel-controls">
-                  <button class="carousel-btn" id="layerPrev" title="Capa anterior">◀</button>
-                  <input type="range" class="carousel-slider" id="layerSlider" min="0" max="12" value="0" step="1">
-                  <button class="carousel-btn" id="layerNext" title="Capa siguiente">▶</button>
+                  <button class="carousel-btn" id="layerPrev" title="Capa anterior" aria-label="Capa anterior">◀</button>
+                  <input type="range" class="carousel-slider" id="layerSlider" min="0" max="12" value="0" step="1" aria-label="Selector de capa">
+                  <button class="carousel-btn" id="layerNext" title="Capa siguiente" aria-label="Capa siguiente">▶</button>
                 </div>
                 <div class="carousel-label" id="layerLabel">Capa 0 / 12 — acústica</div>
               </div>
