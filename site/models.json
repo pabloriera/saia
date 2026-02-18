@@ -265,11 +265,6 @@
         "name": "DDSP",
         "year": 2020,
         "description": "Síntesis diferenciable: harmónico + ruido + filtros con control explícito de f0 y loudness"
-      },
-      {
-        "name": "Synths diferenciables",
-        "year": 2021,
-        "description": "Familia de modelos wavetable y sustractivos diferenciables"
       }
     ],
     "examples": [
@@ -286,13 +281,6 @@
         "year": 2020,
         "url": "https://storage.googleapis.com/ddsp/timbre_transfer/violin.mp3",
         "context": "Transferencia de timbre: voz a VIOLIN"
-      },
-      {
-        "title": "NSynth — Interpolación de instrumentos",
-        "model": "NSynth",
-        "year": 2017,
-        "url": "https://magenta.withgoogle.com/assets/nsynth_05_18_17/morph_o1.mp3",
-        "context": "Morphing continuo entre timbres usando WaveNet autoencoder"
       }
     ]
   },
